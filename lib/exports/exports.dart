@@ -8,6 +8,15 @@ export '/views/Onboarding/SplashScreen.dart';
 export '/views/auth/CreateAccount.dart';
 export '/views/auth/completeProfile.dart';
 export '/views/auth/login.dart';
+
+// inner pages
+export '/views/index.dart';
+export '/views/pages/homePage.dart';
+export '/views/pages/Pages.dart';
+export '/views/pages/LiveScore.dart';
+export '/views/pages/Stats.dart';
+export '/views/pages/Profile.dart';
+
 // third-party libraries
 export 'package:provider/provider.dart';
 export 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -26,7 +35,7 @@ export '/controllers/AppController.dart';
 // widgets
 export '/widgets/CustomButton.dart';
 export '/widgets/CommonTextField.dart';
-
+export '/widgets/ProfileWidget.dart';
 // helpers
 export '/helpers/Helpers.dart';
 

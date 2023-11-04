@@ -1,0 +1,111 @@
+import '/exports/exports.dart';
+
+class ProfileWidget extends StatelessWidget {
+  final String titleText;
+  final String? subText;
+  final Color? color;
+  final VoidCallback? editProfile;
+  final IconData? icon;
+  final double size;
+  final bool tile;
+  final String? img;
+  final double iconSize;
+  final String prefixIcon;
+  const ProfileWidget({
+    super.key,
+    required this.titleText,
+    this.subText,
+    required this.prefixIcon,
+    this.color,
+    this.icon,
+    this.editProfile,
+    this.size = 30,
+    this.iconSize = 35,
+    this.tile = false,
+    this.img,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return tile
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CircleAvatar(
+                  backgroundColor: color?.withOpacity(0.13),
+                  radius: size,
+                  backgroundImage: img == null ? null : AssetImage(img!),
+                  child: img == null
+                      ? SvgPicture.asset(
+                          'assets/bottom_navs/$prefixIcon',
+                          width: iconSize,
+                          height: iconSize,
+                          color: color,
+                        )
+                      : null,
+                ),
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "$titleText\n",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                      ),
+                      subText != null
+                          ? TextSpan(
+                              text: "$subText",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 16,
+                                  ),
+                            )
+                          : const TextSpan(text: ""),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  onPressed: editProfile,
+                  icon: Icon(icon),
+                )
+              ],
+            ),
+          )
+        : Padding(
+            padding: const EdgeInsets.only(
+              top: 8.0,
+              bottom: 8.0,
+            ),
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: size,
+                backgroundColor: color?.withOpacity(0.12),
+                backgroundImage: img == null ? null : AssetImage(img!),
+                child: SvgPicture.asset(
+                  "assets/bottom_navs/$prefixIcon",
+                  width: iconSize,
+                  height: iconSize,
+                  color: color,
+                ),
+              ),
+              title: Text(
+                titleText,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      fontWeight: FontWeight.w800,
+                    ),
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 17,
+              ),
+            ),
+          );
+  }
+}

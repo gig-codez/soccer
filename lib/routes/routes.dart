@@ -1,5 +1,3 @@
-import 'package:soccer/views/home.dart';
-
 import '/exports/exports.dart';
 
 class Routes {

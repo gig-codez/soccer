@@ -14,18 +14,19 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final pageController = PageController();
-  late Timer _timer;
+  Timer? _timer;
   int page = 0;
   @override
   void initState() {
     super.initState();
 // controlling the sliding animation
+
     _timer = Timer.periodic(const Duration(milliseconds: 2300), (timer) {
       if (mounted) {
         setState(() {
           page += 1;
         });
-        log("Current page $page");
+
         if (page >= 3) {
           setState(() {
             page = -1;
@@ -37,6 +38,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             curve: Curves.decelerate,
           );
         }
+      } else {
+        timer.cancel();
       }
     });
   }
@@ -44,7 +47,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void dispose() {
     pageController.dispose();
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
