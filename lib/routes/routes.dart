@@ -1,3 +1,4 @@
+
 import '/exports/exports.dart';
 
 class Routes {
@@ -8,6 +9,8 @@ class Routes {
   static String completeProfile = "/completeProfile";
   static String login = "/login";
   static String home = "/home";
+  static String settings = "/settings";
+  static String notifications = "/notifications";
   // routes merger
   static Map<String, Widget Function(BuildContext context)> routes = {
     onBoard: (context) => const OnBoardingScreen(),
@@ -15,7 +18,9 @@ class Routes {
     createAccount: (context) => const CreateAccount(),
     completeProfile: (context) => const CompleteUserProfile(),
     login: (context) => const LoginScreen(),
-    home: (context) => const HomeScreen()
+    home: (context) => const HomeScreen(),
+    settings: (context) => const GeneralSettings(),
+    notifications: (context) => const Notifications(),
   };
 
   // routes methods

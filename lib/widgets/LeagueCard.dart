@@ -7,10 +7,16 @@ class LeagueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      color: Colors.grey.shade100,
+      color: Theme.of(context).brightness == Brightness.light
+          ? Colors.grey.shade100
+          : Colors.white12,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
-        side: BorderSide(color: Colors.grey.shade200, width: 2),
+        side: BorderSide(
+            color: Theme.of(context).brightness == Brightness.light
+                ? Colors.grey.shade100
+                : Colors.white12,
+            width: 2),
       ),
       child: Column(
         children: [
@@ -30,7 +36,9 @@ class LeagueCard extends StatelessWidget {
             padding: const EdgeInsets.only(
                 left: 10.0, right: 10.0, top: 2, bottom: 2),
             child: Divider(
-              color: Colors.grey.shade300,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey.shade100
+                  : Colors.white12,
             ),
           ),
           ListTile(
@@ -87,7 +95,9 @@ class LeagueCard extends StatelessWidget {
             padding: const EdgeInsets.only(
                 left: 10.0, right: 10.0, top: 2, bottom: 2),
             child: Divider(
-              color: Colors.grey.shade300,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey.shade100
+                  : Colors.white12,
             ),
           ),
           // second team

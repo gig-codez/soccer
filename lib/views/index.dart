@@ -37,25 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Scora'),
-        actions: [
-          TapEffect(
-            onClick: () {},
-            child: SvgPicture.asset("assets/search.svg"),
-          ),
-          const SizedBox.square(
-            dimension: 30,
-          ),
-        ],
-      ),
       body: PageView.builder(
         physics: const NeverScrollableScrollPhysics(),
         itemCount: pages.length,
         controller: pageController,
         itemBuilder: (context, page) => pages[page],
       ),
-      drawer: const DrawerWidget(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           setState(() {

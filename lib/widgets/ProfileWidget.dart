@@ -4,6 +4,7 @@ class ProfileWidget extends StatelessWidget {
   final String titleText;
   final String? subText;
   final Color? color;
+  final VoidCallback? onPress;
   final VoidCallback? editProfile;
   final IconData? icon;
   final double size;
@@ -23,6 +24,7 @@ class ProfileWidget extends StatelessWidget {
     this.iconSize = 35,
     this.tile = false,
     this.img,
+    this.onPress,
   });
 
   @override
@@ -78,32 +80,43 @@ class ProfileWidget extends StatelessWidget {
               ],
             ),
           )
-        : Padding(
-            padding: const EdgeInsets.only(
-              top: 8.0,
-              bottom: 8.0,
-            ),
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: size,
-                backgroundColor: color?.withOpacity(0.12),
-                backgroundImage: img == null ? null : AssetImage(img!),
-                child: SvgPicture.asset(
-                  "assets/bottom_navs/$prefixIcon",
-                  width: iconSize,
-                  height: iconSize,
-                  color: color,
+        : TapEffect(
+            isClickable: false,
+            onClick: onPress ?? () {},
+            child: Card(
+              elevation: 0,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey.shade100
+                  : Colors.white12,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 8.0,
+                  bottom: 8.0,
                 ),
-              ),
-              title: Text(
-                titleText,
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.w800,
+                child: ListTile(
+                  onTap: onPress,
+                  leading: CircleAvatar(
+                    radius: size,
+                    backgroundColor: color?.withOpacity(0.12),
+                    backgroundImage: img == null ? null : AssetImage(img!),
+                    child: SvgPicture.asset(
+                      "assets/bottom_navs/$prefixIcon",
+                      width: iconSize,
+                      height: iconSize,
+                      color: color,
                     ),
-              ),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 17,
+                  ),
+                  title: Text(
+                    titleText,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                  ),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 17,
+                  ),
+                ),
               ),
             ),
           );

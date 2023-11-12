@@ -2,7 +2,9 @@
 /// Github username: Mugamba669
 /// Name: Mugamba Bruno
 /// Date: 03/11/2023
+
 import 'package:flutter/services.dart';
+import 'package:soccer/theme/Theme.dart';
 
 import '/exports/exports.dart';
 
@@ -31,21 +33,14 @@ void main() async {
           create: (_) => AppController(),
         ),
       ],
-      child: MaterialApp(
-        initialRoute: Routes.splash,
-        routes: Routes.routes,
-        theme: ThemeData.light().copyWith(
-          drawerTheme: const DrawerThemeData(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-            backgroundColor: Colors.white,
-          ),
-          textTheme: GoogleFonts.poppinsTextTheme(),
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 247, 7, 127),
-          ),
-          primaryColor: const Color.fromARGB(255, 247, 7, 127),
-          useMaterial3: true,
-        ),
+      child: Consumer<AppController>(
+        builder: (context, controller, child) {
+          return MaterialApp(
+            initialRoute: Routes.splash,
+            routes: Routes.routes,
+            theme: controller.isDarkMode ? Themes.darkTheme : Themes.lightTheme,
+          );
+        },
       ),
     ),
   );

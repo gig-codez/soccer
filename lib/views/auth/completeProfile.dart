@@ -62,7 +62,10 @@ class _CompleteUserProfileState extends State<CompleteUserProfile> {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundColor: Colors.grey[300],
+                  backgroundColor:
+                      Theme.of(context).brightness == Brightness.light
+                          ? Colors.grey.shade300
+                          : Colors.white12,
                   child: Icon(
                     Icons.person,
                     size: 50,
@@ -154,11 +157,11 @@ class _CompleteUserProfileState extends State<CompleteUserProfile> {
                   width: MediaQuery.of(context).size.width / 2.5,
                   buttonRadius: 50,
                   text: "Skip",
-                  onPress: () {},
+                  onPress: () => Routes.pushPage(context, Routes.home),
                 ),
                 CustomButton(
                   width: MediaQuery.of(context).size.width / 2.5,
-                  onPress: () {},
+                  onPress: () => Routes.pushPage(context, Routes.home),
                   opacity: 1,
                   textColor: Colors.white,
                   text: "Finish",

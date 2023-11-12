@@ -1,10 +1,12 @@
 import '/exports/exports.dart';
 
-class AppController with ChangeNotifier{
+class AppController with ChangeNotifier {
+  // SharedPreferences _prefs = SharedPreferences.getInstance();
+  // AppController() {}
   bool _isDarkMode = false;
   bool get isDarkMode => _isDarkMode;
-  void toggleDarkMode(){
-    _isDarkMode = !_isDarkMode;
+  set isDarkMode(bool mode) {
+    _isDarkMode = mode;
     notifyListeners();
   }
 }

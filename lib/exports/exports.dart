@@ -8,6 +8,8 @@ export '/views/Onboarding/SplashScreen.dart';
 export '/views/auth/CreateAccount.dart';
 export '/views/auth/completeProfile.dart';
 export '/views/auth/login.dart';
+export '/views/pages/GeneralSettings.dart';
+export '/views/pages/Notifications.dart';
 
 // inner pages
 export '/views/index.dart';
