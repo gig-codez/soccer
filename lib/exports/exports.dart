@@ -18,6 +18,7 @@ export '/views/pages/Pages.dart';
 export '/views/pages/LiveScore.dart';
 export '/views/pages/Stats.dart';
 export '/views/pages/Profile.dart';
+export '/views/pages/Teams.dart';
 
 // third-party libraries
 export 'package:provider/provider.dart';
@@ -27,7 +28,8 @@ export 'package:smooth_page_indicator/smooth_page_indicator.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:flutter_svg/flutter_svg.dart';
-
+export 'package:accordion/accordion.dart';
+export 'package:accordion/controllers.dart';
 // models
 
 // controllers

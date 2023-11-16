@@ -18,137 +18,84 @@ class LeagueCard extends StatelessWidget {
                 : Colors.white12,
             width: 2),
       ),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: ListTile(
-              leading: Image.asset("assets/images/nobg.png"),
-              title: Text(
-                "Local League",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              subtitle: const Text("Group C"),
-              trailing: const Icon(Icons.arrow_forward_ios),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 2, bottom: 2),
-            child: Divider(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.grey.shade100
-                  : Colors.white12,
-            ),
-          ),
-          ListTile(
-            leading: SizedBox.square(
-              dimension: 30,
-              child: Text(
-                "Ft  ",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ),
-            title: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
+      child: Padding(
+        padding: const EdgeInsets.all(0),
+        child: Accordion(
+          headerBorderColorOpened: Colors.transparent,
+          headerBorderWidth: 1,
+          contentBorderWidth: 1,
+          contentBackgroundColor:
+              Theme.of(context).brightness == Brightness.light
+                  ? Colors.white
+                  : Colors.black,
+          contentHorizontalPadding: 20,
+          scaleWhenAnimating: true,
+          openAndCloseAnimation: true,
+          headerPadding:
+              const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+          sectionOpeningHapticFeedback: SectionHapticFeedback.light,
+          sectionClosingHapticFeedback: SectionHapticFeedback.light,
+          children: [
+            AccordionSection(
+              isOpen: true,
+              contentVerticalPadding: 20,
+              leftIcon:
+                  const Icon(Icons.sports_basketball, color: Colors.white),
+              header: const Text("WOMEN FOOTBALL LEAGUE"),
+              content: Column(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      "assets/leagues/otim.jpeg",
-                      width: 40,
-                      height: 40,
+                  InkWell(
+                    onTap: () => Routes.pushPage(context, Routes.teams),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Komafo  ",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset(
+                                "assets/leagues/komafo.jpeg",
+                                width: 20,
+                                height: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            "0 - 0",
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.asset(
+                                "assets/leagues/amigos.jpeg",
+                                width: 20,
+                                height: 20,
+                              ),
+                            ),
+                            Text(
+                              "   Amigos united",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ),
-                  const Text("OTIM F.C"),
-                  const SizedBox(
-                    width: 10,
-                  ),
+                  )
                 ],
               ),
             ),
-            subtitle: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      "assets/leagues/timeout.jpeg",
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                  const Text("TimeOut F.C"),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 2, bottom: 2),
-            child: Divider(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.grey.shade100
-                  : Colors.white12,
-            ),
-          ),
-          // second team
-          ListTile(
-            leading: Text(
-              "22:00",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            title: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      "assets/leagues/otim.jpeg",
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                  const Text("OTIM F.C"),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      "assets/leagues/timeout.jpeg",
-                      width: 40,
-                      height: 40,
-                    ),
-                  ),
-                  const Text("TimeOut F.C"),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

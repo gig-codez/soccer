@@ -29,55 +29,61 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return tile
-        ? Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                  backgroundColor: color?.withOpacity(0.13),
-                  radius: size,
-                  backgroundImage: img == null ? null : AssetImage(img!),
-                  child: img == null
-                      ? SvgPicture.asset(
-                          'assets/bottom_navs/$prefixIcon',
-                          width: iconSize,
-                          height: iconSize,
-                          color: color,
-                        )
-                      : null,
-                ),
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "$titleText\n",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                      ),
-                      subText != null
-                          ? TextSpan(
-                              text: "$subText",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 16,
-                                  ),
+    return tile == true
+        ? TapEffect(
+            onClick: onPress ?? () {},
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: color?.withOpacity(0.13),
+                      radius: size,
+                      backgroundImage: img == null ? null : AssetImage(img!),
+                      child: img == null
+                          ? SvgPicture.asset(
+                              prefixIcon,
+                              width: iconSize,
+                              height: iconSize,
+                              color: color,
                             )
-                          : const TextSpan(text: ""),
-                    ],
-                  ),
+                          : null,
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "$titleText\n",
+                            style:
+                                Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                          ),
+                          subText != null
+                              ? TextSpan(
+                                  text: "$subText",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 16,
+                                      ),
+                                )
+                              : const TextSpan(text: ""),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: editProfile,
+                      icon: Icon(icon),
+                    )
+                  ],
                 ),
-                IconButton(
-                  onPressed: editProfile,
-                  icon: Icon(icon),
-                )
-              ],
+              ),
             ),
           )
         : TapEffect(
@@ -100,7 +106,7 @@ class ProfileWidget extends StatelessWidget {
                     backgroundColor: color?.withOpacity(0.12),
                     backgroundImage: img == null ? null : AssetImage(img!),
                     child: SvgPicture.asset(
-                      "assets/bottom_navs/$prefixIcon",
+                      prefixIcon,
                       width: iconSize,
                       height: iconSize,
                       color: color,

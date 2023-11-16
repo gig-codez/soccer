@@ -32,7 +32,9 @@ class _SplashScreenState extends State<SplashScreen>
 
       if (status == AnimationStatus.completed ||
           status == AnimationStatus.dismissed) {
-        Routes.pushPage(context, Routes.onBoard);
+        Future.delayed(Duration(seconds: 2), () {
+          Routes.pushPage(context, Routes.home);
+        });
       }
     });
   }

@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: const DrawerWidget(),
       body: Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10),
+        padding: const EdgeInsets.only(left: 3.0, right: 3),
         child: Column(
           children: [
             Expanded(

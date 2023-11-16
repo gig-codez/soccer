@@ -43,6 +43,9 @@ dependencies:
   google_fonts: ^6.1.0
   smooth_page_indicator: ^1.1.0
   flutter_svg: ^2.0.9
+  timelines: ^0.1.0
+  accordion: ^2.6.0
+  animations: ^2.0.8
 
 dev_dependencies:
   flutter_test:
@@ -113,7 +116,7 @@ flutter_native_splash:
     # 640 pixels in diameter.
     # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
     # 768 pixels in diameter.
-    image: assets/icons/logo.png
+    # image: assets/icons/logo.png
 
     # Splash screen background color.
     color: "##FAFAFA"

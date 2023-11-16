@@ -10,22 +10,27 @@ class DrawerWidget extends StatefulWidget {
 class _DrawerWidgetState extends State<DrawerWidget> {
   List<Map<String, dynamic>> drawer = [
     {
-      "name": "Football",
-      "icon": "assets/football.svg",
+      "name": "Leagues",
+      "icon": "assets/icons/league.svg",
+      "routes": Routes.leagues,
     },
     {
-      "name": "Tennis",
-      "icon": "assets/tennis.svg",
+      "name": "Fixtures",
+      "icon": "assets/icons/match.svg",
+      "routes": Routes.fixtures
     },
     {
-      "name": "Basket",
-      "icon": "assets/basket.svg",
+      "name": "AI",
+      "icon": "assets/icons/ai.svg",
+      "routes": "",
     }
   ];
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).brightness == Brightness.light
+          ? Colors.white
+          : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -33,7 +38,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             margin: const EdgeInsets.all(0),
             padding: const EdgeInsets.all(20),
             child: Text(
-              "Scora",
+              "Stats",
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -42,9 +47,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             (index) => ListTile(
               onTap: () {
                 Routes.popPage(context);
+                Routes.pushPage(context, drawer[index]['routes']);
               },
-              leading: SvgPicture.asset("${drawer[index]['icon']}"),
-              title: Text("${drawer[index]['name']}"),
+              leading: SvgPicture.asset("${drawer[index]['icon']}",
+                  color: Colors.grey.shade400),
+              title: Text(
+                "${drawer[index]['name']}",
+              ),
             ),
           )
         ],

@@ -17,46 +17,43 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        forceMaterialTransparency: true,
+      ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 19.0, right: 19.0, top: 12.0),
+        padding: const EdgeInsets.only(left: 19.0, right: 19.0, top: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox.square(
-              dimension: 80,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Routes.popPage(context);
-                  },
-                  icon: const Icon(Icons.arrow_back),
-                ),
-                const SizedBox()
-              ],
-            ),
-            const SizedBox.square(
-              dimension: 40,
+            Image.asset(
+              "assets/images/login.png",
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width / 1.2,
+              scale: 2,
             ),
             Text(
-              "Hey There 👋",
+              "Hey 👋",
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 24,
+                  ),
+            ),
+            Text(
+              "Welcome back.",
+              style: Theme.of(context).textTheme.bodyMedium!.apply(
+                    fontSizeFactor: 1.2,
                   ),
             ),
             const SizedBox.square(
               dimension: 20,
             ),
             CommonTextField(
-              hintText: "******************",
+              hintText: "e.g example@gmail.com",
               enableBorder: true,
-              icon: Icons.lock,
+              icon: Icons.mail,
               titleText: "Email *",
-              enableSuffix: true,
+              enableSuffix: false,
               contentPadding: const EdgeInsets.only(
                 left: 16,
                 right: 16,
@@ -65,16 +62,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               suffixIcon:
                   passShowHide ? Icons.visibility_off : Icons.remove_red_eye,
-              keyboardType: TextInputType.visiblePassword,
+              keyboardType: TextInputType.emailAddress,
               controller: passwordController,
               validate: (value) {
                 if (value!.isEmpty) {
-                  return "Please enter password";
+                  return "Please enter email";
                 }
                 return null;
-              },
-              onTapSuffix: () {
-                setState(() {});
               },
             ),
             const SizedBox.square(
@@ -126,9 +120,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 )
               ],
             ),
-            SizedBox.square(
-              dimension: MediaQuery.of(context).size.width / 2,
-            ),
+            // SizedBox.square(
+            //   dimension: MediaQuery.of(context).size.width / 2,
+            // ),
             CustomButton(
               opacity: 1,
               textColor: Colors.white,

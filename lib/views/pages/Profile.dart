@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               showAdaptiveDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
+                    return AlertDialog.adaptive(
                       icon: const Icon(
                         Icons.warning,
                         size: 50,
@@ -85,7 +85,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       content: const Text("Are you sure you want logout?"),
                       actions: [
                         TextButton(
-                          onPressed: () => Routes,
+                          onPressed: () =>
+                              Routes.removePage(context, Routes.login),
                           child: const Text("Logout"),
                         ),
                         TextButton(

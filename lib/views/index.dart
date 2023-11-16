@@ -1,7 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:soccer/widgets/DrawerWidget.dart';
-
 import '/exports/exports.dart';
 
 class HomeScreen extends StatefulWidget {

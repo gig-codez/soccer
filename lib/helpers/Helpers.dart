@@ -1,3 +1,3 @@
 import '/exports/exports.dart';
 
-Color primaryColor = Colors.orange;
+Color primaryColor = Colors.red.shade500;

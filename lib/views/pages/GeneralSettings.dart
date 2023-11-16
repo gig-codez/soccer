@@ -35,7 +35,7 @@ class _GeneralSettingsState extends State<GeneralSettings> {
                       context: context,
                       builder: (context) {
                         return BottomSheet(
-                            backgroundColor: Colors.transparent,
+                            // backgroundColor: Colors.transparent,
                             onClosing: () {},
                             builder: (context) {
                               return const ThemeWidget();

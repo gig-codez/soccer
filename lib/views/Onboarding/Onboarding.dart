@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'dart:async';
-import 'dart:developer';
 
 import '/exports/exports.dart';
 
@@ -61,10 +60,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(28.0),
-              child: Image.asset(
-                "assets/images/nobg.png",
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width / 1.2,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: Image.asset(
+                  "assets/images/ball.png",
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width / 1.2,
+                  scale: 1,
+                ),
               ),
             ),
             Column(

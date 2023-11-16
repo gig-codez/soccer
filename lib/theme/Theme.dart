@@ -3,7 +3,7 @@ import 'package:soccer/exports/exports.dart';
 class Themes {
   static DrawerThemeData drawerTheme = const DrawerThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
   );
   static TextTheme textTheme = GoogleFonts.poppinsTextTheme();
 // light theme
@@ -15,11 +15,11 @@ class Themes {
       decorationColor: Colors.black,
     ),
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.orange,
+      seedColor: primaryColor,
       brightness: Brightness.light,
       background: Colors.white,
     ),
-    primaryColor: Colors.orange,
+    primaryColor: primaryColor,
     useMaterial3: true,
   );
   // dark theme
@@ -31,11 +31,11 @@ class Themes {
       decorationColor: Colors.grey.shade300,
     ),
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.orange,
+      seedColor: primaryColor,
       brightness: Brightness.dark,
       background: Colors.black,
     ),
-    primaryColor: Colors.orange,
+    primaryColor: primaryColor,
     useMaterial3: true,
   );
 }
