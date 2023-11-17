@@ -1,3 +1,4 @@
+import 'package:soccer/services/team_service.dart';
 import 'package:soccer/views/pages/sections/add_team.dart';
 
 import '../../../exports/exports.dart';
@@ -31,20 +32,28 @@ class _TeamsState extends State<Teams> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
-          child: ListView(
-            children: [
-              ProfileWidget(
-                titleText: "Bruno Fc",
-                prefixIcon: "assets/icons/match.svg",
-                color: Colors.deepOrange,
-                onPress: () {
-                  Routes.pushPage(context, Routes.players);
-                },
-              ),
-            ],
-          ),
-        ),
+            padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
+            child: FutureBuilder(
+              future: TeamService().getTeams(),
+              builder: (context, snap) {
+                return snap.hasData
+                    ? snap.data != null && snap.data!.isNotEmpty
+                        ? ListView.builder(
+                            itemBuilder: (context, index) {
+                              return ProfileWidget(
+                                titleText: "${snap.data?[index].name}",
+                                prefixIcon: "assets/icons/match.svg",
+                              );
+                            },
+                          )
+                        : const Center(
+                            child: Text("No league found"),
+                          )
+                    : const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+              },
+            )),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showModalBottomSheet(

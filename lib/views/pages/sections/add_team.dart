@@ -1,4 +1,6 @@
 import '../../../exports/exports.dart';
+import '../../../services/team_service.dart';
+import '../../../tools/tools.dart';
 
 class AddTeam extends StatefulWidget {
   const AddTeam({super.key});
@@ -35,8 +37,16 @@ class _AddTeamState extends State<AddTeam> {
                 controller: teamNameController,
               ),
               CustomButton(
-                onPress: () {},
-                text: "Save",
+                onPress: () {
+                  if (teamNameController.text.isEmpty) {
+                    showMessage(
+                      msg: "Please fill all the fields",
+                    );
+                  } else {
+                    TeamService.createTeam({"name": teamNameController.text});
+                  }
+                },
+                text: "Save Details",
               )
             ],
           ),

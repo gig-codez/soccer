@@ -1,3 +1,4 @@
+import '../../../services/league_service.dart';
 import '/exports/exports.dart';
 import 'add_league.dart';
 
@@ -16,19 +17,26 @@ class _LeaguesState extends State<Leagues> {
         title: const Text("Leagues"),
       ),
       body: SafeArea(
-        child: ListView(
-          children: [
-            ProfileWidget(
-              tile: true,
-              titleText: "English Premier League",
-              color: Colors.red,
-              subText: "20 teams",
-              prefixIcon: "assets/icons/league.svg",
-              onPress: () {
-                Routes.pushPage(context, Routes.teams);
-              },
-            )
-          ],
+        child: FutureBuilder(
+          future: LeagueService().getLeague(),
+          builder: (context, snap) {
+            return snap.hasData
+                ? snap.data != null && snap.data!.isNotEmpty
+                    ? ListView.builder(
+                        itemBuilder: (context, index) {
+                          return ProfileWidget(
+                            titleText: "${snap.data?[index].name}",
+                            prefixIcon: "assets/icons/league.svg",
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: Text("No league found"),
+                      )
+                : const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(

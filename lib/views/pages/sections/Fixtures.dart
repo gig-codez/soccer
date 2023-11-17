@@ -1,5 +1,5 @@
-import 'package:soccer/views/pages/sections/add_fixture.dart';
-import 'package:soccer/views/pages/sections/show_leagues.dart';
+import '/views/pages/sections/add_fixture.dart';
+import '/views/pages/sections/show_leagues.dart';
 
 import '../../../exports/exports.dart';
 
@@ -24,6 +24,7 @@ class _FixturesPageState extends State<FixturesPage>
     );
   }
 
+  void fetchCurrentData() async {}
   @override
   void dispose() {
     super.dispose();

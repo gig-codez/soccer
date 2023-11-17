@@ -1,4 +1,9 @@
+import 'package:soccer/views/pages/teamPages/LineUp.dart';
+
+import '../../widgets/PlayingTeams.dart';
 import '/exports/exports.dart';
+import 'teamPages/stats_page.dart';
+import 'teamPages/table_page.dart';
 
 class TeamsPage extends StatefulWidget {
   const TeamsPage({super.key});
@@ -7,49 +12,67 @@ class TeamsPage extends StatefulWidget {
   State<TeamsPage> createState() => _TeamsPageState();
 }
 
-class _TeamsPageState extends State<TeamsPage> {
+class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
+  TabController? _topTabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _topTabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _topTabController?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Image.asset(
-                "assets/leagues/komafo.jpeg",
-                width: 35,
-                height: 35,
+      appBar: AppBar(),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: ListView(
+            children: [
+              const PlayingTeams(),
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TabBar(
+                      tabs: const [
+                        Tab(
+                          text: "Line Up",
+                        ),
+                        Tab(
+                          text: "Table",
+                        ),
+                        Tab(
+                          text: "Stats",
+                        ),
+                      ],
+                      controller: _topTabController,
+                      physics: const NeverScrollableScrollPhysics(),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        controller: _topTabController,
+                        children: const [
+                          LineUpPage(),
+                          TablePage(),
+                          StatsPage()
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: Text(
-                "0 - 0",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Image.asset(
-                "assets/leagues/amigos.jpeg",
-                width: 35,
-                height: 35,
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: const SafeArea(
-        child: Column(
-          children: [
-            Card(
-              child: Row(
-                children: [],
-              ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

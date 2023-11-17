@@ -18,6 +18,7 @@ class Routes {
   static String teams = "/teams";
   static String leagues = "/leagues";
   static String fixtures = "/fixtures";
+  static String fixturePage = "/fixture/Page";
   static String players = "/players";
 
   // routes merger
@@ -30,6 +31,7 @@ class Routes {
     home: (context) => const HomePage(),
     settings: (context) => const GeneralSettings(),
     teams: (context) => const Teams(),
+    fixturePage: (context) => const TeamsPage(),
     fixtures: (context) => const FixturesPage(),
     leagues: (context) => const Leagues(),
     notifications: (context) => const Notifications(),

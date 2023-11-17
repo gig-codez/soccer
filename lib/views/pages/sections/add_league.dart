@@ -1,4 +1,6 @@
 import '../../../exports/exports.dart';
+import '../../../services/league_service.dart';
+import '../../../tools/tools.dart';
 
 class AddLeague extends StatefulWidget {
   const AddLeague({super.key});
@@ -35,8 +37,16 @@ class _AddLeagueState extends State<AddLeague> {
                 enableBorder: true,
               ),
               CustomButton(
-                onPress: () {},
-                text: "Save",
+                onPress: () {
+                  if (leagueNameController.text.isEmpty) {
+                    showMessage(
+                        msg: "Please fill all the fields", color: Colors.red);
+                  } else {
+                    LeagueService()
+                        .createLeague({"name": leagueNameController.text});
+                  }
+                },
+                text: "Create a league",
               )
             ],
           ),

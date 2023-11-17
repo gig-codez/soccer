@@ -1,3 +1,5 @@
+import 'package:soccer/services/league_service.dart';
+
 import '../../../exports/exports.dart';
 
 class ShowLeagues extends StatefulWidget {
@@ -13,17 +15,21 @@ class _ShowLeaguesState extends State<ShowLeagues> {
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
-          future: Future.delayed(
-            const Duration(seconds: 2),
-          ),
+          future: LeagueService().getLeague(),
           builder: (context, snap) {
-            return snap.connectionState == ConnectionState.done
-                ? ListView.builder(itemBuilder: (context, index) {
-                    return const ProfileWidget(
-                      titleText: "League",
-                      prefixIcon: "assets/icons/league.svg",
-                    );
-                  })
+            return snap.hasData
+                ? snap.data != null && snap.data!.isNotEmpty
+                    ? ListView.builder(
+                        itemBuilder: (context, index) {
+                          return ProfileWidget(
+                            titleText: "${snap.data?[index].name}",
+                            prefixIcon: "assets/icons/league.svg",
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: Text("No league found"),
+                      )
                 : const Center(
                     child: CircularProgressIndicator.adaptive(),
                   );

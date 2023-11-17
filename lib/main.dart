@@ -5,6 +5,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:soccer/theme/Theme.dart';
+import 'package:soccer/tools/tools.dart';
 
 import '/exports/exports.dart';
 
@@ -36,6 +37,7 @@ void main() async {
       child: Consumer<AppController>(
         builder: (context, controller, child) {
           return MaterialApp(
+            navigatorKey: navigatorKey,
             initialRoute: Routes.splash,
             routes: Routes.routes,
             theme: controller.isDarkMode ? Themes.darkTheme : Themes.lightTheme,

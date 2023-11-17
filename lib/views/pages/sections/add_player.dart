@@ -1,9 +1,12 @@
 import '../../../exports/exports.dart';
+import '../../../services/player_service.dart';
+import '../../../tools/tools.dart';
 
 class AddPlayer extends StatelessWidget {
   final String? name;
   final String? position;
-  AddPlayer({super.key, this.name, this.position});
+  final String? id;
+  AddPlayer({super.key, this.name, this.position, this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,21 @@ class AddPlayer extends StatelessWidget {
                 enableBorder: true,
               ),
               CustomButton(
-                onPress: () {},
+                onPress: () {
+                  if (playerNameController.text.isEmpty ||
+                      playerPositionController.text.isEmpty) {
+                    showMessage(
+                      msg: "Please fill all the fields",
+                      color: Colors.red,
+                    );
+                  } else {
+                    PlayerService.createPlayer({
+                      "name": playerNameController.text,
+                      "team": "",
+                      "position": playerPositionController.text
+                    });
+                  }
+                },
                 text: "Save Player details",
               )
             ],

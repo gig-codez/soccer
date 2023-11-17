@@ -1,3 +1,6 @@
+import 'package:soccer/services/fixture_service.dart';
+import 'package:soccer/tools/tools.dart';
+
 import '../../../exports/exports.dart';
 
 class AddFixture extends StatefulWidget {
@@ -8,7 +11,12 @@ class AddFixture extends StatefulWidget {
 }
 
 class _AddFixtureState extends State<AddFixture> {
-  final teamNameController = TextEditingController();
+  final homeTeamController = TextEditingController();
+  final awayTeamController = TextEditingController();
+  final minutesPlayedController = TextEditingController();
+  final kickOffController = TextEditingController();
+  bool twoHavles = false;
+  bool fourHavles = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +42,7 @@ class _AddFixtureState extends State<AddFixture> {
                 icon: Icons.home_filled,
                 enableBorder: true,
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                controller: teamNameController,
+                controller: homeTeamController,
               ),
               CommonTextField(
                 titleText: "Away Team",
@@ -42,7 +50,7 @@ class _AddFixtureState extends State<AddFixture> {
                 hintText: "Enter away team",
                 enableBorder: true,
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                controller: teamNameController,
+                controller: awayTeamController,
               ),
               CommonTextField(
                 titleText: "Minutes to be Played",
@@ -50,7 +58,7 @@ class _AddFixtureState extends State<AddFixture> {
                 hintText: "e.g 20 mins",
                 enableBorder: true,
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                controller: teamNameController,
+                controller: minutesPlayedController,
               ),
               CommonTextField(
                 titleText: "Time of kick off",
@@ -58,7 +66,7 @@ class _AddFixtureState extends State<AddFixture> {
                 hintText: "e.g 20 mins",
                 enableBorder: true,
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                controller: teamNameController,
+                controller: kickOffController,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
@@ -74,25 +82,54 @@ class _AddFixtureState extends State<AddFixture> {
                 children: [
                   Expanded(
                     child: RadioListTile.adaptive(
-                      value: 0,
-                      groupValue: 1,
-                      onChanged: (x) {},
+                      value: twoHavles,
+                      groupValue: true,
+                      onChanged: (x) {
+                        setState(() {
+                          fourHavles = false;
+                          twoHavles = true;
+                        });
+                      },
                       title: const Text("2 Halfs"),
                     ),
                   ),
                   Expanded(
                     child: RadioListTile.adaptive(
-                      value: 0,
-                      groupValue: 1,
-                      onChanged: (x) {},
+                      value: fourHavles,
+                      groupValue: true,
+                      onChanged: (x) {
+                        setState(() {
+                          fourHavles = true;
+                          twoHavles = false;
+                        });
+                      },
                       title: const Text("4 Quarters"),
                     ),
                   )
                 ],
               ),
               CustomButton(
-                onPress: () {},
-                text: "Save",
+                onPress: () {
+                  if (homeTeamController.text.isEmpty ||
+                      awayTeamController.text.isEmpty ||
+                      minutesPlayedController.text.isEmpty ||
+                      kickOffController.text.isEmpty) {
+                    showMessage(
+                        msg: "Please fill all the fields", color: Colors.red);
+                  } else {
+                    FixtureService().createFixture(
+                      {
+                        "hometeam": homeTeamController.text,
+                        "awayteam": awayTeamController.text,
+                        "minutesplayed": minutesPlayedController.text,
+                        "kickofftime": kickOffController.text,
+                        "twohalves": twoHavles,
+                        "fourhavles": fourHavles
+                      },
+                    );
+                  }
+                },
+                text: "Save fixture data",
               ),
               const SizedBox.square(
                 dimension: 90,

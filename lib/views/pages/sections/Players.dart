@@ -1,4 +1,6 @@
 import '../../../exports/exports.dart';
+import '../../../models/player.dart';
+import '../../../services/player_service.dart';
 import 'add_player.dart';
 
 class Players extends StatefulWidget {
@@ -69,6 +71,15 @@ class _PlayersState extends State<Players> {
                             setState(() {
                               players = int.parse(playerController.text);
                             });
+                            // handle creating multiple players
+                            for (int i = 0; i < players; i++) {
+                              PlayerService.createPlayer({
+                                "name": "Player ${i + 1}",
+                                "team": "",
+                                "position": "Position ${i + 1}"
+                              });
+                              Future.delayed(const Duration(seconds: 1));
+                            }
                           },
                           child: const Text("Add Players"),
                         ),
@@ -118,5 +129,49 @@ class _PlayersState extends State<Players> {
               ),
       ),
     );
+  }
+}
+
+class PlayersListWidget extends StatelessWidget {
+  final List<Message> players;
+  const PlayersListWidget({super.key, required this.players});
+
+  @override
+  Widget build(BuildContext context) {
+    return players.isEmpty
+        ? ListView.builder(
+            itemCount: players.length,
+            itemBuilder: (context, index) => ListTile(
+              leading: const CircleAvatar(
+                child: Text("P"),
+              ),
+              trailing: IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                      showDragHandle: true,
+                      context: context,
+                      builder: (context) {
+                        return BottomSheet(
+                          onClosing: () {},
+                          builder: (context) {
+                            return AddPlayer(
+                              name: players[index].name,
+                              position: players[index].position,
+                            );
+                          },
+                        );
+                      });
+                },
+                icon: const Icon(Icons.edit_rounded),
+              ),
+              title: Text(players[index].name),
+            ),
+          )
+        : Center(
+            child: Text(
+              "No players added yet",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          );
   }
 }
