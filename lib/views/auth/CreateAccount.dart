@@ -35,7 +35,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 children: [
                   IconButton(
                     onPressed: () {
-                      Routes.popPage(context);
+                      Routes.popPage();
                     },
                     icon: const Icon(Icons.arrow_back),
                   ),
@@ -166,7 +166,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   // if (formKey.currentState!.validate()) {
                   // Routes.pushPage(context, Routes.home);
                   // }
-                  Routes.pushPage(context, Routes.completeProfile);
+                  Routes.pushPage(Routes.completeProfile);
                 },
               ),
             ],

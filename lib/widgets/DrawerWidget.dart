@@ -38,7 +38,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             margin: const EdgeInsets.all(0),
             padding: const EdgeInsets.all(20),
             child: Text(
-              "Stats",
+              "Samba Stats",
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -46,8 +46,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             drawer.length,
             (index) => ListTile(
               onTap: () {
-                Routes.popPage(context);
-                Routes.pushPage(context, drawer[index]['routes']);
+                Routes.popPage();
+                Routes.pushPage(drawer[index]['routes']);
               },
               leading: SvgPicture.asset("${drawer[index]['icon']}",
                   color: Colors.grey.shade400),

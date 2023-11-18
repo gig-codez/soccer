@@ -11,12 +11,12 @@ class ProfileWidget extends StatelessWidget {
   final bool tile;
   final String? img;
   final double iconSize;
-  final String prefixIcon;
+  final String? prefixIcon;
   const ProfileWidget({
     super.key,
     required this.titleText,
     this.subText,
-    required this.prefixIcon,
+    this.prefixIcon,
     this.color,
     this.icon,
     this.editProfile,
@@ -41,10 +41,10 @@ class ProfileWidget extends StatelessWidget {
                     CircleAvatar(
                       backgroundColor: color?.withOpacity(0.13),
                       radius: size,
-                      backgroundImage: img == null ? null : AssetImage(img!),
-                      child: img == null
+                      backgroundImage: img == null ? null : NetworkImage(img!),
+                      child: prefixIcon != null
                           ? SvgPicture.asset(
-                              prefixIcon,
+                              prefixIcon ?? "assets/football.svg",
                               width: iconSize,
                               height: iconSize,
                               color: color,
@@ -104,13 +104,15 @@ class ProfileWidget extends StatelessWidget {
                   leading: CircleAvatar(
                     radius: size,
                     backgroundColor: color?.withOpacity(0.12),
-                    backgroundImage: img == null ? null : AssetImage(img!),
-                    child: SvgPicture.asset(
-                      prefixIcon,
-                      width: iconSize,
-                      height: iconSize,
-                      color: color,
-                    ),
+                    backgroundImage: img == null ? null : NetworkImage(img!),
+                    child: prefixIcon != null
+                        ? SvgPicture.asset(
+                            prefixIcon ?? "assets/football.svg",
+                            width: iconSize,
+                            height: iconSize,
+                            color: color,
+                          )
+                        : null,
                   ),
                   title: Text(
                     titleText,

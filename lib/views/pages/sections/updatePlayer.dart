@@ -1,19 +1,24 @@
-import '../../../exports/exports.dart';
-import '../../../services/player_service.dart';
-import '../../../tools/tools.dart';
+import '/exports/exports.dart';
+import '/services/player_service.dart';
 
-class AddPlayer extends StatelessWidget {
+class UpdatePlayer extends StatefulWidget {
   final String? name;
   final String? position;
+  final String? id;
   final String? teamId;
-  const AddPlayer({super.key, this.name, this.position, this.teamId});
+  UpdatePlayer({super.key, this.name, this.position, this.id, this.teamId});
+
+  @override
+  State<UpdatePlayer> createState() => _UpdatePlayerState();
+}
+
+class _UpdatePlayerState extends State<UpdatePlayer> {
+  final playerNameController = TextEditingController();
+
+  final playerPositionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final playerNameController = TextEditingController(text: name);
-
-    final playerPositionController = TextEditingController(text: position);
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -32,7 +37,8 @@ class AddPlayer extends StatelessWidget {
               CommonTextField(
                 controller: playerNameController,
                 padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
-                titleText: "Name",
+                titleText: "Name : ${widget.name}",
+                icon: Icons.person,
                 hintText: "e.g John Gum",
                 contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                 enableBorder: true,
@@ -40,8 +46,9 @@ class AddPlayer extends StatelessWidget {
               CommonTextField(
                 controller: playerPositionController,
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                titleText: "Position",
+                titleText: "Position: ${widget.position}",
                 hintText: "e.g Defender",
+                icon: Icons.roller_shades,
                 contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
                 enableBorder: true,
               ),
@@ -54,9 +61,9 @@ class AddPlayer extends StatelessWidget {
                       color: Colors.red,
                     );
                   } else {
-                    PlayerService.createPlayer({
+                    PlayerService.updatePlayer(widget.id ?? "", {
                       "name": playerNameController.text,
-                      "team": teamId,
+                      "team": widget.teamId,
                       "position": playerPositionController.text
                     });
                   }

@@ -1,10 +1,14 @@
-import 'package:soccer/services/fixture_service.dart';
-import 'package:soccer/tools/tools.dart';
+import '../../../services/fixture_service.dart';
+import '/services/fixture_service.dart';
 
-import '../../../exports/exports.dart';
+import '/exports/exports.dart';
 
 class AddFixture extends StatefulWidget {
-  const AddFixture({super.key});
+  final String leagueId;
+  const AddFixture({
+    super.key,
+    required this.leagueId,
+  });
 
   @override
   State<AddFixture> createState() => _AddFixtureState();
@@ -40,6 +44,7 @@ class _AddFixtureState extends State<AddFixture> {
                 titleText: "Home Team",
                 hintText: "Enter home team",
                 icon: Icons.home_filled,
+                onChanged: (x) {},
                 enableBorder: true,
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                 controller: homeTeamController,
@@ -124,12 +129,14 @@ class _AddFixtureState extends State<AddFixture> {
                         "minutesplayed": minutesPlayedController.text,
                         "kickofftime": kickOffController.text,
                         "twohalves": twoHavles,
-                        "fourhavles": fourHavles
+                        "fourhavles": fourHavles,
+                        "league": widget.leagueId,
+                        "date": ""
                       },
                     );
                   }
                 },
-                text: "Save fixture data",
+                text: "Save Fixture data",
               ),
               const SizedBox.square(
                 dimension: 90,

@@ -45,7 +45,7 @@ class LeagueCard extends StatelessWidget {
               content: Column(
                 children: [
                   InkWell(
-                    onTap: () => Routes.pushPage(context, Routes.fixturePage),
+                    onTap: () => Routes.pushPage(Routes.fixturePage),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

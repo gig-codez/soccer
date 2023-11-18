@@ -44,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: primaryColor,
             prefixIcon: "box.svg",
             onPress: () {
-              Routes.pushPage(context, Routes.settings);
+              Routes.pushPage( Routes.settings);
             },
             size: 20,
             iconSize: 20,
@@ -86,11 +86,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       actions: [
                         TextButton(
                           onPressed: () =>
-                              Routes.removePage(context, Routes.login),
+                              Routes.removePage(Routes.login),
                           child: const Text("Logout"),
                         ),
                         TextButton(
-                          onPressed: () => Routes.popPage(context),
+                          onPressed: () => Routes.popPage(),
                           child: const Text("Cancel"),
                         )
                       ],

@@ -1,19 +1,18 @@
-import 'dart:async';
-
 import '../../../models/league.dart';
 import '../../../services/league_service.dart';
 import '/exports/exports.dart';
-import 'Teams.dart';
-import 'add_league.dart';
+import 'dart:async';
 
-class Leagues extends StatefulWidget {
-  const Leagues({super.key});
+import 'Fixtures.dart';
+
+class LeagueFixtures extends StatefulWidget {
+  const LeagueFixtures({super.key});
 
   @override
-  State<Leagues> createState() => _LeaguesState();
+  State<LeagueFixtures> createState() => _LeagueFixturesState();
 }
 
-class _LeaguesState extends State<Leagues> {
+class _LeagueFixturesState extends State<LeagueFixtures> {
   final StreamController<List<Message>> _leaguesController =
       StreamController<List<Message>>();
   Timer? _timer;
@@ -46,7 +45,7 @@ class _LeaguesState extends State<Leagues> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Leagues"),
+        title: const Text("Select a league"),
       ),
       body: SafeArea(
         child: StreamBuilder(
@@ -61,9 +60,12 @@ class _LeaguesState extends State<Leagues> {
                             titleText: "${snap.data?[index].name}",
                             prefixIcon: "assets/icons/league.svg",
                             onPress: () {
-                              Routes.animateToPage(Teams(
-                                  leagueId: snap.data?[index].id,
-                                  leagueName: snap.data?[index].name,),);
+                              Routes.animateToPage(
+                                FixturesPage(
+                                  leagueId: snap.data![index].id,
+                                  leagueName: snap.data![index].name,
+                                ),
+                              );
                             },
                           );
                         },
@@ -75,24 +77,6 @@ class _LeaguesState extends State<Leagues> {
                     child: CircularProgressIndicator.adaptive(),
                   );
           },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          showModalBottomSheet(
-              showDragHandle: true,
-              context: context,
-              builder: (context) {
-                return BottomSheet(
-                    onClosing: () {},
-                    builder: (context) {
-                      return const AddLeague();
-                    });
-              });
-        },
-        label: Text(
-          "Add league",
-          style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
     );

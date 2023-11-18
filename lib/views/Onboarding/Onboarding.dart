@@ -151,7 +151,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               textColor: Colors.white,
               opacity: 1,
               onPress: () => Routes.pushPage(
-                context,
+              
                 Routes.createAccount,
               ),
             ),
@@ -160,7 +160,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
             CustomButton(
               text: "I Already Have an Account",
-              onPress: () => Routes.pushPage(context, Routes.login),
+              onPress: () => Routes.pushPage( Routes.login),
             )
           ],
         ),

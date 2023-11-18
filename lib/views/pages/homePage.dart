@@ -14,43 +14,39 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SportsChat'),
+        title: const Text('Samba Stats'),
         actions: [
-          TapEffect(
-            onClick: () {},
-            child: SvgPicture.asset(
-              "assets/search.svg",
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.black
-                  : Colors.white,
-            ),
-          ),
+          // TapEffect(
+          //   onClick: () {},
+          //   child: SvgPicture.asset(
+          //     "assets/search.svg",
+          //     color: Theme.of(context).brightness == Brightness.light
+          //         ? Colors.black
+          //         : Colors.white,
+          //   ),
+          // ),
           const SizedBox.square(
             dimension: 10,
           ),
-          TapEffect(
-            onClick: () => Routes.pushPage(context, Routes.notifications),
-            child: const Icon(
-              Icons.notifications_active,
-            ),
-          ),
+          // TapEffect(
+          //   onClick: () => Routes.pushPage(Routes.notifications),
+          //   child: const Icon(
+          //     Icons.notifications_active,
+          //   ),
+          // ),
           const SizedBox.square(
             dimension: 30,
           ),
         ],
       ),
       drawer: const DrawerWidget(),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 3.0, right: 3),
+      body: const Padding(
+        padding: EdgeInsets.only(left: 3.0, right: 3),
         child: Column(
           children: [
-            Expanded(
-                child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const LeagueCard();
-              },
-            )),
+            Center(
+              child: Text("No League data"),
+            )
           ],
         ),
       ),

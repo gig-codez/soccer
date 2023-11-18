@@ -30,7 +30,7 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     isLight = 1;
                   });
                 }
-                Routes.popPage(context);
+                Routes.popPage();
               },
             ),
             RadioListTile(
@@ -45,7 +45,7 @@ class _ThemeWidgetState extends State<ThemeWidget> {
                     isLight = 0;
                   });
                 }
-                Routes.popPage(context);
+                Routes.popPage();
               },
             )
           ],

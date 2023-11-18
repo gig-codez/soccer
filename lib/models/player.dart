@@ -1,8 +1,5 @@
 // To parse this JSON data, do
-//
-//     final playersModel = playersModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 PlayersModel playersModelFromJson(String str) =>
@@ -60,10 +57,10 @@ class Message {
         id: json["_id"],
         name: json["name"],
         team: json["team"],
-        position: json["position"],
-        goal: json["goal"],
-        assist: json["assist"],
-        yellow: json["yellow"],
+        position: json["position"] ?? "",
+        goal: json["goal"] ?? "",
+        assist: json["assist"] ?? "",
+        yellow: json["yellow"] ?? "",
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],

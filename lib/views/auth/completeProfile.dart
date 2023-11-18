@@ -23,7 +23,7 @@ class _CompleteUserProfileState extends State<CompleteUserProfile> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Routes.popPage(context);
+                    Routes.popPage();
                   },
                   icon: const Icon(Icons.arrow_back),
                 ),
@@ -157,11 +157,11 @@ class _CompleteUserProfileState extends State<CompleteUserProfile> {
                   width: MediaQuery.of(context).size.width / 2.5,
                   buttonRadius: 50,
                   text: "Skip",
-                  onPress: () => Routes.pushPage(context, Routes.home),
+                  onPress: () => Routes.pushPage( Routes.home),
                 ),
                 CustomButton(
                   width: MediaQuery.of(context).size.width / 2.5,
-                  onPress: () => Routes.pushPage(context, Routes.home),
+                  onPress: () => Routes.pushPage( Routes.home),
                   opacity: 1,
                   textColor: Colors.white,
                   text: "Finish",

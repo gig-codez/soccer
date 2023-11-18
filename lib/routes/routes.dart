@@ -1,6 +1,8 @@
-import 'package:soccer/views/pages/sections/Fixtures.dart';
-import 'package:soccer/views/pages/sections/Players.dart';
-import 'package:soccer/views/pages/sections/leagues.dart';
+import 'package:soccer/views/pages/sections/LeagueFixtures.dart';
+
+import '/views/pages/sections/Fixtures.dart';
+import '/views/pages/sections/Players.dart';
+import '/views/pages/sections/leagues.dart';
 
 import '../views/pages/sections/Teams.dart';
 import '/exports/exports.dart';
@@ -20,7 +22,7 @@ class Routes {
   static String fixtures = "/fixtures";
   static String fixturePage = "/fixture/Page";
   static String players = "/players";
-
+  static BuildContext context = navigatorKey.currentState!.context;
   // routes merger
   static Map<String, Widget Function(BuildContext context)> routes = {
     onBoard: (context) => const OnBoardingScreen(),
@@ -32,37 +34,36 @@ class Routes {
     settings: (context) => const GeneralSettings(),
     teams: (context) => const Teams(),
     fixturePage: (context) => const TeamsPage(),
-    fixtures: (context) => const FixturesPage(),
+    fixtures: (context) => const LeagueFixtures(),
     leagues: (context) => const Leagues(),
     notifications: (context) => const Notifications(),
     players: (context) => const Players()
   };
 
   // routes methods
-  static void popPage(BuildContext context) {
+  static void popPage() {
     Navigator.of(context).pop();
   }
 
-  static void pushPage(BuildContext context, String route) {
+  static void pushPage(String route) {
     Navigator.of(context).pushNamed(route);
   }
 
-  static void replacePage(BuildContext context, Widget route) {
+  static void replacePage(Widget route) {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => route, fullscreenDialog: true),
     );
   }
 
-  static void removePage(BuildContext context, String route) {
+  static void removePage(String route) {
     Navigator.of(context).popAndPushNamed(route);
   }
 
-  static void removeUntilPage(BuildContext context, String route) {
+  static void removeUntilPage(String route) {
     Navigator.of(context).pushNamedAndRemoveUntil(route, (route) => false);
   }
 
-  static void animateToPage(BuildContext context, Widget page,
-      {type = 'fade'}) {
+  static void animateToPage(Widget page, {type = 'fade'}) {
     Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => type == 'scale'

@@ -1,16 +1,49 @@
-import 'package:soccer/services/team_service.dart';
-import 'package:soccer/views/pages/sections/add_team.dart';
+import 'dart:async';
 
-import '../../../exports/exports.dart';
+import '/models/team.dart';
+import '/services/team_service.dart';
+import '/views/pages/sections/Players.dart';
+import '/views/pages/sections/add_team.dart';
+
+import '/exports/exports.dart';
 
 class Teams extends StatefulWidget {
-  const Teams({super.key});
+  final String? leagueId;
+  final String? leagueName;
+  const Teams({super.key, this.leagueId, this.leagueName, Message? league});
 
   @override
   State<Teams> createState() => _TeamsState();
 }
 
 class _TeamsState extends State<Teams> {
+  final StreamController<List<Message>> _leaguesController =
+      StreamController<List<Message>>();
+  Timer? _timer;
+  void fetchLeagues() async {
+    var leagues = await TeamService().getTeams(widget.leagueId ?? "");
+    _leaguesController.add(leagues);
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      var leagues = await TeamService().getTeams(widget.leagueId ?? "");
+      _leaguesController.add(leagues);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLeagues();
+  }
+
+  @override
+  void dispose() {
+    if (_leaguesController.hasListener) {
+      _leaguesController.close();
+    }
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +52,7 @@ class _TeamsState extends State<Teams> {
           TextSpan(
             children: [
               TextSpan(
-                text: "English Primier League\n",
+                text: "${widget.leagueName}\n",
                 style: Theme.of(context).textTheme.labelMedium,
               ),
               TextSpan(
@@ -33,21 +66,30 @@ class _TeamsState extends State<Teams> {
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
-            child: FutureBuilder(
-              future: TeamService().getTeams(),
+            child: StreamBuilder(
+              stream: _leaguesController.stream,
               builder: (context, snap) {
                 return snap.hasData
                     ? snap.data != null && snap.data!.isNotEmpty
                         ? ListView.builder(
+                            itemCount: snap.data?.length,
                             itemBuilder: (context, index) {
                               return ProfileWidget(
                                 titleText: "${snap.data?[index].name}",
-                                prefixIcon: "assets/icons/match.svg",
+                                img: Apis.image + "${snap.data?[index].image}",
+                                onPress: () {
+                                  Routes.animateToPage(
+                                    Players(
+                                      teamId: snap.data?[index].id,
+                                      teamName: snap.data?[index].name,
+                                    ),
+                                  );
+                                },
                               );
                             },
                           )
                         : const Center(
-                            child: Text("No league found"),
+                            child: Text("No Team found"),
                           )
                     : const Center(
                         child: CircularProgressIndicator.adaptive(),
@@ -63,7 +105,7 @@ class _TeamsState extends State<Teams> {
               return BottomSheet(
                   onClosing: () {},
                   builder: (context) {
-                    return const AddTeam();
+                    return AddTeam(leagueId: widget.leagueId);
                   });
             }),
         label: const Text("Add a team"),

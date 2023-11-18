@@ -7,10 +7,12 @@ import '../exports/exports.dart';
 import '../tools/tools.dart';
 
 class TeamService {
-  Future<List<Message>> getTeams() async {
+  Future<List<Message>> getTeams(String leagueId) async {
     String res = "";
     try {
-      Response response = await Client().get(Uri.parse(Apis.fetchTeams));
+      Response response = await Client().get(
+        Uri.parse(Apis.fetchTeams + leagueId),
+      );
       if (response.statusCode == 200) {
         res = response.body;
       }
@@ -28,12 +30,33 @@ class TeamService {
 
   static void createTeam(Map<String, dynamic> data) async {
     try {
-      Response response =
-          await Client().post(Uri.parse(Apis.createTeam), body: data);
-      if (response.statusCode == 200) {
-        showMessage(msg: "Team created successfully", color: Colors.green);
+      MultipartRequest request =
+          MultipartRequest("POST", Uri.parse(Apis.createTeam));
+
+            request.headers.addAll({
+                        'Content-Type': 'multipart/form-data',
+                        'Accept': 'application/json',
+                      });
+      request.fields['name'] = data['name'];
+      request.fields['league'] = data['league'];
+      request.files.add(
+        MultipartFile(
+          "file",
+          data["stream"],
+          data["length"],
+          filename: data["filename"],
+        ),
+      );
+      print(data);
+
+      var res = await request.send();
+      print(res.reasonPhrase);
+      if (res.statusCode == 200) {
+        showMessage(msg: "Team created successfully");
+        Routes.popPage();
       } else {
-        showMessage(msg: "Team creation failed", color: Colors.red);
+        Routes.popPage();
+        showMessage(msg: "Team creating failed", color: Colors.red);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);

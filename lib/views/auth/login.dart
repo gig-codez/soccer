@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
               opacity: 1,
               textColor: Colors.white,
               text: "Sign In",
-              onPress: () => Routes.pushPage(context, Routes.home),
+              onPress: () => Routes.pushPage(Routes.home),
             )
           ],
         ),

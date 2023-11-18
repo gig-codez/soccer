@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
       if (status == AnimationStatus.completed ||
           status == AnimationStatus.dismissed) {
         Future.delayed(Duration(seconds: 2), () {
-          Routes.pushPage(context, Routes.home);
+          Routes.pushPage(Routes.home);
         });
       }
     });
@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
                 );
               },
               child: Image.asset(
-                'assets/icons/logo.png',
+                'assets/images/logo.jpeg',
                 height: 120,
                 width: 120,
               ),
@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
             dimension: MediaQuery.of(context).size.width * 0.15,
           ),
           Text(
-            "Sports Chat",
+            "Samba Stats",
             style: Theme.of(context)
                 .textTheme
                 .titleMedium!
