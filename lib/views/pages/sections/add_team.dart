@@ -42,13 +42,19 @@ class _AddTeamState extends State<AddTeam> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    streamData == null
-                        ? Image.asset("assets/leagues/amigos.jpeg",
-                            width: 80, height: 80)
-                        : Image.memory(imageData!,
-                            width: 80, height: 80, fit: BoxFit.cover),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: streamData == null
+                          ? Image.asset("assets/images/default.jpeg",
+                              width: 80, height: 80, fit: BoxFit.cover)
+                          : Image.memory(imageData!,
+                              width: 80, height: 80, fit: BoxFit.cover),
+                    ),
+                    const SizedBox.square(
+                      dimension: 30,
+                    ),
                     IconButton(
                       icon: const Icon(
                         Icons.add_a_photo,
@@ -90,7 +96,7 @@ class _AddTeamState extends State<AddTeam> {
                       "league": widget.leagueId,
                       "stream": streamData,
                       "length": fileLength,
-                      "filename":fileName
+                      "filename": fileName
                     });
                   }
                 },

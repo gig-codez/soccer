@@ -61,9 +61,12 @@ class _LeaguesState extends State<Leagues> {
                             titleText: "${snap.data?[index].name}",
                             prefixIcon: "assets/icons/league.svg",
                             onPress: () {
-                              Routes.animateToPage(Teams(
+                              Routes.animateToPage(
+                                Teams(
                                   leagueId: snap.data?[index].id,
-                                  leagueName: snap.data?[index].name,),);
+                                  leagueName: snap.data?[index].name,
+                                ),
+                              );
                             },
                           );
                         },
@@ -94,6 +97,7 @@ class _LeaguesState extends State<Leagues> {
           "Add league",
           style: Theme.of(context).textTheme.bodyMedium,
         ),
+        icon: const Icon(Icons.add),
       ),
     );
   }

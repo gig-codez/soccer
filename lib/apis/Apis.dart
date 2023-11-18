@@ -1,11 +1,12 @@
 class Apis {
-  static String apiUrl = "http://15.237.71.190:3000/";
+  static String apiUrl = "http://192.168.0.142:3000/";
   static String image = "${apiUrl}images/";
   // players routes
   static String fetchPlayers = "${apiUrl}player/players/";
   static String createPlayer = "${apiUrl}player/addplayer";
   static String fetchSinglePlayer = "${apiUrl}player/players/";
   static String updatePlayer = "${apiUrl}player/update/";
+  static String deletePlayer = "${apiUrl}player/delete/";
   // league routes
   static String fetchLeagues = "${apiUrl}league/leagues";
   static String fetchSingleLeague = "${apiUrl}league/leagues/";

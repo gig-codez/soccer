@@ -109,6 +109,7 @@ class _TeamsState extends State<Teams> {
                   });
             }),
         label: const Text("Add a team"),
+        icon: const Icon(Icons.add),
       ),
     );
   }

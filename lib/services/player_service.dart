@@ -26,17 +26,34 @@ class PlayerService {
     return playersModelFromJson(res).message;
   }
 
+// delete player
+  static void deletePlayer(String playerId) async {
+    try {
+      Response response =
+          await Client().delete(Uri.parse(Apis.deletePlayer + playerId));
+      if (response.statusCode == 200) {
+        Routes.popPage();
+        showMessage(msg: "Player deleted successfully", color: Colors.green);
+      } else {
+        Routes.popPage();
+        showMessage(
+            msg: "Error deleting player => ${response.reasonPhrase}",
+            color: Colors.red);
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
+
   // function to create a player
   static void createPlayer(Map<String, dynamic> data) async {
     try {
-      Future.delayed(const Duration(seconds: 2), () async {
-        Response response =
-            await Client().post(Uri.parse(Apis.createPlayer), body: data);
-        print(data);
-        if (response.statusCode == 200) {
-          showMessage(msg: "Player added successfully");
-        }
-      });
+      Response response =
+          await Client().post(Uri.parse(Apis.createPlayer), body: data);
+
+      if (response.statusCode == 200) {
+        showMessage(msg: "Done..");
+      }
     } on ClientException catch (e) {
       debugPrint(e.message);
     }

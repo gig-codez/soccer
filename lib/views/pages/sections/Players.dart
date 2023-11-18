@@ -112,12 +112,14 @@ class _PlayersState extends State<Players> {
                                 "name": "Player ${i + 1}",
                                 "team": widget.teamId,
                                 "position": "Position ${i + 1}",
-                                "goal": "2",
-                                "assist": "5",
-                                "yellow": "2"
+                                "goal": "0",
+                                "assist": "0",
+                                "yellow": "0"
                               });
                               Future.delayed(const Duration(seconds: 2));
                             }
+                            showMessage(
+                                msg: "$players Players added successfully");
                           },
                           child: const Text("Add Players"),
                         ),
@@ -142,6 +144,29 @@ class _PlayersState extends State<Players> {
                             child: Text("P"),
                           ),
                           subtitle: Text("${snap.data?[index].position}"),
+                          onLongPress: () {
+                            showAdaptiveDialog(
+                              context: context,
+                              builder: (context) => AlertDialog.adaptive(
+                                title: const Text("Delete Player!"),
+                                content: Text(
+                                    "Are you sure you want to delete this ${snap.data?[index].name}?"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Routes.popPage(),
+                                    child: const Text("Cancel"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      PlayerService.deletePlayer(
+                                          snap.data![index].id);
+                                    },
+                                    child: const Text("Delete"),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
                           trailing: IconButton(
                             onPressed: () {
                               showModalBottomSheet(
