@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:soccer/models/fixture.dart';
 import 'package:soccer/models/league.dart';
 
@@ -38,7 +40,7 @@ class LeagueCard extends StatelessWidget {
         children: List.generate(
           data.length,
           (index) => AccordionSection(
-              isOpen: true,
+              isOpen: index == 0,
               contentVerticalPadding: 10,
               leftIcon:
                   const Icon(Icons.sports_basketball, color: Colors.white),
@@ -58,14 +60,47 @@ class LeagueCard extends StatelessWidget {
   }
 }
 
-class HomeFixtureWidget extends StatelessWidget {
+class HomeFixtureWidget extends StatefulWidget {
   final String leagueId;
   const HomeFixtureWidget({super.key, required this.leagueId});
 
   @override
+  State<HomeFixtureWidget> createState() => _HomeFixtureWidgetState();
+}
+
+class _HomeFixtureWidgetState extends State<HomeFixtureWidget> {
+  final StreamController<List<Datum>> _leaguesController =
+      StreamController<List<Datum>>();
+  Timer? _timer;
+
+  void fetchLeagues() async {
+    var leagues = await FixtureService.getFixtures(widget.leagueId);
+    _leaguesController.add(leagues);
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      var leagues = await FixtureService.getFixtures(widget.leagueId);
+      _leaguesController.add(leagues);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLeagues();
+  }
+
+  @override
+  void dispose() {
+    if (_leaguesController.hasListener) {
+      _leaguesController.close();
+    }
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: FixtureService.getFixtures(leagueId),
+    return StreamBuilder(
+        stream: _leaguesController.stream,
         builder: (context, s) {
           return s.hasData
               ? s.data != null && s.data!.isNotEmpty

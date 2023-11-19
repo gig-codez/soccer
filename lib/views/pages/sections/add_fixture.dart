@@ -190,8 +190,7 @@ class _AddFixtureState extends State<AddFixture> {
                           "date": kickOffController.text,
                         },
                       );
-                      homeTeamController.dispose();
-                      awayTeamController.dispose();
+
                       controller.homeTeamData = {};
                       controller.awayTeamData = {};
                     }

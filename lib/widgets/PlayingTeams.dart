@@ -31,7 +31,7 @@ class PlayingTeams extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                  text: "0 - 0\n",
+                  text: "${data.kickofftime}\n",
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 TextSpan(
