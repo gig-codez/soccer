@@ -33,7 +33,6 @@ class Routes {
     home: (context) => const HomePage(),
     settings: (context) => const GeneralSettings(),
     teams: (context) => const Teams(),
-    fixturePage: (context) => const TeamsPage(),
     fixtures: (context) => const LeagueFixtures(),
     leagues: (context) => const Leagues(),
     notifications: (context) => const Notifications(),

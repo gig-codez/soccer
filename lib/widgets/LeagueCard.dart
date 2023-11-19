@@ -1,7 +1,13 @@
+import 'package:soccer/models/fixture.dart';
+import 'package:soccer/models/league.dart';
+
 import '../exports/exports.dart';
+import '../services/fixture_service.dart';
+import 'FixtureWidget.dart';
 
 class LeagueCard extends StatelessWidget {
-  const LeagueCard({super.key});
+  final List<Message> data;
+  const LeagueCard({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -18,85 +24,73 @@ class LeagueCard extends StatelessWidget {
                 : Colors.white12,
             width: 2),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(0),
-        child: Accordion(
-          headerBorderColorOpened: Colors.transparent,
-          headerBorderWidth: 1,
-          contentBorderWidth: 1,
-          contentBackgroundColor:
-              Theme.of(context).brightness == Brightness.light
-                  ? Colors.white
-                  : Colors.black,
-          contentHorizontalPadding: 20,
-          scaleWhenAnimating: true,
-          openAndCloseAnimation: true,
-          headerPadding:
-              const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-          sectionOpeningHapticFeedback: SectionHapticFeedback.light,
-          sectionClosingHapticFeedback: SectionHapticFeedback.light,
-          children: [
-            AccordionSection(
+      child: Accordion(
+        headerBorderColorOpened: Colors.transparent,
+        headerBorderWidth: 1,
+        contentBorderWidth: 1,
+        contentBackgroundColor: Theme.of(context).brightness == Brightness.light
+            ? Colors.white
+            : Colors.black,
+        contentHorizontalPadding: 10,
+        scaleWhenAnimating: false,
+        openAndCloseAnimation: false,
+        headerPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+        children: List.generate(
+          data.length,
+          (index) => AccordionSection(
               isOpen: true,
-              contentVerticalPadding: 20,
+              contentVerticalPadding: 10,
               leftIcon:
                   const Icon(Icons.sports_basketball, color: Colors.white),
-              header: const Text("WOMEN FOOTBALL LEAGUE"),
-              content: Column(
-                children: [
-                  InkWell(
-                    onTap: () => Routes.pushPage(Routes.fixturePage),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Komafo  ",
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.asset(
-                                "assets/leagues/komafo.jpeg",
-                                width: 20,
-                                height: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(5),
-                          child: Text(
-                            "0 - 0",
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.asset(
-                                "assets/leagues/amigos.jpeg",
-                                width: 20,
-                                height: 20,
-                              ),
-                            ),
-                            Text(
-                              "   Amigos united",
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+              header: Text(
+                data[index].name,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .apply(color: Colors.white),
               ),
-            ),
-          ],
+              content: HomeFixtureWidget(
+                leagueId: data[index].id,
+              )),
         ),
       ),
     );
+  }
+}
+
+class HomeFixtureWidget extends StatelessWidget {
+  final String leagueId;
+  const HomeFixtureWidget({super.key, required this.leagueId});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: FixtureService.getFixtures(leagueId),
+        builder: (context, s) {
+          return s.hasData
+              ? s.data != null && s.data!.isNotEmpty
+                  ? Column(
+                      children: List.generate(s.data!.length, (index) {
+                        return FixtureWidget(
+                          homeTeam: s.data![index].hometeam.name,
+                          awayTeam:
+                              s.data![index].awayteam.name.split(" ").first,
+                          homeTeamLogo: s.data![index].hometeam.image,
+                          awayTeamLogo: s.data![index].awayteam.image,
+                          onTap: () {
+                            Routes.animateToPage(
+                                TeamsPage(data: s.data![index]));
+                          },
+                          kickOffTime: s.data![index].kickofftime,
+                        );
+                      }),
+                    )
+                  : const Center(
+                      child: Text("No fixtues"),
+                    )
+              : const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+        });
   }
 }

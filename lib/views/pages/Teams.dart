@@ -1,3 +1,4 @@
+import 'package:soccer/models/fixture.dart';
 import 'package:soccer/views/pages/teamPages/LineUp.dart';
 
 import '../../widgets/PlayingTeams.dart';
@@ -6,7 +7,8 @@ import 'teamPages/stats_page.dart';
 import 'teamPages/table_page.dart';
 
 class TeamsPage extends StatefulWidget {
-  const TeamsPage({super.key});
+  final Datum data;
+  const TeamsPage({super.key, required this.data});
 
   @override
   State<TeamsPage> createState() => _TeamsPageState();
@@ -36,7 +38,7 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
           padding: const EdgeInsets.all(10.0),
           child: ListView(
             children: [
-              const PlayingTeams(),
+              PlayingTeams(data: widget.data),
               SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: Column(
@@ -61,8 +63,11 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                       child: TabBarView(
                         physics: const NeverScrollableScrollPhysics(),
                         controller: _topTabController,
-                        children: const [
-                          LineUpPage(),
+                        children: [
+                          LineUpPage(
+                            homeTeamId: widget.data.hometeam.id,
+                            awayTeamId: widget.data.awayteam.id,
+                          ),
                           TablePage(),
                           StatsPage()
                         ],

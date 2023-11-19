@@ -53,22 +53,28 @@ class _LeagueFixturesState extends State<LeagueFixtures> {
           builder: (context, snap) {
             return snap.hasData
                 ? snap.data != null && snap.data!.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: snap.data?.length,
-                        itemBuilder: (context, index) {
-                          return ProfileWidget(
-                            titleText: "${snap.data?[index].name}",
-                            prefixIcon: "assets/icons/league.svg",
-                            onPress: () {
-                              Routes.animateToPage(
-                                FixturesPage(
-                                  leagueId: snap.data![index].id,
-                                  leagueName: snap.data![index].name,
-                                ),
-                              );
-                            },
-                          );
-                        },
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          itemCount: snap.data?.length,
+                          itemBuilder: (context, index) {
+                            return ProfileWidget(
+                              titleText: "${snap.data?[index].name}",
+                              prefixIcon: "assets/icons/league.svg",
+                              size: 25,
+                              iconSize: 25,
+                              color: Theme.of(context).primaryColor,
+                              onPress: () {
+                                Routes.animateToPage(
+                                  FixturesPage(
+                                    leagueId: snap.data![index].id,
+                                    leagueName: snap.data![index].name,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
                       )
                     : const Center(
                         child: Text("No league found"),

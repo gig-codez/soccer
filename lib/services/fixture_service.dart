@@ -33,4 +33,19 @@ class FixtureService {
       debugPrint(e.message);
     }
   }
+
+  static void deleteFixture(String fixtureId) async {
+    try {
+      Response res = await Client().delete(
+        Uri.parse(Apis.deleteFixture),
+      );
+      if (res.statusCode == 200) {
+        showMessage(msg: "Fixture deleted successfully");
+      } else {
+        showMessage(msg: "Fixture not deleted successfully", color: Colors.red);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }

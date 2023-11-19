@@ -1,3 +1,11 @@
+import 'dart:async';
+
+import 'package:soccer/widgets/FixtureWidget.dart';
+
+import '../../models/fixture.dart';
+import '../../models/league.dart';
+import '../../services/fixture_service.dart';
+import '../../services/league_service.dart';
 import '../../widgets/DrawerWidget.dart';
 import '/widgets/LeagueCard.dart';
 import '/exports/exports.dart';
@@ -10,44 +18,58 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final StreamController<List<Message>> _leaguesController =
+      StreamController<List<Message>>();
+  Timer? _timer;
+
+  void fetchLeagues() async {
+    var leagues = await LeagueService().getLeague();
+    _leaguesController.add(leagues);
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      var leagues = await LeagueService().getLeague();
+      _leaguesController.add(leagues);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchLeagues();
+  }
+
+  @override
+  void dispose() {
+    if (_leaguesController.hasListener) {
+      _leaguesController.close();
+    }
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Samba Stats'),
-        actions: [
-          // TapEffect(
-          //   onClick: () {},
-          //   child: SvgPicture.asset(
-          //     "assets/search.svg",
-          //     color: Theme.of(context).brightness == Brightness.light
-          //         ? Colors.black
-          //         : Colors.white,
-          //   ),
-          // ),
-          const SizedBox.square(
-            dimension: 10,
-          ),
-          // TapEffect(
-          //   onClick: () => Routes.pushPage(Routes.notifications),
-          //   child: const Icon(
-          //     Icons.notifications_active,
-          //   ),
-          // ),
-          const SizedBox.square(
-            dimension: 30,
-          ),
-        ],
       ),
       drawer: const DrawerWidget(),
-      body: const Padding(
-        padding: EdgeInsets.only(left: 3.0, right: 3),
-        child: Column(
-          children: [
-            Center(
-              child: Text("No League data"),
-            )
-          ],
+      body: Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10),
+        child: FutureBuilder(
+          future: LeagueService().getLeague(),
+          builder: (context, snap) {
+            return snap.hasData
+                ? snap.data != null && snap.data!.isNotEmpty
+                    ? LeagueCard(
+                        data: snap.data ?? [],
+                      )
+                    : const Center(
+                        child: Text("No fixture yet set for today!"),
+                      )
+                : const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+          },
         ),
       ),
     );

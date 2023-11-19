@@ -1,5 +1,5 @@
 class Apis {
-  static String apiUrl = "http://192.168.0.142:3000/";
+  static String apiUrl = "http://15.237.71.190:3000/"; //15.237.71.190
   static String image = "${apiUrl}images/";
   // players routes
   static String fetchPlayers = "${apiUrl}player/players/";
@@ -23,4 +23,5 @@ class Apis {
   static String createFixture = "${apiUrl}fixture/addfixture";
   static String fetchSingleFixture = "${apiUrl}fixture/";
   static String updateFixture = "${apiUrl}update/fixture/";
+  static String deleteFixture = "${apiUrl}fixture/delete/";
 }

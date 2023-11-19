@@ -49,35 +49,40 @@ class _LeaguesState extends State<Leagues> {
         title: const Text("Leagues"),
       ),
       body: SafeArea(
-        child: StreamBuilder(
-          stream: _leaguesController.stream,
-          builder: (context, snap) {
-            return snap.hasData
-                ? snap.data != null && snap.data!.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: snap.data?.length,
-                        itemBuilder: (context, index) {
-                          return ProfileWidget(
-                            titleText: "${snap.data?[index].name}",
-                            prefixIcon: "assets/icons/league.svg",
-                            onPress: () {
-                              Routes.animateToPage(
-                                Teams(
-                                  leagueId: snap.data?[index].id,
-                                  leagueName: snap.data?[index].name,
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      )
-                    : const Center(
-                        child: Text("No league found"),
-                      )
-                : const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-          },
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(13, 8, 13, 0),
+          child: StreamBuilder(
+            stream: _leaguesController.stream,
+            builder: (context, snap) {
+              return snap.hasData
+                  ? snap.data != null && snap.data!.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: snap.data?.length,
+                          itemBuilder: (context, index) {
+                            return ProfileWidget(
+                              titleText: "${snap.data?[index].name}",
+                              prefixIcon: "assets/icons/league.svg",
+                              iconSize: 20,
+                              color: Theme.of(context).primaryColor,
+                              onPress: () {
+                                Routes.animateToPage(
+                                  Teams(
+                                    leagueId: snap.data?[index].id,
+                                    leagueName: snap.data?[index].name,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        )
+                      : const Center(
+                          child: Text("No league found"),
+                        )
+                  : const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(

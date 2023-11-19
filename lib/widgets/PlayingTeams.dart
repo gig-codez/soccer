@@ -1,7 +1,10 @@
+import 'package:soccer/models/fixture.dart';
+
 import '../exports/exports.dart';
 
 class PlayingTeams extends StatelessWidget {
-  const PlayingTeams({super.key});
+  final Datum data;
+  const PlayingTeams({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +15,14 @@ class PlayingTeams extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(50),
-              child: Image.asset(
-                "assets/leagues/komafo.jpeg",
+              child: Image.network(
+                Apis.image + data.hometeam.image,
                 width: 55,
                 height: 55,
               ),
             ),
-            Text("Komafo", style: Theme.of(context).textTheme.titleMedium),
+            Text(data.hometeam.name,
+                style: Theme.of(context).textTheme.titleMedium),
           ],
         ),
         Padding(
@@ -43,13 +47,14 @@ class PlayingTeams extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(50),
-              child: Image.asset(
-                "assets/leagues/amigos.jpeg",
+              child: Image.network(
+                Apis.image + data.awayteam.image,
                 width: 55,
                 height: 55,
               ),
             ),
-            Text("AMIGOS", style: Theme.of(context).textTheme.titleMedium),
+            Text(data.awayteam.name,
+                style: Theme.of(context).textTheme.titleMedium),
           ],
         ),
       ],

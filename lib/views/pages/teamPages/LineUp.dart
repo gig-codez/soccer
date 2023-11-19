@@ -1,8 +1,13 @@
+import 'package:soccer/services/player_service.dart';
+
 import '../../../exports/exports.dart';
 import 'player_options.dart';
 
 class LineUpPage extends StatefulWidget {
-  const LineUpPage({super.key});
+  final String homeTeamId;
+  final String awayTeamId;
+  const LineUpPage(
+      {super.key, required this.homeTeamId, required this.awayTeamId});
 
   @override
   State<LineUpPage> createState() => _LineUpPageState();
@@ -48,34 +53,8 @@ class _LineUpPageState extends State<LineUpPage> with TickerProviderStateMixin {
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) => ProfileWidget(
-                        titleText: "Player ${index + 1}",
-                        prefixIcon: "assets/icons/match.svg",
-                        onPress: () {
-                          showModalBottomSheet(
-                              showDragHandle: true,
-                              context: context,
-                              builder: (context) {
-                                return BottomSheet(
-                                    onClosing: () {},
-                                    builder: (context) {
-                                      return const PlayerOptions();
-                                    });
-                              });
-                        },
-                        color: Colors.amber,
-                      ),
-                    ),
-                    ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) => ProfileWidget(
-                        titleText: "Player ${index + 1}",
-                        prefixIcon: "assets/icons/match.svg",
-                        color: Colors.amber,
-                      ),
-                    ),
+                    PlayerWidget(id: widget.homeTeamId),
+                    PlayerWidget(id: widget.awayTeamId),
                   ],
                 ),
               )
@@ -104,5 +83,36 @@ class _LineUpPageState extends State<LineUpPage> with TickerProviderStateMixin {
         ),
       ],
     );
+  }
+}
+
+class PlayerWidget extends StatelessWidget {
+  final String id;
+  const PlayerWidget({super.key, required this.id});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: PlayerService().getPlayers(id),
+        builder: (c, homeSnap) {
+          return homeSnap.hasData
+              ? homeSnap.data != null && homeSnap.data!.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: homeSnap.data!.length,
+                      itemBuilder: (context, index) => ProfileWidget(
+                        iconSize: 30,
+                        titleText: homeSnap.data![index].name,
+                        subText: homeSnap.data![index].position,
+                        prefixIcon: "assets/icons/match.svg",
+                        color: Colors.amber,
+                      ),
+                    )
+                  : const Center(
+                      child: Text("No Players added yet"),
+                    )
+              : const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+        });
   }
 }

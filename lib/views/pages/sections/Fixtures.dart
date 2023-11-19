@@ -1,8 +1,10 @@
+import 'dart:async';
+
+import 'package:soccer/models/fixture.dart';
 import 'package:soccer/widgets/FixtureWidget.dart';
 
 import '../../../services/fixture_service.dart';
 import '/views/pages/sections/add_fixture.dart';
-import '/views/pages/sections/show_leagues.dart';
 
 import '../../../exports/exports.dart';
 
@@ -19,6 +21,19 @@ class FixturesPage extends StatefulWidget {
 class _FixturesPageState extends State<FixturesPage>
     with TickerProviderStateMixin {
   AnimationController? _controller;
+  final StreamController<List<Datum>> _fixtureStreaData =
+      StreamController<List<Datum>>();
+  Timer? _timer;
+
+  void fetchCurrentData() async {
+    var streamData = await FixtureService.getFixtures(widget.leagueId);
+    _fixtureStreaData.add(streamData);
+    // refresh the api for new entries
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) async {
+      var streamData = await FixtureService.getFixtures(widget.leagueId);
+      _fixtureStreaData.add(streamData);
+    });
+  }
 
   @override
   void initState() {
@@ -28,13 +43,17 @@ class _FixturesPageState extends State<FixturesPage>
       value: 0,
       duration: const Duration(milliseconds: 500),
     );
+    fetchCurrentData();
   }
 
-  void fetchCurrentData() async {}
   @override
   void dispose() {
-    super.dispose();
     _controller?.dispose();
+    if (_fixtureStreaData.hasListener) {
+      _fixtureStreaData.close();
+    }
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -56,8 +75,8 @@ class _FixturesPageState extends State<FixturesPage>
           ),
         ),
       ),
-      body: FutureBuilder(
-        future: FixtureService.getFixtures(widget.leagueId),
+      body: StreamBuilder(
+        stream: _fixtureStreaData.stream,
         builder: (context, snap) {
           return snap.hasData
               ? snap.data != null && snap.data!.isNotEmpty
@@ -69,6 +88,32 @@ class _FixturesPageState extends State<FixturesPage>
                         homeTeamLogo: snap.data![index].hometeam.image,
                         awayTeamLogo: snap.data![index].awayteam.image,
                         onTap: () {},
+                        onLongPress: () {
+                          showAdaptiveDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog.adaptive(
+                                  title: const Text("Delete Fixture "),
+                                  content: Text(
+                                    "Are you sure you want to delete fixture for ${snap.data![index].awayteam.name} and  ${snap.data![index].hometeam.name} ",
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Routes.popPage(),
+                                      child: const Text("Cancel"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        FixtureService.deleteFixture(
+                                            snap.data![index].id);
+                                      },
+                                      child: const Text("Delete"),
+                                    )
+                                  ],
+                                );
+                              });
+                        },
+                        kickOffTime: snap.data![index].kickofftime,
                       ),
                     )
                   : Center(
@@ -98,6 +143,7 @@ class _FixturesPageState extends State<FixturesPage>
           "Add a fixture",
           style: Theme.of(context).textTheme.bodyLarge,
         ),
+        icon: const Icon(Icons.add),
       ),
     );
   }

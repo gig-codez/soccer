@@ -1,23 +1,21 @@
-import 'package:soccer/services/league_service.dart';
 import 'package:soccer/services/team_service.dart';
 
 import '../../../exports/exports.dart';
 
-class ShowLeagues extends StatefulWidget {
+class AwayTeamsWidget extends StatefulWidget {
   final String leagueId;
-  const ShowLeagues({super.key, required this.leagueId});
+  const AwayTeamsWidget({super.key, required this.leagueId});
 
   @override
-  State<ShowLeagues> createState() => _ShowLeaguesState();
+  State<AwayTeamsWidget> createState() => _AwayTeamsWidgetState();
 }
 
-class _ShowLeaguesState extends State<ShowLeagues> {
+class _AwayTeamsWidgetState extends State<AwayTeamsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const SizedBox(),
-        title: const Text("Home Teams"),
+        title: const Text("Away Teams"),
       ),
       body: SafeArea(
         child: Padding(
@@ -34,7 +32,7 @@ class _ShowLeaguesState extends State<ShowLeagues> {
                               titleText: "${snap.data?[index].name}",
                               prefixIcon: "assets/icons/league.svg",
                               onPress: () {
-                                context.read<AppController>().homeTeamData = {
+                                context.read<AppController>().awayTeamData = {
                                   'name': snap.data?[index].name,
                                   'id': snap.data?[index].id
                                 };

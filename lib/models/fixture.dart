@@ -1,5 +1,8 @@
 // To parse this JSON data, do
+//
+//     final fixtureModel = fixtureModelFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 FixtureModel fixtureModelFromJson(String str) =>
@@ -25,44 +28,44 @@ class FixtureModel {
 
 class Datum {
   final String id;
+  final String league;
   final Team hometeam;
   final Team awayteam;
   final String minutesplayed;
   final String kickofftime;
   final bool twohalves;
-  final bool fourhalves;
   final int v;
 
   Datum({
     required this.id,
+    required this.league,
     required this.hometeam,
     required this.awayteam,
     required this.minutesplayed,
     required this.kickofftime,
     required this.twohalves,
-    required this.fourhalves,
     required this.v,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["_id"],
-        hometeam: Team.fromJson(json["hometeam"] ?? {}),
-        awayteam: Team.fromJson(json["awayteam"] ?? {}),
+        league: json["league"],
+        hometeam: Team.fromJson(json["hometeam"]),
+        awayteam: Team.fromJson(json["awayteam"]),
         minutesplayed: json["minutesplayed"],
         kickofftime: json["kickofftime"],
         twohalves: json["twohalves"],
-        fourhalves: json["fourhalves"],
         v: json["__v"],
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
+        "league": league,
         "hometeam": hometeam.toJson(),
         "awayteam": awayteam.toJson(),
         "minutesplayed": minutesplayed,
         "kickofftime": kickofftime,
         "twohalves": twohalves,
-        "fourhalves": fourhalves,
         "__v": v,
       };
 }
@@ -79,9 +82,9 @@ class Team {
   });
 
   factory Team.fromJson(Map<String, dynamic> json) => Team(
-        id: json["_id"] ?? "",
-        name: json["name"] ?? "",
-        image: json["image"] ?? "",
+        id: json["_id"],
+        name: json["name"],
+        image: json["image"],
       );
 
   Map<String, dynamic> toJson() => {

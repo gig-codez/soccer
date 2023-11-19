@@ -33,6 +33,10 @@ class ProfileWidget extends StatelessWidget {
         ? TapEffect(
             onClick: onPress ?? () {},
             child: Card(
+              elevation: 0,
+              color: Theme.of(context).brightness == Brightness.light
+                  ? Colors.grey.shade100
+                  : Colors.white12,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
