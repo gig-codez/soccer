@@ -155,6 +155,7 @@ class TableRowWidget {
   static DataRow drawDatRow(
     BuildContext context, {
     Color? color,
+    required String image,
     int? id,
     int? p,
     int? w,
@@ -170,11 +171,11 @@ class TableRowWidget {
           Row(
             children: [
               Text("$id"),
-              SizedBox.square(
+             const SizedBox.square(
                 dimension: 10,
               ),
-              Image.asset(
-                "assets/leagues/komafo.jpeg",
+              Image.network(
+              Apis.image + image,
                 width: 35,
                 height: 35,
               )

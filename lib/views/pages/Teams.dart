@@ -68,7 +68,9 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                             homeTeamId: widget.data.hometeam.id,
                             awayTeamId: widget.data.awayteam.id,
                           ),
-                          TablePage(),
+                          TablePage(
+                            leagueId: widget.data.league,
+                          ),
                           StatsPage()
                         ],
                       ),

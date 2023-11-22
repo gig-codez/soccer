@@ -76,7 +76,7 @@ class _TeamsState extends State<Teams> {
                             itemBuilder: (context, index) {
                               return ProfileWidget(
                                 titleText: "${snap.data?[index].name}",
-                                img: Apis.image + "${snap.data?[index].image}",
+                                img: "${Apis.image}${snap.data?[index].image}",
                                 onPress: () {
                                   Routes.animateToPage(
                                     Players(

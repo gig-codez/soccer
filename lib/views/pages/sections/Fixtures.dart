@@ -7,6 +7,7 @@ import '../../../services/fixture_service.dart';
 import '/views/pages/sections/add_fixture.dart';
 
 import '../../../exports/exports.dart';
+import 'fixture_results.dart';
 
 class FixturesPage extends StatefulWidget {
   final String leagueId;
@@ -87,7 +88,15 @@ class _FixturesPageState extends State<FixturesPage>
                         awayTeam: snap.data![index].awayteam.name,
                         homeTeamLogo: snap.data![index].hometeam.image,
                         awayTeamLogo: snap.data![index].awayteam.image,
-                        onTap: () {},
+                        onTap: () {
+                          Routes.animateToPage(
+                            FixtureResults(
+                              fixtureId: snap.data![index].id,
+                              data: snap.data![index],
+                              leagueId: widget.leagueId,
+                            ),
+                          );
+                        },
                         onLongPress: () {
                           showAdaptiveDialog(
                               context: context,
@@ -114,6 +123,9 @@ class _FixturesPageState extends State<FixturesPage>
                               });
                         },
                         kickOffTime: snap.data![index].kickofftime,
+                        isLive: snap.data![index].isLive,
+                        homeGoal: snap.data![index].homeGoals,
+                        awayGoal: snap.data![index].awayGoals,
                       ),
                     )
                   : Center(

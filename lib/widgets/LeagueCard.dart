@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:soccer/models/fixture.dart';
 import 'package:soccer/models/league.dart';
+import 'package:soccer/widgets/TeamsWidget.dart';
 
 import '../exports/exports.dart';
 import '../services/fixture_service.dart';
-import 'FixtureWidget.dart';
 
 class LeagueCard extends StatelessWidget {
   final List<Message> data;
@@ -13,48 +13,38 @@ class LeagueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      color: Theme.of(context).brightness == Brightness.light
-          ? Colors.grey.shade100
-          : Colors.white12,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-        side: BorderSide(
-            color: Theme.of(context).brightness == Brightness.light
-                ? Colors.grey.shade100
-                : Colors.white12,
-            width: 2),
-      ),
-      child: Accordion(
-        headerBorderColorOpened: Colors.transparent,
-        headerBorderWidth: 1,
-        contentBorderWidth: 1,
-        contentBackgroundColor: Theme.of(context).brightness == Brightness.light
-            ? Colors.white
-            : Colors.black,
-        contentHorizontalPadding: 10,
-        scaleWhenAnimating: false,
-        openAndCloseAnimation: false,
-        headerPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-        children: List.generate(
-          data.length,
-          (index) => AccordionSection(
-              isOpen: index == 0,
-              contentVerticalPadding: 10,
-              leftIcon:
-                  const Icon(Icons.sports_basketball, color: Colors.white),
-              header: Text(
+    return Accordion(
+      headerBorderColorOpened: Colors.transparent,
+      headerBorderWidth: 1,
+      contentBorderWidth: 1,
+      contentBackgroundColor: Theme.of(context).brightness == Brightness.light
+          ? Colors.white
+          : Colors.black,
+      contentHorizontalPadding: 0,
+      scaleWhenAnimating: false,
+      openAndCloseAnimation: false,
+      headerPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+      children: List.generate(
+        data.length,
+        (index) => AccordionSection(
+            isOpen: index == 0,
+            contentVerticalPadding: 10,
+            headerBackgroundColor: Colors.grey.shade200,
+            contentBorderColor: Colors.grey.shade200,
+            leftIcon: const Icon(Icons.sports_basketball, color: Colors.black),
+            header: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
+              child: Text(
                 data[index].name,
                 style: Theme.of(context)
                     .textTheme
-                    .bodyMedium!
-                    .apply(color: Colors.white),
+                    .bodyLarge!
+                    .apply(color: Colors.black, fontWeightDelta: 2),
               ),
-              content: HomeFixtureWidget(
-                leagueId: data[index].id,
-              )),
-        ),
+            ),
+            content: HomeFixtureWidget(
+              leagueId: data[index].id,
+            )),
       ),
     );
   }
@@ -85,7 +75,7 @@ class _HomeFixtureWidgetState extends State<HomeFixtureWidget> {
   @override
   void initState() {
     super.initState();
-    fetchLeagues();
+    // fetchLeagues();
   }
 
   @override
@@ -106,17 +96,15 @@ class _HomeFixtureWidgetState extends State<HomeFixtureWidget> {
               ? s.data != null && s.data!.isNotEmpty
                   ? Column(
                       children: List.generate(s.data!.length, (index) {
-                        return FixtureWidget(
-                          homeTeam: s.data![index].hometeam.name,
-                          awayTeam:
-                              s.data![index].awayteam.name.split(" ").first,
-                          homeTeamLogo: s.data![index].hometeam.image,
-                          awayTeamLogo: s.data![index].awayteam.image,
+                        return TeamsWidget(
+                          fixtureData: s.data![index],
                           onTap: () {
                             Routes.animateToPage(
-                                TeamsPage(data: s.data![index]));
+                              TeamsPage(
+                                data: s.data![index],
+                              ),
+                            );
                           },
-                          kickOffTime: s.data![index].kickofftime,
                         );
                       }),
                     )

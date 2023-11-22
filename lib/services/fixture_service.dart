@@ -37,15 +37,59 @@ class FixtureService {
   static void deleteFixture(String fixtureId) async {
     try {
       Response res = await Client().delete(
-        Uri.parse(Apis.deleteFixture),
+        Uri.parse(Apis.deleteFixture + fixtureId),
       );
       if (res.statusCode == 200) {
+        Routes.popPage();
         showMessage(msg: "Fixture deleted successfully");
       } else {
+        Routes.popPage();
         showMessage(msg: "Fixture not deleted successfully", color: Colors.red);
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+  static void updateFixture(Map<String, dynamic> data) async {
+    try {
+      Response res = await Client().put(
+        Uri.parse(Apis.updateFixture + data["fixtureId"]),
+        body: {
+          "isLive": data["isLive"],
+        },
+      );
+      print(res.body);
+      if (res.statusCode == 200) {
+        showMessage(msg: "Fixture updated successfully");
+        Routes.popPage();
+      } else {
+        showMessage(msg: "Failed to  update fixture");
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
+  static void updateFixtureGoals(Map<String, dynamic> data) async {
+    try {
+      Response res = await Client().put(
+        Uri.parse(Apis.updateFixture + data["fixtureId"]),
+        body: {
+          "homeGoals": data["homeGoals"],
+          "awayGoals": data["awayGoals"],
+        },
+      );
+      print(res.body);
+      if (res.statusCode == 200) {
+        showMessage(msg: "Fixture updated successfully");
+        Routes.popPage();
+      } else {
+        showMessage(msg: "Failed to  update fixture");
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
     }
   }
 }

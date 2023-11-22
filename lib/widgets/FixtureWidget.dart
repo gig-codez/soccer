@@ -4,6 +4,9 @@ class FixtureWidget extends StatelessWidget {
   final String homeTeam;
   final String awayTeam;
   final GestureLongPressCallback? onLongPress;
+  final bool isLive;
+  final int homeGoal;
+  final int awayGoal;
   final String homeTeamLogo;
   final String kickOffTime;
   final String awayTeamLogo;
@@ -16,7 +19,7 @@ class FixtureWidget extends StatelessWidget {
       required this.awayTeamLogo,
       required this.onTap,
       this.onLongPress,
-      required this.kickOffTime});
+      required this.kickOffTime, required this.isLive, required this.homeGoal, required this.awayGoal});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,7 @@ class FixtureWidget extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  kickOffTime,
+                 isLive ? "$homeGoal - $awayGoal" : kickOffTime,
                   style: Theme.of(context).textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),

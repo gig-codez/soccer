@@ -1,12 +1,9 @@
 import 'dart:async';
 
-import 'package:soccer/widgets/FixtureWidget.dart';
-
-import '../../models/fixture.dart';
-import '../../models/league.dart';
-import '../../services/fixture_service.dart';
-import '../../services/league_service.dart';
-import '../../widgets/DrawerWidget.dart';
+import '../../widgets/LeagueWidget.dart';
+import '/models/league.dart';
+import '/services/league_service.dart';
+import '/widgets/DrawerWidget.dart';
 import '/widgets/LeagueCard.dart';
 import '/exports/exports.dart';
 
@@ -58,11 +55,16 @@ class _HomePageState extends State<HomePage> {
         child: FutureBuilder(
           future: LeagueService().getLeague(),
           builder: (context, snap) {
+            var d = snap.data;
             return snap.hasData
-                ? snap.data != null && snap.data!.isNotEmpty
-                    ? LeagueCard(
-                        data: snap.data ?? [],
-                      )
+                ? d != null && d.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: d.length,
+                        itemBuilder: (context, leagueData) {
+                          return LeagueWidget(
+                            data: d[leagueData],
+                          );
+                        })
                     : const Center(
                         child: Text("No fixture yet set for today!"),
                       )

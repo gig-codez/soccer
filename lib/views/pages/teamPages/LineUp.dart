@@ -35,7 +35,7 @@ class _LineUpPageState extends State<LineUpPage> with TickerProviderStateMixin {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height / 2,
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
               TabBar(
@@ -61,26 +61,26 @@ class _LineUpPageState extends State<LineUpPage> with TickerProviderStateMixin {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 14),
-          child: Text(
-            "Bench",
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 2.7,
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) => ProfileWidget(
-              titleText: "Player ${index + 1}",
-              prefixIcon: "assets/icons/match.svg",
-              color: Colors.amber,
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.fromLTRB(10, 10, 10, 14),
+        //   child: Text(
+        //     "Bench",
+        //     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+        //           fontWeight: FontWeight.bold,
+        //         ),
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: MediaQuery.of(context).size.height / 2.7,
+        //   child: ListView.builder(
+        //     itemCount: 10,
+        //     itemBuilder: (context, index) => ProfileWidget(
+        //       titleText: "Player ${index + 1}",
+        //       prefixIcon: "assets/icons/match.svg",
+        //       color: Colors.amber,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

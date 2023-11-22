@@ -188,6 +188,9 @@ class _AddFixtureState extends State<AddFixture> {
                           "fourhavles": "$fourHavles",
                           "league": widget.leagueId,
                           "date": kickOffController.text,
+                          "isLive": "false",
+                          "homeGoals": "0",
+                          "awayGoals": "0"
                         },
                       );
 

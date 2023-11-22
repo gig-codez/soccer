@@ -1,8 +1,6 @@
-import 'dart:convert';
-
-import '../apis/Apis.dart';
-import '../exports/exports.dart';
-import '../models/league.dart';
+import '/apis/Apis.dart';
+import '/exports/exports.dart';
+import '/models/league.dart';
 
 class LeagueService {
   Future<List<Message>> getLeague() async {
@@ -24,8 +22,8 @@ class LeagueService {
   // function to create a league
   void createLeague(Map<String, dynamic> data) async {
     try {
-      Response response = await Client()
-          .post(Uri.parse(Apis.createLeague), body: data);
+      Response response =
+          await Client().post(Uri.parse(Apis.createLeague), body: data);
       if (response.statusCode == 200) {
         Routes.popPage();
         showMessage(msg: "League added successfully");

@@ -27,4 +27,6 @@ class AppController with ChangeNotifier {
     print("Away Data: $data");
     notifyListeners();
   }
+
+  //
 }
