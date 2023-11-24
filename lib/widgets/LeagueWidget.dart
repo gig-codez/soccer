@@ -7,10 +7,12 @@ import '/models/league.dart';
 
 class LeagueWidget extends StatefulWidget {
   final Message data;
+  final String matchId;
 
   const LeagueWidget({
     super.key,
     required this.data,
+    required this.matchId,
   });
 
   @override
@@ -23,7 +25,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   Timer? _timer;
 
   void fetchLeagues() async {
-    var leagues = await FixtureService.getFixtures(widget.data.id);
+    var leagues =
+        await FixtureService.getRunningFixtures(widget.data.id, widget.matchId);
     _leaguesController.add(leagues);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
       var leagues = await FixtureService.getFixtures(widget.data.id);

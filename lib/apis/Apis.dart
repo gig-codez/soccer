@@ -24,7 +24,7 @@ class Apis {
   static String fetchSingleFixture = "${apiUrl}fixture/";
   static String updateFixture = "${apiUrl}fixture/fixture/";
   static String deleteFixture = "${apiUrl}fixture/delete/";
-
+  static String runningFixture = "${apiUrl}fixture/";
   // reports
   static String addResult = "${apiUrl}result/addresult";
   static String fetchResults = "${apiUrl}result/results";

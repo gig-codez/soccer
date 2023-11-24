@@ -16,6 +16,20 @@ class FixtureService {
     }
     return fixtureModelFromJson(res).data;
   }
+  static Future<List<Datum>> getRunningFixtures(String leagueId,String matchId) async {
+    String res = "";
+    try {
+      Response response = await Client().get(
+        Uri.parse("${Apis.runningFixture}$leagueId/$matchId"),
+      );
+      if (response.statusCode == 200) {
+        res = response.body;
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+    return fixtureModelFromJson(res).data;
+  }
 
   // function to add a fixture
   void createFixture(Map<String, dynamic> data) async {

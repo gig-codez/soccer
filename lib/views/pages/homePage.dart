@@ -64,6 +64,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  int currentTab = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +83,12 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         children: [
                           TabBar(
+                            onTap: (index) {
+                              setState(() {
+                                currentTab = index;
+                              });
+                              print(index);
+                            },
                             isScrollable: true,
                             tabs: List.generate(
                               mDates.length,
@@ -114,11 +121,22 @@ class _HomePageState extends State<HomePage> {
                                                         (context, leagueData) {
                                                       return LeagueWidget(
                                                         data: d[leagueData],
+                                                        matchId:
+                                                            mDates[currentTab]
+                                                                .id,
                                                       );
                                                     })
                                                 : const Center(
-                                                    child: Text(
-                                                        "No fixture yet set for today!"),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                            "No fixture yet set for today!"),
+                                                        // OutlinedButton.icon(onPressed: (){}, icon: icon, label: Text("Add "))
+                                                      ],
+                                                    ),
                                                   )
                                             : const Center(
                                                 child: CircularProgressIndicator
