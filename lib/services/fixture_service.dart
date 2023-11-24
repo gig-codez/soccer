@@ -51,15 +51,13 @@ class FixtureService {
     }
   }
 
-  static void updateFixture(Map<String, dynamic> data) async {
+  static void updateFixture(String fixtureId,Map<String, dynamic> data) async {
     try {
       Response res = await Client().put(
-        Uri.parse(Apis.updateFixture + data["fixtureId"]),
-        body: {
-          "isLive": data["isLive"],
-        },
+        Uri.parse(Apis.updateFixture + fixtureId),
+        body: data,
       );
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         showMessage(msg: "Fixture updated successfully");
         Routes.popPage();
@@ -80,7 +78,7 @@ class FixtureService {
           "awayGoals": data["awayGoals"],
         },
       );
-      print(res.body);
+      // print(res.body);
       if (res.statusCode == 200) {
         showMessage(msg: "Fixture updated successfully");
         Routes.popPage();

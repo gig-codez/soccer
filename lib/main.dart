@@ -8,7 +8,7 @@ import 'package:soccer/theme/Theme.dart';
 import 'package:soccer/tools/tools.dart';
 
 import '/exports/exports.dart';
-// var navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   // Ensuring that all widgets are properly assembled.
   WidgetsFlutterBinding.ensureInitialized();

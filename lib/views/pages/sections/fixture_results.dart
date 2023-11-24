@@ -1,10 +1,12 @@
 import 'package:soccer/services/fixture_service.dart';
-import 'package:soccer/services/results_service.dart';
+
 import 'package:soccer/widgets/custom_divider.dart';
 
 import '/models/fixture.dart';
 import '/widgets/PlayingTeams.dart';
 import '/exports/exports.dart';
+import 'show_leagues.dart';
+import 'show_match_dates.dart';
 
 class FixtureResults extends StatefulWidget {
   final String fixtureId;
@@ -24,12 +26,80 @@ class FixtureResults extends StatefulWidget {
 class _FixtureResultsState extends State<FixtureResults> {
   final _homeScoreController = TextEditingController();
   final _awayScoreController = TextEditingController();
+  final fixtureDateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Fixture Results'),
-      ),
+      appBar: AppBar(title: const Text('Fixture Results'), actions: [
+        Consumer<AppController>(builder: (context, controller, x) {
+          return IconButton(
+            icon: const Icon(Icons.edit_calendar_outlined),
+            onPressed: () {
+              showModalBottomSheet(
+                  showDragHandle: true,
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                      height: MediaQuery.of(context).size.width,
+                      child: Column(
+                        children: [
+                          const SizedBox.square(
+                            dimension: 20,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return BottomSheet(
+                                    onClosing: () {},
+                                    builder: (context) {
+                                      return const ShowMatchDates();
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                            child: CommonTextField(
+                              titleText: "Kick Off Date",
+                              hintText: "xx-xx-xxxx",
+                              icon: Icons.home_filled,
+                              readOnly: true,
+                              onChanged: (v) {},
+                              enableBorder: true,
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                              controller: fixtureDateController,
+                            ),
+                          ),
+                          const SizedBox.square(
+                            dimension: 20,
+                          ),
+                          CustomButton(
+                            text: "Update Fixture Date",
+                            buttonColor: Theme.of(context).primaryColor,
+                            textColor: Colors.white,
+                            onPress: () {
+                              if (fixtureDateController.text.isEmpty) {
+                                showMessage(
+                                  msg: "Kick off date can't be empty",
+                                  color: Colors.red,
+                                );
+                              } else {
+                                FixtureService.updateFixture(widget.fixtureId, {
+                                  "fixtureDate": controller.matchDateId["id"],
+                                });
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  });
+            },
+          );
+        })
+      ]),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0.0),
         child: Column(
@@ -88,8 +158,7 @@ class _FixtureResultsState extends State<FixtureResults> {
                   child: CustomButton(
                     width: 200,
                     onPress: () {
-                      FixtureService.updateFixture({
-                        "fixtureId": widget.fixtureId,
+                      FixtureService.updateFixture(widget.fixtureId, {
                         "isLive": "true",
                       });
                     },

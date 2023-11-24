@@ -97,37 +97,43 @@ class _LeagueWidgetState extends State<LeagueWidget> {
 // card header
 Widget _cardHeader({String? title, String? leagueLogo}) {
   BuildContext? context = navigatorKey.currentContext;
-  return Padding(
-    padding: const EdgeInsets.all(12.0),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(50),
-          child: leagueLogo == null
-              ? Image.asset(
-                  "assets/images/ball.png",
-                  width: 50,
-                  height: 50,
-                )
-              : Image.network(
-                  Apis.image + leagueLogo,
-                  width: 50,
-                  height: 50,
-                ),
+  return FittedBox(
+    child: SizedBox(
+      width: MediaQuery.of(context!).size.width,
+      height: 50,
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: leagueLogo == null
+                  ? Image.asset(
+                      "assets/images/ball.png",
+                      width: 50,
+                      height: 50,
+                    )
+                  : Image.network(
+                      Apis.image + leagueLogo,
+                      width: 50,
+                      height: 50,
+                    ),
+            ),
+            Text(
+              title ?? "League name",
+              style: Theme.of(context).textTheme.bodyLarge!.apply(
+                    fontWeightDelta: 5,
+                    fontSizeDelta: 3,
+                  ),
+            ),
+            const SizedBox.square(
+              dimension: 60,
+              child: Icon(Icons.arrow_forward_ios),
+            )
+          ],
         ),
-        Text(
-          title ?? "League name",
-          style: Theme.of(context!).textTheme.bodyLarge!.apply(
-                fontWeightDelta: 5,
-                fontSizeDelta: 3,
-              ),
-        ),
-        const SizedBox.square(
-          dimension: 60,
-          child: Icon(Icons.arrow_forward_ios),
-        )
-      ],
+      ),
     ),
   );
 }
@@ -158,61 +164,63 @@ Widget cardContent({Datum? fixture}) {
         ),
         Expanded(
           flex: 4,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        Apis.image + fixture!.hometeam.image,
-                        width: 44,
-                        height: 44,
+          child: FittedBox(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          Apis.image + fixture!.hometeam.image,
+                          width: 44,
+                          height: 44,
+                        ),
                       ),
-                    ),
-                    const SizedBox.square(
-                      dimension: 14,
-                    ),
-                    SizedBox(
-                      width: 170,
-                      child: Text(
-                        fixture.hometeam.name,
-                        style: textStyle,
-                        overflow: TextOverflow.ellipsis,
+                      const SizedBox.square(
+                        dimension: 14,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox.square(
-                  dimension: 10,
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        Apis.image + fixture.awayteam.image,
-                        width: 44,
-                        height: 44,
+                      SizedBox(
+                        width: 170,
+                        child: Text(
+                          fixture.hometeam.name,
+                          style: textStyle,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    const SizedBox.square(
-                      dimension: 20,
-                    ),
-                    SizedBox(
-                      width: 170,
-                      child: Text(
-                        fixture.awayteam.name,
-                        style: textStyle,
+                    ],
+                  ),
+                  const SizedBox.square(
+                    dimension: 10,
+                  ),
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          Apis.image + fixture.awayteam.image,
+                          width: 44,
+                          height: 44,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox.square(
+                        dimension: 20,
+                      ),
+                      SizedBox(
+                        width: 170,
+                        child: Text(
+                          fixture.awayteam.name,
+                          style: textStyle,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

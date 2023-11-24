@@ -4,6 +4,7 @@ import 'package:soccer/views/pages/sections/show_leagues.dart';
 import '../../../services/fixture_service.dart';
 
 import '/exports/exports.dart';
+import 'show_match_dates.dart';
 
 class AddFixture extends StatefulWidget {
   final String leagueId;
@@ -21,6 +22,8 @@ class _AddFixtureState extends State<AddFixture> {
   final awayTeamController = TextEditingController();
   final minutesPlayedController = TextEditingController();
   final kickOffController = TextEditingController();
+  var kickOffTimeController = TextEditingController();
+
   bool twoHavles = false;
   bool fourHavles = false;
   @override
@@ -34,6 +37,8 @@ class _AddFixtureState extends State<AddFixture> {
             homeTeamController.text = controller.homeTeamData['name'] ?? "";
 
             awayTeamController.text = controller.awayTeamData['name'] ?? "";
+
+            kickOffController.text = controller.matchDateId["date"] ?? "";
             // });
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +119,7 @@ class _AddFixtureState extends State<AddFixture> {
                             context: context, initialTime: TimeOfDay.now())
                         .then((time) {
                       setState(() {
-                        kickOffController.text =
+                        kickOffTimeController.text =
                             time!.format(context).toString();
                       });
                     });
@@ -126,7 +131,7 @@ class _AddFixtureState extends State<AddFixture> {
                     hintText: "e.g 20 mins",
                     enableBorder: true,
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                    controller: kickOffController,
+                    controller: kickOffTimeController,
                   ),
                 ),
                 Padding(
@@ -169,6 +174,30 @@ class _AddFixtureState extends State<AddFixture> {
                     )
                   ],
                 ),
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return BottomSheet(
+                          onClosing: () {},
+                          builder: (context) {
+                            return const ShowMatchDates();
+                          },
+                        );
+                      },
+                    );
+                  },
+                  child: CommonTextField(
+                    controller: kickOffController,
+                    padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
+                    titleText: "Kick Off Date",
+                    hintText: "Enter league name",
+                    contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                    enableBorder: true,
+                    onChanged: (n) async {},
+                  ),
+                ),
                 CustomButton(
                   onPress: () {
                     if (homeTeamController.text.isEmpty ||
@@ -187,7 +216,7 @@ class _AddFixtureState extends State<AddFixture> {
                           "twohalves": "$twoHavles",
                           "fourhavles": "$fourHavles",
                           "league": widget.leagueId,
-                          "date": kickOffController.text,
+                          "date": controller.matchDateId["id"],
                           "isLive": "false",
                           "homeGoals": "0",
                           "awayGoals": "0"

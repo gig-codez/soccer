@@ -1,4 +1,4 @@
-import 'package:soccer/widgets/ThemeWidget.dart';
+import '/widgets/ThemeWidget.dart';
 
 import '/exports/exports.dart';
 

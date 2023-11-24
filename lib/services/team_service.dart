@@ -1,10 +1,7 @@
 import 'dart:io';
 
-import 'package:soccer/apis/Apis.dart';
-import 'package:soccer/models/team.dart';
-
+import '/models/team.dart';
 import '../exports/exports.dart';
-import '../tools/tools.dart';
 
 class TeamService {
   Future<List<Message>> getTeams(String leagueId) async {
@@ -33,10 +30,10 @@ class TeamService {
       MultipartRequest request =
           MultipartRequest("POST", Uri.parse(Apis.createTeam));
 
-            request.headers.addAll({
-                        'Content-Type': 'multipart/form-data',
-                        'Accept': 'application/json',
-                      });
+      request.headers.addAll({
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+      });
       request.fields['name'] = data['name'];
       request.fields['league'] = data['league'];
       request.files.add(
@@ -47,7 +44,7 @@ class TeamService {
           filename: data["filename"],
         ),
       );
-      print(data);
+      // print(data);
 
       var res = await request.send();
       print(res.reasonPhrase);

@@ -29,4 +29,10 @@ class Apis {
   static String addResult = "${apiUrl}result/addresult";
   static String fetchResults = "${apiUrl}result/results";
   static String fetchSingleResult = "${apiUrl}result/results/";
+
+  // match dates
+  static String addMatchDates = "${apiUrl}match/add";
+  static String getMatchDates = "${apiUrl}match/get";
+  static String deleteMatchDates = "${apiUrl}match/delete/";
+  static String updateMatchDates = "${apiUrl}match/update/";
 }

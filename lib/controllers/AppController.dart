@@ -28,5 +28,11 @@ class AppController with ChangeNotifier {
     notifyListeners();
   }
 
-  //
+// match date
+   Map<String, dynamic> _matchDateId = {};
+  Map<String, dynamic> get matchDateId => _matchDateId;
+  set matchDateId( Map<String, dynamic> id) {
+    _matchDateId = id;
+    notifyListeners();
+  }
 }

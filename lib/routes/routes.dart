@@ -1,4 +1,5 @@
 import 'package:soccer/views/pages/sections/LeagueFixtures.dart';
+import 'package:soccer/views/pages/sections/match_dates.dart';
 
 import '/views/pages/sections/Fixtures.dart';
 import '/views/pages/sections/Players.dart';
@@ -22,6 +23,7 @@ class Routes {
   static String fixtures = "/fixtures";
   static String fixturePage = "/fixture/Page";
   static String players = "/players";
+  static String matchdates = "/matchdates";
   static BuildContext context = navigatorKey.currentState!.context;
   // routes merger
   static Map<String, Widget Function(BuildContext context)> routes = {
@@ -36,7 +38,8 @@ class Routes {
     fixtures: (context) => const LeagueFixtures(),
     leagues: (context) => const Leagues(),
     notifications: (context) => const Notifications(),
-    players: (context) => const Players()
+    players: (context) => const Players(),
+    matchdates: (context) => const MatchDates(),
   };
 
   // routes methods
