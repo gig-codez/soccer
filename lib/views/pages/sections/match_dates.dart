@@ -61,10 +61,37 @@ class _MatchDatesState extends State<MatchDates> {
                           itemCount: matchs.length,
                           itemBuilder: (context, index) {
                             return ProfileWidget(
+                              onLongPress: () {
+                                String m = DateFormat("EEE d MMM").format(
+                                  DateTime.parse(matchs[index].date),
+                                );
+                                showAdaptiveDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog.adaptive(
+                                          title: Text("Delete match date!!"),
+                                          content: Text(
+                                              "Are you sure you want to delete $m?"),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Routes.popPage(),
+                                              child: const Text("Cancel"),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                MatchDateService
+                                                    .deleteMatchDate(
+                                                        matchs[index].id);
+                                              },
+                                              child: const Text("Delete"),
+                                            )
+                                          ]);
+                                    });
+                              },
                               titleText: DateFormat("EEE d MMM").format(
                                 DateTime.parse(matchs[index].date),
                               ),
-                              prefixIcon: "assets/football.svg",
+                              prefixIcon: "assets/month.svg",
                               color: Colors.green,
                               iconSize: 30,
                               size: 30,

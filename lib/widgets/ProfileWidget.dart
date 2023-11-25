@@ -6,6 +6,7 @@ class ProfileWidget extends StatelessWidget {
   final Color? color;
   final VoidCallback? onPress;
   final VoidCallback? editProfile;
+  final void Function()? onLongPress;
   final IconData? icon;
   final double size;
   final bool tile;
@@ -25,6 +26,7 @@ class ProfileWidget extends StatelessWidget {
     this.tile = false,
     this.img,
     this.onPress,
+    this.onLongPress,
   });
 
   @override
@@ -105,6 +107,7 @@ class ProfileWidget extends StatelessWidget {
                 ),
                 child: ListTile(
                   onTap: onPress,
+                  onLongPress: onLongPress,
                   leading: CircleAvatar(
                     radius: size,
                     backgroundColor: color?.withOpacity(0.12),

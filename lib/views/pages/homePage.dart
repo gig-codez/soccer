@@ -87,7 +87,6 @@ class _HomePageState extends State<HomePage> {
                               setState(() {
                                 currentTab = index;
                               });
-                              print(index);
                             },
                             isScrollable: true,
                             tabs: List.generate(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import '../exports/exports.dart';
 import '../models/fixture.dart';
 
@@ -16,7 +18,9 @@ class FixtureService {
     }
     return fixtureModelFromJson(res).data;
   }
-  static Future<List<Datum>> getRunningFixtures(String leagueId,String matchId) async {
+
+  static Future<List<Datum>> getRunningFixtures(
+      String leagueId, String matchId) async {
     String res = "";
     try {
       Response response = await Client().get(
@@ -24,6 +28,8 @@ class FixtureService {
       );
       if (response.statusCode == 200) {
         res = response.body;
+
+        // log(res);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
@@ -65,7 +71,7 @@ class FixtureService {
     }
   }
 
-  static void updateFixture(String fixtureId,Map<String, dynamic> data) async {
+  static void updateFixture(String fixtureId, Map<String, dynamic> data) async {
     try {
       Response res = await Client().put(
         Uri.parse(Apis.updateFixture + fixtureId),
@@ -83,6 +89,7 @@ class FixtureService {
       debugPrint(e.message);
     }
   }
+
   static void updateFixtureGoals(Map<String, dynamic> data) async {
     try {
       Response res = await Client().put(

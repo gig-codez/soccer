@@ -29,7 +29,8 @@ class _LeagueWidgetState extends State<LeagueWidget> {
         await FixtureService.getRunningFixtures(widget.data.id, widget.matchId);
     _leaguesController.add(leagues);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      var leagues = await FixtureService.getFixtures(widget.data.id);
+      var leagues = await FixtureService.getRunningFixtures(
+          widget.data.id, widget.matchId);
       _leaguesController.add(leagues);
     });
   }
@@ -52,7 +53,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
+      // height: MediaQuery.of(context).size.height * 0.7,
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
       margin: const EdgeInsets.fromLTRB(10, 11, 10, 11),
       decoration: BoxDecoration(
@@ -62,37 +63,32 @@ class _LeagueWidgetState extends State<LeagueWidget> {
           color: Colors.grey.shade300,
         ),
       ),
-      child: Column(
-        children: [
-          _cardHeader(title: widget.data.name),
-          Divider(
-            color: Colors.grey.shade300,
-          ),
-          Expanded(
-            child: StreamBuilder(
-                stream: _leaguesController.stream,
-                builder: (context, snapshot) {
-                  var _data = snapshot.data;
-                  return snapshot.hasData
-                      ? _data != null && _data.isNotEmpty
-                          ? ListView.separated(
-                              itemBuilder: (context, i) =>
-                                  cardContent(fixture: _data[i]),
-                              separatorBuilder: (context, x) => Divider(
-                                color: Colors.grey.shade300,
-                              ),
-                              itemCount: _data.length,
-                            )
-                          : const Center(
-                              child: Text("No fixtures"),
-                            )
-                      : const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        );
-                }),
-          ),
-        ],
-      ),
+      child: StreamBuilder(
+          stream: _leaguesController.stream,
+          builder: (context, snapshot) {
+            var _data = snapshot.data;
+            return snapshot.hasData
+                ? Column(
+                    children: [
+                      _cardHeader(title: widget.data.name),
+                      Divider(
+                        color: Colors.grey.shade300,
+                      ),
+                      if (_data != null && _data.isNotEmpty)
+                        ...List.generate(
+                          _data.length,
+                          (i) => cardContent(fixture: _data[i]),
+                        ),
+                      if (_data != null && _data.isEmpty)
+                        const Center(
+                          child: Text("No fixtures"),
+                        )
+                    ],
+                  )
+                : const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+          }),
     );
   }
 }
@@ -155,94 +151,107 @@ Widget cardContent({Datum? fixture}) {
         ),
       );
     },
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Text(
-            "FT",
-            style: textStyle.copyWith(fontSize: 15),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        Expanded(
-          flex: 4,
-          child: FittedBox(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.network(
-                          Apis.image + fixture!.hometeam.image,
-                          width: 44,
-                          height: 44,
-                        ),
-                      ),
-                      const SizedBox.square(
-                        dimension: 14,
-                      ),
-                      SizedBox(
-                        width: 170,
-                        child: Text(
-                          fixture.hometeam.name,
-                          style: textStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
+    child: SizedBox(
+      height: 140,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: SizedBox(
+                  width: 20,
+                  child: Text(
+                    "FT",
+                    style: textStyle.copyWith(fontSize: 15),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox.square(
-                    dimension: 10,
-                  ),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.network(
-                          Apis.image + fixture.awayteam.image,
-                          width: 44,
-                          height: 44,
-                        ),
-                      ),
-                      const SizedBox.square(
-                        dimension: 20,
-                      ),
-                      SizedBox(
-                        width: 170,
-                        child: Text(
-                          fixture.awayteam.name,
-                          style: textStyle,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: SizedBox(
-            width: 20,
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(text: "${fixture.homeGoals}\n"),
-                  TextSpan(text: "\n ${fixture.awayGoals},"),
-                ],
+              Expanded(
+                flex:4,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                Apis.image + fixture!.hometeam.image,
+                                width: 44,
+                                height: 44,
+                              ),
+                            ),
+                            const SizedBox.square(
+                              dimension: 14,
+                            ),
+                            SizedBox(
+                              width: 170,
+                              child: Text(
+                                fixture.hometeam.name,
+                                style: textStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox.square(
+                          dimension: 10,
+                        ),
+                        Row(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                Apis.image + fixture.awayteam.image,
+                                width: 44,
+                                height: 44,
+                              ),
+                            ),
+                            const SizedBox.square(
+                              dimension: 20,
+                            ),
+                            SizedBox(
+                              width: 170,
+                              child: Text(
+                                fixture.awayteam.name,
+                                style: textStyle,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              textAlign: TextAlign.center,
-              style: textStyle,
-            ),
+              Expanded(
+                child: SizedBox(
+                  width: 20,
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(text: "${fixture.homeGoals}\n"),
+                        TextSpan(text: "\n ${fixture.awayGoals}"),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                    style: textStyle,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-      ],
+          Divider(
+            color: Colors.grey.shade300,
+          ),
+        ],
+      ),
     ),
   );
 }
