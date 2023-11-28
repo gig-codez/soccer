@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../exports/exports.dart';
 import '../models/fixture.dart';
 
@@ -28,7 +26,6 @@ class FixtureService {
       );
       if (response.statusCode == 200) {
         res = response.body;
-
         // log(res);
       }
     } on ClientException catch (e) {

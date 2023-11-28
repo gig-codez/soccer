@@ -6,6 +6,7 @@ import '/views/pages/sections/Players.dart';
 import '/views/pages/sections/add_team.dart';
 
 import '/exports/exports.dart';
+import 'widgets/update_team.dart';
 
 class Teams extends StatefulWidget {
   final String? leagueId;
@@ -16,9 +17,12 @@ class Teams extends StatefulWidget {
   State<Teams> createState() => _TeamsState();
 }
 
-class _TeamsState extends State<Teams> {
+class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
   final StreamController<List<Message>> _leaguesController =
       StreamController<List<Message>>();
+
+  AnimationController? _controller;
+
   Timer? _timer;
   void fetchLeagues() async {
     var leagues = await TeamService().getTeams(widget.leagueId ?? "");
@@ -33,10 +37,17 @@ class _TeamsState extends State<Teams> {
   void initState() {
     super.initState();
     fetchLeagues();
+    _controller = AnimationController(
+      value: 0,
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _controller?.forward();
   }
 
   @override
   void dispose() {
+    _controller?.dispose();
     if (_leaguesController.hasListener) {
       _leaguesController.close();
     }
@@ -85,6 +96,24 @@ class _TeamsState extends State<Teams> {
                                     ),
                                   );
                                 },
+                                onLongPress: () {
+                                  showModalBottomSheet(
+                                      transitionAnimationController:
+                                          _controller,
+                                          showDragHandle: true,
+                                      context: context,
+                                      builder: (context) {
+                                        return BottomSheet(
+                                            animationController: _controller,
+                                            onClosing: () {},
+                                            builder: (context) {
+                                              return UpdateTeam(
+                                                leagueId: widget.leagueId!,
+                                                team: snap.data![index],
+                                              );
+                                            });
+                                      });
+                                },
                               );
                             },
                           )
@@ -100,9 +129,11 @@ class _TeamsState extends State<Teams> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => showModalBottomSheet(
             showDragHandle: true,
+            transitionAnimationController: _controller,
             context: context,
             builder: (context) {
               return BottomSheet(
+                  animationController: _controller,
                   onClosing: () {},
                   builder: (context) {
                     return AddTeam(leagueId: widget.leagueId);

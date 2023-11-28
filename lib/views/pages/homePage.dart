@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final StreamController<List<MatchDateModel>> _matchDateController =
       StreamController<List<MatchDateModel>>();
   Timer? _timer;
@@ -31,10 +31,15 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  TabController? tabController;
+  int tabs = 0;
   @override
   void initState() {
     super.initState();
     fetehMatchDates();
+    MatchDateService.getMatchDates().then((x) {
+      tabController = TabController(length: x.length, vsync: this);
+    });
   }
 
   @override
@@ -68,26 +73,32 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Samba Stats'),
-      ),
-      drawer: const DrawerWidget(),
-      body: StreamBuilder(
-        stream: _matchDateController.stream,
-        builder: (context, snapshot) {
-          var mDates = snapshot.data;
-          return snapshot.hasData
-              ? mDates != null && mDates.isNotEmpty
-                  ? DefaultTabController(
-                      length: mDates.length,
-                      child: Column(
+        appBar: AppBar(
+          title: const Text('Samba Stats'),
+        ),
+        drawer: const DrawerWidget(),
+        body: StreamBuilder(
+          stream: _matchDateController.stream,
+          builder: (context, snapshot) {
+            var mDates = snapshot.data;
+            int x = 0;
+            if (mDates != null) {
+              if (mounted && x == 0) {
+                x += 1;
+              }
+            }
+
+            return snapshot.hasData
+                ? mDates != null && mDates.isNotEmpty
+                    ? Column(
                         children: [
                           TabBar(
-                            onTap: (index) {
-                              setState(() {
-                                currentTab = index;
-                              });
-                            },
+                            controller: tabController,
+                            // onTap: (index) {
+                            //   setState(() {
+                            //     currentTab = index;
+                            //   });
+                            // },
                             isScrollable: true,
                             tabs: List.generate(
                               mDates.length,
@@ -103,6 +114,7 @@ class _HomePageState extends State<HomePage> {
                               height: MediaQuery.of(context).size.height * 0.75,
                               width: MediaQuery.of(context).size.width,
                               child: TabBarView(
+                                controller: tabController,
                                 children: List.generate(
                                   mDates.length,
                                   (index) => Padding(
@@ -120,9 +132,10 @@ class _HomePageState extends State<HomePage> {
                                                         (context, leagueData) {
                                                       return LeagueWidget(
                                                         data: d[leagueData],
-                                                        matchId:
-                                                            mDates[currentTab]
-                                                                .id,
+                                                        matchId: mDates[
+                                                                tabController!
+                                                                    .index]
+                                                            .id,
                                                       );
                                                     })
                                                 : const Center(
@@ -149,17 +162,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )
                         ],
-                      ),
-                    )
-                  : const Center(
-                      child: Text(
-                      "No fixture dates yet set !",
-                    ))
-              : const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
-        },
-      ),
-    );
+                      )
+                    : const Center(
+                        child: Text(
+                        "No fixture dates yet set !",
+                      ))
+                : const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator.adaptive(),
+                        Text("Loading data")
+                      ],
+                    ),
+                  );
+          },
+        ));
   }
 }

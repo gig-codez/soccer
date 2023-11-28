@@ -68,11 +68,34 @@ class TeamService {
 
   static void updateTeam(Map<String, dynamic> data, String id) async {
     try {
-      Response response =
-          await Client().put(Uri.parse(Apis.updateTeam + id), body: data);
-      if (response.statusCode == 200) {
-        showMessage(msg: "Team updated successfully", color: Colors.green);
+      // Response response =
+      //     await Client().put(Uri.parse(Apis.updateTeam + id), body: data);
+      MultipartRequest request =
+          MultipartRequest("PUT", Uri.parse(Apis.updateTeam + id));
+
+      request.headers.addAll({
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+      });
+      request.fields['name'] = data['name'];
+      request.fields['league'] = data['league'];
+      request.files.add(
+        MultipartFile(
+          "file",
+          data["stream"],
+          data["length"],
+          filename: data["filename"],
+        ),
+      );
+      // print(data);
+
+      var res = await request.send();
+      print(res.reasonPhrase);
+      if (res.statusCode == 200) {
+        showMessage(msg: "Team updated successfully");
+        Routes.popPage();
       } else {
+        Routes.popPage();
         showMessage(msg: "Team update failed", color: Colors.red);
       }
     } on ClientException catch (e) {

@@ -23,7 +23,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   final StreamController<List<Datum>> _leaguesController =
       StreamController<List<Datum>>();
   Timer? _timer;
-
+  bool showHide = true;
   void fetchLeagues() async {
     var leagues =
         await FixtureService.getRunningFixtures(widget.data.id, widget.matchId);
@@ -38,7 +38,7 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   void initState() {
     super.initState();
-    fetchLeagues();
+    // fetchLeagues();
   }
 
   @override
@@ -52,46 +52,66 @@ class _LeagueWidgetState extends State<LeagueWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // height: MediaQuery.of(context).size.height * 0.7,
-      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-      margin: const EdgeInsets.fromLTRB(10, 11, 10, 11),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Colors.grey.shade300,
-        ),
-      ),
-      child: StreamBuilder(
-          stream: _leaguesController.stream,
-          builder: (context, snapshot) {
-            var _data = snapshot.data;
-            return snapshot.hasData
-                ? Column(
-                    children: [
-                      _cardHeader(title: widget.data.name),
-                      Divider(
-                        color: Colors.grey.shade300,
-                      ),
-                      if (_data != null && _data.isNotEmpty)
-                        ...List.generate(
-                          _data.length,
-                          (i) => cardContent(fixture: _data[i]),
+    FixtureService.getRunningFixtures(widget.data.id, widget.matchId).then((x) {
+      if (mounted) {
+        if (x.isEmpty) {
+          setState(() {
+            showHide = false;
+          });
+        } else {
+          setState(() {
+            showHide = true;
+          });
+        }
+      }
+    });
+    return showHide
+        ? FutureBuilder(
+            future: FixtureService.getRunningFixtures(
+                widget.data.id, widget.matchId),
+            builder: (context, snapshot) {
+              var _data = snapshot.data;
+              return snapshot.hasData
+                  ? Container(
+                      // height: MediaQuery.of(context).size.height * 0.7,
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      margin: const EdgeInsets.fromLTRB(10, 11, 10, 11),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Colors.grey.shade300,
                         ),
-                      if (_data != null && _data.isEmpty)
-                        const Center(
-                          child: Text("No fixtures"),
-                        )
-                    ],
-                  )
-                : const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-          }),
-    );
+                      ),
+                      child: Column(
+                        children: [
+                          _cardHeader(title: widget.data.name),
+                          Divider(
+                            color: Colors.grey.shade300,
+                          ),
+                          if (_data != null && _data.isNotEmpty)
+                            ...List.generate(
+                              _data.length,
+                              (i) => cardContent(fixture: _data[i]),
+                            ),
+                          if (_data != null && _data.isEmpty)
+                            const Center(
+                              child: Text("No fixtures"),
+                            )
+                        ],
+                      ),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+            },
+          )
+        : const SizedBox();
   }
 }
+/**
+ *                    
+ */
 
 // card header
 Widget _cardHeader({String? title, String? leagueLogo}) {
@@ -162,14 +182,14 @@ Widget cardContent({Datum? fixture}) {
                 child: SizedBox(
                   width: 20,
                   child: Text(
-                    "FT",
+                    fixture!.isLive ? "FT" : fixture.kickofftime,
                     style: textStyle.copyWith(fontSize: 15),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
               Expanded(
-                flex:4,
+                flex: 4,
                 child: FittedBox(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
