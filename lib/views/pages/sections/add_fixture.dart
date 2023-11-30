@@ -178,6 +178,7 @@ class _AddFixtureState extends State<AddFixture> {
                   onTap: () {
                     showModalBottomSheet(
                       context: context,
+                      showDragHandle: true,
                       builder: (BuildContext context) {
                         return BottomSheet(
                           onClosing: () {},
@@ -212,7 +213,7 @@ class _AddFixtureState extends State<AddFixture> {
                           "hometeam": controller.homeTeamData['id'],
                           "awayteam": controller.awayTeamData['id'],
                           "minutesplayed": minutesPlayedController.text,
-                          "kickofftime": kickOffController.text,
+                          "kickofftime": kickOffTimeController.text,
                           "twohalves": "$twoHavles",
                           "fourhavles": "$fourHavles",
                           "league": widget.leagueId,

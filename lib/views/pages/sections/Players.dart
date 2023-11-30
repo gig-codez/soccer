@@ -145,19 +145,7 @@ class _PlayersState extends State<Players> {
                             child: Text("P"),
                           ),
                           subtitle: Text("${snap.data?[index].position}"),
-                          onTap: () {
-                            showModalBottomSheet(
-                                showDragHandle: true,
-                                context: context,
-                                builder: (context) {
-                                  return BottomSheet(
-                                    onClosing: () {},
-                                    builder: (context) {
-                                      return const PlayerOptions();
-                                    },
-                                  );
-                                });
-                          },
+                         
                           onLongPress: () {
                             showAdaptiveDialog(
                               context: context,

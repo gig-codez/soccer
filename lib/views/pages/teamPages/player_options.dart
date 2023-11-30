@@ -1,7 +1,9 @@
 import '../../../exports/exports.dart';
+import '../../../models/player.dart';
 
 class PlayerOptions extends StatefulWidget {
-  const PlayerOptions({super.key});
+  final Message data;
+  const PlayerOptions({super.key, required this.data});
 
   @override
   State<PlayerOptions> createState() => _PlayerOptionsState();
@@ -10,18 +12,37 @@ class PlayerOptions extends StatefulWidget {
 class _PlayerOptionsState extends State<PlayerOptions> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListTile(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 17, 0, 8),
+            child: Text(
+              "Options for ${widget.data.name}",
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
+            child: Divider(),
+          ),
+          const ListTile(
             leading: Icon(Icons.sports_soccer),
             title: Text("Goal"),
           ),
           ListTile(
             leading: Icon(Icons.sports),
             title: Text("Assist"),
+            trailing: Text(
+              "0",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
           ),
-          ListTile(
+          const ListTile(
             leading: SizedBox.square(
               dimension: 25,
               child: Card(
@@ -29,21 +50,20 @@ class _PlayerOptionsState extends State<PlayerOptions> {
               ),
             ),
             title: Text(
-              "Yellow",
+              "Yellow card",
             ),
           ),
-          // 11:00
-          ListTile(
+          const ListTile(
             leading: SizedBox.square(
               dimension: 25,
               child: Card(
                 color: Colors.red,
               ),
             ),
-            title: Text("Red"),
-            trailing: Row(
-              children: [],
-            ),
+            title: Text("Red card"),
+            // trailing: Row(
+            //   children: [],
+            // ),
           ),
         ],
       ),

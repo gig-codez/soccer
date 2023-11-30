@@ -96,23 +96,48 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
                                     ),
                                   );
                                 },
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                        transitionAnimationController:
+                                            _controller,
+                                        showDragHandle: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return BottomSheet(
+                                              animationController: _controller,
+                                              onClosing: () {},
+                                              builder: (context) {
+                                                return UpdateTeam(
+                                                  leagueId: widget.leagueId!,
+                                                  team: snap.data![index],
+                                                );
+                                              });
+                                        });
+                                  },
+                                  icon: const Icon(Icons.edit),
+                                ),
                                 onLongPress: () {
-                                  showModalBottomSheet(
-                                      transitionAnimationController:
-                                          _controller,
-                                          showDragHandle: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return BottomSheet(
-                                            animationController: _controller,
-                                            onClosing: () {},
-                                            builder: (context) {
-                                              return UpdateTeam(
-                                                leagueId: widget.leagueId!,
-                                                team: snap.data![index],
-                                              );
-                                            });
-                                      });
+                                  showAdaptiveDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog.adaptive(
+                                      title: const Text("Delete Team"),
+                                      content: const Text(
+                                          "Are you sure you want to delete this team?"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Routes.popPage(),
+                                          child: const Text("Cancel"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              TeamService.deleteTeam(
+                                                  snap.data![index].id),
+                                          child: const Text("Delete"),
+                                        ),
+                                      ],
+                                    ),
+                                  );
                                 },
                               );
                             },

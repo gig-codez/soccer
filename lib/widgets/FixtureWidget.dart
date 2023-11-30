@@ -19,7 +19,10 @@ class FixtureWidget extends StatelessWidget {
       required this.awayTeamLogo,
       required this.onTap,
       this.onLongPress,
-      required this.kickOffTime, required this.isLive, required this.homeGoal, required this.awayGoal});
+      required this.kickOffTime,
+      required this.isLive,
+      required this.homeGoal,
+      required this.awayGoal});
 
   @override
   Widget build(BuildContext context) {
@@ -39,58 +42,70 @@ class FixtureWidget extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 80,
-                      child: Text(
-                        "$homeTeam  ",
-                        style: Theme.of(context).textTheme.bodySmall,
-                        overflow: TextOverflow.ellipsis,
+                child: FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 80,
+                        child: Text(
+                          "$homeTeam  ",
+                          style: Theme.of(context).textTheme.bodySmall,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        Apis.image + homeTeamLogo,
-                        width: 30,
-                        height: 30,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          Apis.image + homeTeamLogo,
+                          width: 30,
+                          height: 30,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Expanded(
-                child: Text(
-                 isLive ? "$homeGoal - $awayGoal" : kickOffTime,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 2.0, 15, 2.0),
+                  child: FittedBox(
+                    child: Text(
+                      isLive ? "$homeGoal - $awayGoal" : kickOffTime,
+                      style: Theme.of(context).textTheme.labelLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
               Expanded(
                 flex: 2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.network(
-                        Apis.image + awayTeamLogo,
-                        width: 30,
-                        height: 30,
+                child: FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          Apis.image + awayTeamLogo,
+                          width: 30,
+                          height: 30,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 80,
-                      child: Text(
-                        "   $awayTeam",
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                      FittedBox(
+                        child: SizedBox(
+                          width: 80,
+                          child: Text(
+                            "   $awayTeam",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

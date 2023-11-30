@@ -38,20 +38,6 @@ class _LeagueWidgetState extends State<LeagueWidget> {
   @override
   void initState() {
     super.initState();
-    // fetchLeagues();
-  }
-
-  @override
-  void dispose() {
-    if (_leaguesController.hasListener) {
-      _leaguesController.close();
-    }
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     FixtureService.getRunningFixtures(widget.data.id, widget.matchId).then((x) {
       if (mounted) {
         if (x.isEmpty) {
@@ -65,6 +51,19 @@ class _LeagueWidgetState extends State<LeagueWidget> {
         }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    if (_leaguesController.hasListener) {
+      _leaguesController.close();
+    }
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return showHide
         ? FutureBuilder(
             future: FixtureService.getRunningFixtures(
@@ -102,7 +101,14 @@ class _LeagueWidgetState extends State<LeagueWidget> {
                       ),
                     )
                   : const Center(
-                      child: CircularProgressIndicator.adaptive(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Loading fixture data"),
+                          CircularProgressIndicator.adaptive()
+                        ],
+                      ),
                     );
             },
           )

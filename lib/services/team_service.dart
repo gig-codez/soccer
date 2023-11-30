@@ -47,7 +47,7 @@ class TeamService {
       // print(data);
 
       var res = await request.send();
-      print(res.reasonPhrase);
+
       if (res.statusCode == 200) {
         showMessage(msg: "Team created successfully");
         Routes.popPage();
@@ -68,8 +68,7 @@ class TeamService {
 
   static void updateTeam(Map<String, dynamic> data, String id) async {
     try {
-      // Response response =
-      //     await Client().put(Uri.parse(Apis.updateTeam + id), body: data);
+
       MultipartRequest request =
           MultipartRequest("PUT", Uri.parse(Apis.updateTeam + id));
 
@@ -79,18 +78,21 @@ class TeamService {
       });
       request.fields['name'] = data['name'];
       request.fields['league'] = data['league'];
-      request.files.add(
-        MultipartFile(
-          "file",
-          data["stream"],
-          data["length"],
-          filename: data["filename"],
-        ),
-      );
+      if (data['stream'] != null) {
+        request.files.add(
+          MultipartFile(
+            "file",
+            data["stream"],
+            data["length"],
+            filename: data["filename"],
+          ),
+        );
+      }
+
       // print(data);
 
       var res = await request.send();
-      print(res.reasonPhrase);
+
       if (res.statusCode == 200) {
         showMessage(msg: "Team updated successfully");
         Routes.popPage();
@@ -106,6 +108,22 @@ class TeamService {
       debugPrint(e.message);
     } catch (e) {
       throw Exception(e.toString());
+    }
+  }
+
+  static void deleteTeam(String id) async {
+    try {
+      Response res = await Client().delete(Uri.parse(Apis.deleteTeam + id));
+      if (res.statusCode == 200) {
+        Routes.popPage();
+        showMessage(msg: "Team deleted successfully", color: Colors.green);
+      } else {
+        Routes.popPage();
+        showMessage(msg: "Team deleting failed", color: Colors.red);
+      }
+    } on ClientException catch (e) {
+      Routes.popPage();
+      showMessage(msg: e.message, color: Colors.red);
     }
   }
 }

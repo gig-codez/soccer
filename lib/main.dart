@@ -4,8 +4,7 @@
 /// Date: 03/11/2023
 
 import 'package:flutter/services.dart';
-import 'package:soccer/theme/Theme.dart';
-import 'package:soccer/tools/tools.dart';
+import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
 

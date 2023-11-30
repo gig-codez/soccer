@@ -8,6 +8,7 @@ class ProfileWidget extends StatelessWidget {
   final VoidCallback? editProfile;
   final void Function()? onLongPress;
   final IconData? icon;
+  final Widget? trailing;
   final double size;
   final bool tile;
   final String? img;
@@ -27,6 +28,7 @@ class ProfileWidget extends StatelessWidget {
     this.img,
     this.onPress,
     this.onLongPress,
+    this.trailing,
   });
 
   @override
@@ -127,10 +129,7 @@ class ProfileWidget extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                   ),
-                  trailing: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 17,
-                  ),
+                  trailing: trailing,
                 ),
               ),
             ),

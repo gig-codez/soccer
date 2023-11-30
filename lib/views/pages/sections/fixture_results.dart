@@ -1,11 +1,12 @@
-import 'package:soccer/services/fixture_service.dart';
-
-import 'package:soccer/widgets/custom_divider.dart';
+import '/services/fixture_service.dart';
 
 import '/models/fixture.dart';
 import '/widgets/PlayingTeams.dart';
 import '/exports/exports.dart';
+import 'fixture/away_team.dart';
+import 'fixture/home_team.dart';
 import 'show_match_dates.dart';
+import 'widgets/update_fixture_results.dart';
 
 class FixtureResults extends StatefulWidget {
   final String fixtureId;
@@ -22,10 +23,22 @@ class FixtureResults extends StatefulWidget {
   State<FixtureResults> createState() => _FixtureResultsState();
 }
 
-class _FixtureResultsState extends State<FixtureResults> {
-  final _homeScoreController = TextEditingController();
-  final _awayScoreController = TextEditingController();
+class _FixtureResultsState extends State<FixtureResults>
+    with SingleTickerProviderStateMixin {
   final fixtureDateController = TextEditingController();
+  TabController? tabController;
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    tabController?.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,83 +123,62 @@ class _FixtureResultsState extends State<FixtureResults> {
         padding: const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0.0),
         child: Column(
           children: [
-            PlayingTeams(data: widget.data),
-            const SizedBox.square(
-              dimension: 20,
-            ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(15.0, 8.0, 15.0, 8.0),
-              child: CustomDivider(text: "Update fixture"),
-            ),
-            CommonTextField(
-              titleText: "Home Score",
-              hintText: "Home Score",
-              controller: _homeScoreController,
-              enableBorder: true,
-              keyboardType: TextInputType.number,
-            ),
-            CommonTextField(
-              titleText: "Away Score",
-              controller: _awayScoreController,
-              enableBorder: true,
-              hintText: "Away Score",
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox.square(
-              dimension: 20,
-            ),
-            CustomButton(
-              text: "Update Fixture",
-              buttonColor: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              onPress: () {
-                if (_homeScoreController.text.isEmpty ||
-                    _awayScoreController.text.isEmpty) {
-                  showMessage(
-                    msg: "Please fill all the fields",
-                    color: Colors.red,
-                  );
-                } else {
-                  FixtureService.updateFixtureGoals({
-                    "fixtureId": widget.fixtureId,
-                    "homeGoals": _homeScoreController.text,
-                    "awayGoals": _awayScoreController.text
-                  });
-                }
-              },
-            ),
-            SizedBox.square(
-              dimension: MediaQuery.of(context).size.width / 1.5,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomButton(
-                    width: 200,
-                    onPress: () {
-                      FixtureService.updateFixture(widget.fixtureId, {
-                        "isLive": "true",
-                      });
-                    },
-                    text: "Start fixture",
-                  ),
-                ),
-                const SizedBox.square(
-                  dimension: 20,
-                ),
-                // Expanded(
-                //   child: CustomButton(
-                //     width: 200,
-                //     buttonColor: Theme.of(context).primaryColor,
-                //     textColor: Colors.white,
-                //     onPress: () {},
-                //     text: "Stop Fixture",
-                //   ),
-                // ),
+            Expanded(child: PlayingTeams(data: widget.data)),
+            TabBar(
+              controller: tabController,
+              tabs: [
+                Tab(text: "${widget.data.hometeam.name}'s players"),
+                Tab(text: "${widget.data.awayteam.name}'s players"),
               ],
+            ),
+            Expanded(
+              flex: 5,
+              child: TabBarView(
+                controller: tabController,
+                children: [
+                  HomeTeamFixture(id: widget.data.hometeam.id),
+                  AwayTeamFixture(id: widget.data.awayteam.id),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: CustomButton(
+                width: 200,
+                onPress: () {
+                  FixtureService.updateFixture(widget.fixtureId, {
+                    "isLive": "true",
+                  });
+                },
+                text: "Start fixture",
+              ),
+            ),
+            const SizedBox.square(
+              dimension: 40,
             )
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            showDragHandle: true,
+            builder: (BuildContext context) {
+              return BottomSheet(
+                onClosing: () {},
+                builder: (context) {
+                  return UpdateFixtureResults(
+                    fixtureId: widget.fixtureId,
+                  );
+                },
+              );
+            },
+          );
+        },
+        // label: const Text("Edit Results"),
+        child: const Icon(Icons.edit),
       ),
     );
   }

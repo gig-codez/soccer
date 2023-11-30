@@ -1,5 +1,5 @@
-import '../../../models/league.dart';
-import '../../../services/league_service.dart';
+import '/models/league.dart';
+import '/services/league_service.dart';
 import '/exports/exports.dart';
 import 'dart:async';
 

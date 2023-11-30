@@ -19,7 +19,7 @@ class UpdateTeam extends StatefulWidget {
 class _UpdateTeamState extends State<UpdateTeam>
     with SingleTickerProviderStateMixin {
   final teamNameController = TextEditingController();
-  AnimationController? _controller;
+
   Uint8List? imageData;
   String fileName = "";
   String? currentImage;
@@ -27,96 +27,103 @@ class _UpdateTeamState extends State<UpdateTeam>
   @override
   void initState() {
     super.initState();
-    setState(() {
-      teamNameController.text = widget.team.name;
-      currentImage = widget.team.image;
-    });
+
+    teamNameController.text = widget.team.name;
+    currentImage = widget.team.image;
+    debugPrint(currentImage);
   }
 
   int fileLength = 0;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 30, 0, 13),
-              child: Text(
-                "Add Team Information",
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontWeight: FontWeight.bold),
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 30, 0, 13),
+                child: Text(
+                  "Add Team Information",
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: streamData == null
-                        ? Image.asset("assets/images/default.jpeg",
-                            width: 80, height: 80, fit: BoxFit.cover)
-                        :currentImage == null ?  Image.memory(imageData!,
-                            width: 80, height: 80, fit: BoxFit.cover):Image.network(Apis.image + currentImage!,width: 80, height: 80, fit: BoxFit.cover,),
-                  ),
-                  const SizedBox.square(
-                    dimension: 30,
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.add_a_photo,
-                      size: 50,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: streamData != null
+                          ? Image.memory(imageData!,
+                              width: 80, height: 80, fit: BoxFit.cover)
+                          : Image.network(
+                              Apis.image + currentImage!,
+                              width: 80,
+                              height: 80,
+                              fit: BoxFit.cover,
+                            ),
                     ),
-                    onPressed: () {
-                      ImagePicker()
-                          .pickImage(source: ImageSource.gallery)
-                          .then((file) {
-                        setState(() {
-                          imageData = File(file!.path).readAsBytesSync();
-                          fileName = file.path.split("/").last;
-                          streamData = File(file.path).readAsBytes().asStream();
-                          fileLength = File(file.path).lengthSync();
+                    const SizedBox.square(
+                      dimension: 30,
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.add_a_photo,
+                        size: 50,
+                      ),
+                      onPressed: () {
+                        ImagePicker()
+                            .pickImage(source: ImageSource.gallery)
+                            .then((file) {
+                          setState(() {
+                            imageData = File(file!.path).readAsBytesSync();
+                            fileName = file.path.split("/").last;
+                            streamData =
+                                File(file.path).readAsBytes().asStream();
+                            fileLength = File(file.path).lengthSync();
+                          });
                         });
-                      });
-                    },
-                  ),
-                ],
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            CommonTextField(
-              titleText: "Team Name",
-              hintText: "Enter team name",
-              enableBorder: true,
-              padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
-              controller: teamNameController,
-            ),
-            CustomButton(
-              onPress: () {
-                if (teamNameController.text.isEmpty) {
-                  showMessage(
-                    msg: "Please fill all the fields",
-                  );
-                } else {
-                  TeamService.updateTeam({
-                    "name": teamNameController.text,
-                    "league": widget.leagueId,
-                    "stream": streamData,
-                    "length": fileLength,
-                    "filename": fileName
-                  }, widget.team.id);
-                }
-              },
-              text: "Save Details",
-            ),
-            const SizedBox.square(
-              dimension: 30,
-            )
-          ],
+              CommonTextField(
+                titleText: "Team Name",
+                hintText: "Enter team name",
+                enableBorder: true,
+                padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
+                controller: teamNameController,
+              ),
+              CustomButton(
+                onPress: () {
+                  if (teamNameController.text.isEmpty) {
+                    showMessage(
+                      msg: "Please fill all the fields",
+                    );
+                  } else {
+                    TeamService.updateTeam({
+                      "name": teamNameController.text,
+                      "league": widget.leagueId,
+                      "stream": streamData,
+                      "length": fileLength,
+                      "filename": fileName
+                    }, widget.team.id);
+                  }
+                },
+                text: "Save Details",
+              ),
+              const SizedBox.square(
+                dimension: 30,
+              )
+            ],
+          ),
         ),
       ),
     );

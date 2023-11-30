@@ -88,7 +88,8 @@ class _LineUpPageState extends State<LineUpPage> with TickerProviderStateMixin {
 
 class PlayerWidget extends StatelessWidget {
   final String id;
-  const PlayerWidget({super.key, required this.id});
+  final Widget? trailing;
+  const PlayerWidget({super.key, required this.id, this.trailing});
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +105,7 @@ class PlayerWidget extends StatelessWidget {
                         titleText: homeSnap.data![index].name,
                         subText: homeSnap.data![index].position,
                         prefixIcon: "assets/icons/match.svg",
+                        trailing: trailing,
                         color: Colors.amber,
                       ),
                     )

@@ -16,8 +16,8 @@ class Apis {
   static String fetchTeams = "${apiUrl}team/teams/";
   static String createTeam = "${apiUrl}team/addteam";
   static String fetchSingleTeam = "${apiUrl}team/singleteam/";
-  static String updateTeam = "${apiUrl}update/team/";
-
+  static String updateTeam = "${apiUrl}team/update/";
+  static String deleteTeam = "${apiUrl}team/delete/";
   // fixtures
   static String fetchFixtures = "${apiUrl}fixture/";
   static String createFixture = "${apiUrl}fixture/addfixture";
