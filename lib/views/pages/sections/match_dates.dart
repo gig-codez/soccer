@@ -1,14 +1,15 @@
 import 'dart:async';
 
 import 'package:intl/intl.dart';
-import 'package:soccer/services/match_date_service.dart';
+import '/services/match_date_service.dart';
 
 import '/exports/exports.dart';
 import '/models/match_date.dart';
 import 'add_match_date.dart';
 
 class MatchDates extends StatefulWidget {
-  const MatchDates({super.key});
+  final String leagueId;
+  const MatchDates({super.key, required this.leagueId});
 
   @override
   State<MatchDates> createState() => _MatchDatesState();
@@ -69,7 +70,8 @@ class _MatchDatesState extends State<MatchDates> {
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog.adaptive(
-                                          title: Text("Delete match date!!"),
+                                          title:
+                                              const Text("Delete match date!!"),
                                           content: Text(
                                               "Are you sure you want to delete $m?"),
                                           actions: [
@@ -108,16 +110,9 @@ class _MatchDatesState extends State<MatchDates> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          showModalBottomSheet(
-              showDragHandle: true,
-              context: context,
-              builder: (context) {
-                return BottomSheet(
-                    onClosing: () {},
-                    builder: (context) {
-                      return const AddMatchDate();
-                    });
-              });
+          showModalSheet(AddMatchDate(
+            leagueId: widget.leagueId,
+          ));
         },
         label: const Text("Add a Date"),
         icon: const Icon(Icons.add),

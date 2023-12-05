@@ -87,16 +87,7 @@ class _LeaguesState extends State<Leagues> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          showModalBottomSheet(
-              showDragHandle: true,
-              context: context,
-              builder: (context) {
-                return BottomSheet(
-                    onClosing: () {},
-                    builder: (context) {
-                      return const AddLeague();
-                    });
-              });
+          showModalSheet(const AddLeague());
         },
         label: Text(
           "Add league",

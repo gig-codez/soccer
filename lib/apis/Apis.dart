@@ -35,4 +35,11 @@ class Apis {
   static String getMatchDates = "${apiUrl}match/get";
   static String deleteMatchDates = "${apiUrl}match/delete/";
   static String updateMatchDates = "${apiUrl}match/update/";
+
+
+  // table routes
+  static String getTableData = "${apiUrl}table/";
+  static String updateTableData = "${apiUrl}table/update/";
+  static String deleteTableData = "${apiUrl}table/delete/";
+  static String addTableData = "${apiUrl}table/add";
 }

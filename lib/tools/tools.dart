@@ -12,3 +12,16 @@ void showMessage({String msg = "", Color? color}) {
     ),
   );
 }
+
+void showModalSheet(Widget page, {AnimationController? controller}) {
+  showModalBottomSheet(
+    showDragHandle: true,
+    transitionAnimationController: controller,
+    context: navigatorKey.currentContext!,
+    builder: (context) => BottomSheet(
+      animationController: controller,
+      onClosing: () {},
+      builder: (context) => page,
+    ),
+  );
+}

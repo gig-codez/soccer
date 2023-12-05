@@ -68,7 +68,6 @@ class TeamService {
 
   static void updateTeam(Map<String, dynamic> data, String id) async {
     try {
-
       MultipartRequest request =
           MultipartRequest("PUT", Uri.parse(Apis.updateTeam + id));
 
@@ -123,7 +122,7 @@ class TeamService {
       }
     } on ClientException catch (e) {
       Routes.popPage();
-      showMessage(msg: e.message, color: Colors.red);
+      // showMessage(msg: e.message, color: Colors.red);
     }
   }
 }

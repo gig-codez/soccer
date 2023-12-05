@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:soccer/views/pages/sections/widgets/league_options.dart';
+
 import '/models/team.dart';
 import '/services/team_service.dart';
 import '/views/pages/sections/Players.dart';
@@ -161,10 +163,13 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
                   animationController: _controller,
                   onClosing: () {},
                   builder: (context) {
-                    return AddTeam(leagueId: widget.leagueId);
+                    return LeagueOptions(
+                      leagueId: widget.leagueId!,
+                      leagueName: widget.leagueName!,
+                    );
                   });
             }),
-        label: const Text("Add a team"),
+        label: const Text("More"),
         icon: const Icon(Icons.add),
       ),
     );

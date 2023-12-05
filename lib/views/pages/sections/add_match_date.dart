@@ -4,7 +4,8 @@ import '/services/match_date_service.dart';
 import '/exports/exports.dart';
 
 class AddMatchDate extends StatefulWidget {
-  const AddMatchDate({super.key});
+  final String leagueId;
+  const AddMatchDate({super.key, required this.leagueId});
 
   @override
   State<AddMatchDate> createState() => _AddMatchDateState();
@@ -33,28 +34,25 @@ class _AddMatchDateState extends State<AddMatchDate> {
                         ),
                   ),
                 ),
-                InkWell(
-                  onTap: () async {},
-                  child: CommonTextField(
-                    controller: kickOffController,
-                    padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
-                    titleText: "Kick Off Date",
-                    hintText: "xxx/xx/xxxxx",
-                    contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                    enableBorder: true,
-                    onChanged: (n) async {
-                      var date = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(2060));
-                      kickOffController.text =
-                          DateFormat("EEE d MMM").format(date!);
-                      setState(() {
-                        selectedDate = date.toLocal().toString();
-                      });
-                    },
-                  ),
+                CommonTextField(
+                  controller: kickOffController,
+                  padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
+                  titleText: "Kick Off Date",
+                  hintText: "xxx/xx/xxxxx",
+                  contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
+                  enableBorder: true,
+                  onChanged: (n) async {
+                    var date = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime(2060));
+                    kickOffController.text =
+                        DateFormat("EEE d MMM").format(date!);
+                    setState(() {
+                      selectedDate = date.toLocal().toString();
+                    });
+                  },
                 ),
                 CustomButton(
                   onPress: () {
@@ -64,7 +62,7 @@ class _AddMatchDateState extends State<AddMatchDate> {
                       Routes.popPage();
                     } else {
                       MatchDateService.savedMatchDate(
-                        {"date": selectedDate},
+                        {"league": widget.leagueId, "date": selectedDate},
                       );
                     }
                   },

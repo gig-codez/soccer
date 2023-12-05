@@ -26,7 +26,7 @@ class MatchDateService {
         r = res.body;
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
     return matchDateModelFromJson(r);
   }
@@ -43,7 +43,7 @@ class MatchDateService {
         showMessage(msg: "Match Date adding failed");
       }
     } on ClientException catch (e) {
-      print(e);
+      // print(e);
     }
   }
 }

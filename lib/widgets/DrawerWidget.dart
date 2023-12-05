@@ -20,9 +20,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       "routes": Routes.fixtures
     },
     {
-      "name": "Match Dates",
+      "name": "Table Results",
       "icon": "assets/icons/match.svg",
-      "routes": Routes.matchdates
+      "routes": Routes.tableResults,
     },
     {
       "name": "AI",

@@ -28,7 +28,7 @@ class _AddLeagueState extends State<AddLeague> {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
           child: Consumer<AppController>(builder: (context, controller, x) {
-            kickOffController.text = controller.matchDateId["date"];
+            kickOffController.text = controller.matchDateId["date"] ?? "";
             return Form(
               key: _formKey,
               child: Column(
