@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:intl/intl.dart';
+import '../../../widgets/no_data.dart';
 import '/services/match_date_service.dart';
 
 import '/exports/exports.dart';
@@ -20,11 +21,11 @@ class _MatchDatesState extends State<MatchDates> {
       StreamController<List<MatchDateModel>>();
   Timer? _timer;
 
-  void fetehMatchDates() async {
-    var matchdates = await MatchDateService.getMatchDates();
+  void fetchMatchDates() async {
+    var matchdates = await MatchDateService.getMatchDates(widget.leagueId);
     _matchDateController.add(matchdates);
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      var matchdates = await MatchDateService.getMatchDates();
+      var matchdates = await MatchDateService.getMatchDates(widget.leagueId);
       _matchDateController.add(matchdates);
     });
   }
@@ -32,7 +33,7 @@ class _MatchDatesState extends State<MatchDates> {
   @override
   void initState() {
     super.initState();
-    fetehMatchDates();
+    fetchMatchDates();
   }
 
   @override
@@ -100,9 +101,7 @@ class _MatchDatesState extends State<MatchDates> {
                             );
                           },
                         )
-                      : const Center(
-                          child: Text("No match dates found"),
-                        )
+                      : NoData()
                   : const Center(
                       child: CircularProgressIndicator.adaptive(),
                     );

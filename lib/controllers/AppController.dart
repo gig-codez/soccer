@@ -29,10 +29,11 @@ class AppController with ChangeNotifier {
   }
 
 // match date
-   Map<String, dynamic> _matchDateId = {};
+  Map<String, dynamic> _matchDateId = {};
   Map<String, dynamic> get matchDateId => _matchDateId;
-  set matchDateId( Map<String, dynamic> id) {
+  set matchDateId(Map<String, dynamic> id) {
     _matchDateId = id;
+    print("MatchDate : $id");
     notifyListeners();
   }
 }

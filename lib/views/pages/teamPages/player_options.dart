@@ -1,9 +1,13 @@
-import '../../../exports/exports.dart';
-import '../../../models/player.dart';
+import '/exports/exports.dart';
+import '/models/player.dart';
+import 'components/goal_widget.dart';
+import 'components/red_card.dart';
+import 'components/yellow_card_widget.dart';
 
 class PlayerOptions extends StatefulWidget {
   final Message data;
-  const PlayerOptions({super.key, required this.data});
+  final String leagueId;
+  const PlayerOptions({super.key, required this.data, required this.leagueId});
 
   @override
   State<PlayerOptions> createState() => _PlayerOptionsState();
@@ -13,7 +17,7 @@ class _PlayerOptionsState extends State<PlayerOptions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,40 +34,62 @@ class _PlayerOptionsState extends State<PlayerOptions> {
             padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
             child: Divider(),
           ),
-          const ListTile(
-            leading: Icon(Icons.sports_soccer),
-            title: Text("Goal"),
+           ListTile(
+            leading: const Icon(Icons.sports_soccer),
+            title: const Text("Goal"),
+            onTap: () {
+              showModalSheet(
+                GoalWidget(
+                  playerId: widget.data.id,
+                  leagueId: widget.leagueId,
+                ),
+              );
+            },
           ),
           ListTile(
-            leading: Icon(Icons.sports),
-            title: Text("Assist"),
+            leading: const Icon(Icons.sports),
+            title: const Text("Assist"),
             trailing: Text(
               "0",
               style: Theme.of(context).textTheme.bodyLarge,
             ),
+            onTap: () {},
           ),
-          const ListTile(
-            leading: SizedBox.square(
+          ListTile(
+            leading: const SizedBox.square(
               dimension: 25,
               child: Card(
                 color: Colors.yellow,
               ),
             ),
-            title: Text(
+            title: const Text(
               "Yellow card",
             ),
+            onTap: () {
+              showModalSheet(
+                YellowCardWidget(
+                  playerId: widget.data.id,
+                  leagueId: widget.leagueId,
+                ),
+              );
+            },
           ),
-          const ListTile(
-            leading: SizedBox.square(
+          ListTile(
+            leading: const SizedBox.square(
               dimension: 25,
               child: Card(
                 color: Colors.red,
               ),
             ),
-            title: Text("Red card"),
-            // trailing: Row(
-            //   children: [],
-            // ),
+            title: const Text("Red card"),
+            onTap: () {
+              showModalSheet(
+                RedCard(
+                  playerId: widget.data.id,
+                  leagueId: widget.leagueId,
+                ),
+              );
+            },
           ),
         ],
       ),

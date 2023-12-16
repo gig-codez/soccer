@@ -183,7 +183,9 @@ class _AddFixtureState extends State<AddFixture> {
                         return BottomSheet(
                           onClosing: () {},
                           builder: (context) {
-                            return const ShowMatchDates();
+                            return ShowMatchDates(
+                              leagueId: widget.leagueId,
+                            );
                           },
                         );
                       },
@@ -208,16 +210,18 @@ class _AddFixtureState extends State<AddFixture> {
                       showMessage(
                           msg: "Please fill all the fields", color: Colors.red);
                     } else {
+                      debugPrint("Saved ${controller.matchDateId}");
                       FixtureService().createFixture(
                         {
                           "hometeam": controller.homeTeamData['id'],
                           "awayteam": controller.awayTeamData['id'],
                           "minutesplayed": minutesPlayedController.text,
-                          "kickofftime": kickOffTimeController.text,
+                          "kickofftime":
+                              kickOffTimeController.text.split(" ").first,
                           "twohalves": "$twoHavles",
                           "fourhavles": "$fourHavles",
                           "league": widget.leagueId,
-                          "date": controller.matchDateId["id"],
+                          "fixtureDate": controller.matchDateId["id"],
                           "isLive": "false",
                           "homeGoals": "0",
                           "awayGoals": "0"
@@ -226,6 +230,7 @@ class _AddFixtureState extends State<AddFixture> {
 
                       controller.homeTeamData = {};
                       controller.awayTeamData = {};
+                      controller.matchDateId = {};
                     }
                   },
                   text: "Save Fixture data",

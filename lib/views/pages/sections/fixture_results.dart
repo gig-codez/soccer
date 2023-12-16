@@ -72,7 +72,9 @@ class _FixtureResultsState extends State<FixtureResults>
                                   return BottomSheet(
                                     onClosing: () {},
                                     builder: (context) {
-                                      return const ShowMatchDates();
+                                      return ShowMatchDates(
+                                        leagueId: widget.leagueId,
+                                      );
                                     },
                                   );
                                 },
@@ -136,8 +138,14 @@ class _FixtureResultsState extends State<FixtureResults>
               child: TabBarView(
                 controller: tabController,
                 children: [
-                  HomeTeamFixture(id: widget.data.hometeam.id),
-                  AwayTeamFixture(id: widget.data.awayteam.id),
+                  HomeTeamFixture(
+                    id: widget.data.hometeam.id,
+                    leagueId: widget.leagueId,
+                  ),
+                  AwayTeamFixture(
+                    id: widget.data.awayteam.id,
+                    leagueId: widget.leagueId,
+                  ),
                 ],
               ),
             ),

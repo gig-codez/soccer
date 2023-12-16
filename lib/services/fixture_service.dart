@@ -19,6 +19,7 @@ class FixtureService {
 
   static Future<List<Datum>> getRunningFixtures(
       String leagueId, String matchId) async {
+    // print("$leagueId , $matchId");
     String res = "";
     try {
       Response response = await Client().get(

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import '/exports/exports.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -13,16 +15,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       "name": "Leagues",
       "icon": "assets/icons/league.svg",
       "routes": Routes.leagues,
-    },
-    {
-      "name": "Fixtures",
-      "icon": "assets/icons/match.svg",
-      "routes": Routes.fixtures
-    },
-    {
-      "name": "Table Results",
-      "icon": "assets/icons/match.svg",
-      "routes": Routes.tableResults,
     },
     {
       "name": "AI",

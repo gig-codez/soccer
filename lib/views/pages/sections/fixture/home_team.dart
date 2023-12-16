@@ -6,7 +6,8 @@ import 'player_fixture_widget.dart';
 
 class HomeTeamFixture extends StatefulWidget {
   final String id;
-  const HomeTeamFixture({super.key, required this.id});
+  final String leagueId;
+  const HomeTeamFixture({super.key, required this.id, required this.leagueId});
 
   @override
   State<HomeTeamFixture> createState() => _HomeTeamFixtureState();
@@ -17,7 +18,7 @@ class _HomeTeamFixtureState extends State<HomeTeamFixture> {
   Widget build(BuildContext context) {
     return PlayerFixtureWidget(
       id: widget.id,
-     
+      leagueId: widget.leagueId,
     );
   }
 }

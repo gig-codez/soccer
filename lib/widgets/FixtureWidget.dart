@@ -42,70 +42,61 @@ class FixtureWidget extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: FittedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 80,
-                        child: Text(
-                          "$homeTeam  ",
-                          style: Theme.of(context).textTheme.bodySmall,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: 90,
+                      child: Text(
+                        "$homeTeam  ",
+                        style: Theme.of(context).textTheme.bodySmall,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.network(
-                          Apis.image + homeTeamLogo,
-                          width: 30,
-                          height: 30,
-                        ),
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        Apis.image + homeTeamLogo,
+                        width: 25,
+                        height: 25,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
-                flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(15, 2.0, 15, 2.0),
-                  child: FittedBox(
-                    child: Text(
-                      isLive ? "$homeGoal - $awayGoal" : kickOffTime,
-                      style: Theme.of(context).textTheme.labelLarge,
-                      textAlign: TextAlign.center,
-                    ),
+                  child: Text(
+                    isLive ? "$homeGoal - $awayGoal" : kickOffTime,
+                    style: Theme.of(context).textTheme.labelLarge,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
               Expanded(
                 flex: 2,
-                child: FittedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: Image.network(
-                          Apis.image + awayTeamLogo,
-                          width: 30,
-                          height: 30,
-                        ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.network(
+                        Apis.image + awayTeamLogo,
+                        width: 25,
+                        height: 25,
                       ),
-                      FittedBox(
-                        child: SizedBox(
-                          width: 80,
-                          child: Text(
-                            "   $awayTeam",
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ),
+                    ),
+                    SizedBox(
+                      width: 80,
+                      child: Text(
+                        "   $awayTeam",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

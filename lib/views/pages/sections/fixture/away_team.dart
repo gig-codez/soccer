@@ -3,7 +3,8 @@ import '/exports/exports.dart';
 
 class AwayTeamFixture extends StatefulWidget {
   final String id;
-  const AwayTeamFixture({super.key, required this.id});
+  final String leagueId;
+  const AwayTeamFixture({super.key, required this.id, required this.leagueId});
 
   @override
   State<AwayTeamFixture> createState() => _AwayTeamFixtureState();
@@ -12,6 +13,6 @@ class AwayTeamFixture extends StatefulWidget {
 class _AwayTeamFixtureState extends State<AwayTeamFixture> {
   @override
   Widget build(BuildContext context) {
-    return PlayerWidget(id: widget.id);
+    return PlayerWidget(id: widget.id, leagueId: widget.leagueId,);
   }
 }

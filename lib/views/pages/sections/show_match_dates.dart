@@ -4,7 +4,8 @@ import '/exports/exports.dart';
 import '/services/match_date_service.dart';
 
 class ShowMatchDates extends StatefulWidget {
-  const ShowMatchDates({super.key});
+  final String leagueId;
+  const ShowMatchDates({super.key, required this.leagueId});
 
   @override
   State<ShowMatchDates> createState() => _ShowMatchDatesState();
@@ -18,7 +19,7 @@ class _ShowMatchDatesState extends State<ShowMatchDates> {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
         child: FutureBuilder(
-            future: MatchDateService.getMatchDates(),
+            future: MatchDateService.getMatchDates(widget.leagueId),
             builder: (context, snapshot) {
               var matchs = snapshot.data;
               return snapshot.hasData

@@ -7,6 +7,18 @@ class Apis {
   static String fetchSinglePlayer = "${apiUrl}player/players/";
   static String updatePlayer = "${apiUrl}player/update/";
   static String deletePlayer = "${apiUrl}player/delete/";
+  // player options
+  // ignore: slash_for_doc_comments
+  /**
+   * playerRouter.put("/updateAssist/:id/leagueId", update_player_assist);
+playerRouter.put("/updateGoal/:id/leagueId", update_player_goal);
+playerRouter.put("/updateYellow/:id/leagueId", update_player_yellow_card);
+playerRouter.put("/updateRed/:id/:leagueId", update_player_red_card);
+   */
+  static String assistRoute = "${apiUrl}player/updateAssist/";
+  static String goalRoute = "${apiUrl}player/updateGoal/";
+  static String yellowCardRoute = "${apiUrl}player/updateYellow/";
+  static String redCardRoute = "${apiUrl}player/updateRed/";
   // league routes
   static String fetchLeagues = "${apiUrl}league/leagues";
   static String fetchSingleLeague = "${apiUrl}league/leagues/";
@@ -32,10 +44,9 @@ class Apis {
 
   // match dates
   static String addMatchDates = "${apiUrl}match/add";
-  static String getMatchDates = "${apiUrl}match/get";
+  static String getMatchDates = "${apiUrl}match/get/";
   static String deleteMatchDates = "${apiUrl}match/delete/";
   static String updateMatchDates = "${apiUrl}match/update/";
-
 
   // table routes
   static String getTableData = "${apiUrl}table/";

@@ -89,7 +89,9 @@ class _LineUpPageState extends State<LineUpPage> with TickerProviderStateMixin {
 class PlayerWidget extends StatelessWidget {
   final String id;
   final Widget? trailing;
-  const PlayerWidget({super.key, required this.id, this.trailing});
+  final String? leagueId;
+  const PlayerWidget(
+      {super.key, required this.id, this.trailing, this.leagueId});
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +107,25 @@ class PlayerWidget extends StatelessWidget {
                         titleText: homeSnap.data![index].name,
                         subText: homeSnap.data![index].position,
                         prefixIcon: "assets/icons/match.svg",
-                        trailing: trailing,
+                        trailing: IconButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                showDragHandle: true,
+                                builder: (context) {
+                                  return BottomSheet(
+                                    onClosing: () {},
+                                    builder: (context) {
+                                      return PlayerOptions(
+                                        leagueId: leagueId ?? "",
+                                        data: homeSnap.data![index],
+                                      );
+                                    },
+                                  );
+                                });
+                          },
+                          icon: const Icon(Icons.edit),
+                        ),
                         color: Colors.amber,
                       ),
                     )

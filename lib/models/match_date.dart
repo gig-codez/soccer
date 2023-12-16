@@ -1,8 +1,4 @@
 // To parse this JSON data, do
-//
-//     final matchDateModel = matchDateModelFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<MatchDateModel> matchDateModelFromJson(String str) => List<MatchDateModel>.from(json.decode(str).map((x) => MatchDateModel.fromJson(x)));

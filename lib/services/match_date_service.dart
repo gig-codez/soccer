@@ -18,10 +18,11 @@ class MatchDateService {
     }
   }
 
-  static Future<List<MatchDateModel>> getMatchDates() async {
+  static Future<List<MatchDateModel>> getMatchDates(String leagueId) async {
     String r = "";
     try {
-      Response res = await Client().get(Uri.parse(Apis.getMatchDates));
+      Response res =
+          await Client().get(Uri.parse(Apis.getMatchDates + leagueId));
       if (res.statusCode == 200) {
         r = res.body;
       }

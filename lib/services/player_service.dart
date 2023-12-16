@@ -76,4 +76,75 @@ class PlayerService {
       debugPrint(e.message);
     }
   }
+
+  static attachGoalToPlayer(
+      String id, String leagueId, Map<String, dynamic> data) async {
+    try {
+      Response response = await Client()
+          .put(Uri.parse("${Apis.goalRoute}$id/$leagueId"), body: data);
+      if (response.statusCode == 200) {
+        showMessage(msg: "Player updated successfully", color: Colors.green);
+        Routes.popPage();
+      } else {
+        showMessage(msg: "Player update failed", color: Colors.red);
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
+
+  // assist
+  static attachAssistToPlayer(
+      String id, String leagueId, Map<String, dynamic> data) async {
+    try {
+      Response response = await Client()
+          .put(Uri.parse("${Apis.assistRoute}$id/$leagueId"), body: data);
+      if (response.statusCode == 200) {
+        showMessage(msg: "Player updated successfully", color: Colors.green);
+        Routes.popPage();
+      } else {
+        showMessage(msg: "Player update failed", color: Colors.red);
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
+
+  // yellow card
+  static attachYellowCardToPlayer(
+      String id, String leagueId, Map<String, dynamic> data) async {
+    try {
+      Response response = await Client()
+          .put(Uri.parse("${Apis.yellowCardRoute}$id/$leagueId"), body: data);
+      if (response.statusCode == 200) {
+        showMessage(msg: "Player updated successfully", color: Colors.green);
+        Routes.popPage();
+      } else {
+        showMessage(msg: "Player update failed", color: Colors.red);
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
+
+  // red card
+  static attachRedCardToPlayer(
+      String id, String leagueId, Map<String, dynamic> data) async {
+    try {
+      Response response = await Client()
+          .put(Uri.parse("${Apis.redCardRoute}$id/$leagueId"), body: data);
+      if (response.statusCode == 200) {
+        showMessage(msg: "Player updated successfully", color: Colors.green);
+        Routes.popPage();
+      } else {
+        showMessage(msg: "Player update failed", color: Colors.red);
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
 }

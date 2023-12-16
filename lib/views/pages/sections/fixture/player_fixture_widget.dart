@@ -5,7 +5,9 @@ import '/services/player_service.dart';
 class PlayerFixtureWidget extends StatelessWidget {
   final String id;
   final Widget? trailing;
-  const PlayerFixtureWidget({super.key, required this.id, this.trailing});
+  final String leagueId;
+  const PlayerFixtureWidget(
+      {super.key, required this.id, this.trailing, required this.leagueId});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class PlayerFixtureWidget extends StatelessWidget {
                                     onClosing: () {},
                                     builder: (context) {
                                       return PlayerOptions(
+                                        leagueId: leagueId,
                                         data: homeSnap.data![index],
                                       );
                                     },

@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
+import 'controllers/data_controller.dart';
 
 void main() async {
   // Ensuring that all widgets are properly assembled.
@@ -31,6 +32,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AppController(),
+        ),ChangeNotifierProvider(
+          create: (_) => DataController(),
         ),
       ],
       child: Consumer<AppController>(

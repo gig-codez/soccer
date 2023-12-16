@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import '../teamPages/player_options.dart';
+// import '../teamPages/player_options.dart';
 import '/exports/exports.dart';
 import '/models/player.dart';
 import '/services/player_service.dart';

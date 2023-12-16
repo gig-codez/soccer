@@ -1,4 +1,9 @@
+import 'package:soccer/views/pages/sections/Fixtures.dart';
+import 'package:soccer/views/pages/sections/fixture_results.dart';
+
+import '../../../../controllers/data_controller.dart';
 import '../../../../exports/exports.dart';
+import '../../table_data/TableResults.dart';
 import '../add_team.dart';
 import '../match_dates.dart';
 
@@ -13,7 +18,7 @@ class LeagueOptions extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15.0, 8.0, 15.0, 8.0),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: MediaQuery.of(context).size.height * 0.43,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,6 +53,36 @@ class LeagueOptions extends StatelessWidget {
                 Routes.animateToPage(
                   MatchDates(
                     leagueId: leagueId,
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text(
+                "Add a fixture",
+              ),
+              onTap: () {
+                Routes.popPage();
+                Routes.animateToPage(
+                  FixturesPage(
+                    leagueId: leagueId,
+                    leagueName: leagueName,
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text(
+                "Add table results",
+              ),
+              onTap: () {
+                Routes.popPage();
+                Routes.animateToPage(
+                  TableResults(
+                    leagueId: leagueId,
+                    // leagueName: snap.data![index].name,
                   ),
                 );
               },
