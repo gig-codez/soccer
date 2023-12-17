@@ -14,21 +14,28 @@ class _GoalWidgetState extends State<GoalWidget> {
   final goalTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CommonTextField(
-          controller: goalTextController,
-          titleText: "Attach a goal",
-        ),
-        CustomButton(
-          onPress: () {
-            PlayerService.attachGoalToPlayer(widget.playerId, widget.leagueId, {
-              "goal": goalTextController.text,
-            });
-          },
-          text: "Save Changes",
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Column(
+        children: [
+          CommonTextField(
+              padding: const EdgeInsets.all(18.0),
+            controller: goalTextController,
+            titleText: "Attach a goal",
+          ),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: CustomButton(
+              onPress: () {
+                PlayerService.attachGoalToPlayer(widget.playerId, widget.leagueId, {
+                  "goal": goalTextController.text,
+                });
+              },
+              text: "Save Changes",
+            ),
+          )
+        ],
+      ),
     );
   }
 }

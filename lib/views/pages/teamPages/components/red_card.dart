@@ -14,22 +14,29 @@ class _RedCardState extends State<RedCard> {
   final redTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CommonTextField(
-          titleText: "Attach a red",
-          controller: redTextController,
-        ),
-        CustomButton(
-          onPress: () {
-            PlayerService.attachRedCardToPlayer(
-                widget.playerId, widget.leagueId, {
-              "red": redTextController.text,
-            });
-          },
-          text: "Save Changes",
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Column(
+        children: [
+          CommonTextField(
+            padding: const EdgeInsets.all(18.0),
+            titleText: "Attach a red",
+            controller: redTextController,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: CustomButton(
+              onPress: () {
+                PlayerService.attachRedCardToPlayer(
+                    widget.playerId, widget.leagueId, {
+                  "red_card": redTextController.text,
+                });
+              },
+              text: "Save Changes",
+            ),
+          )
+        ],
+      ),
     );
   }
 }

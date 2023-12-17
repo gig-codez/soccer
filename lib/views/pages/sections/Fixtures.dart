@@ -5,6 +5,7 @@ import 'package:soccer/models/fixture.dart';
 import 'package:soccer/widgets/FixtureWidget.dart';
 
 import '../../../services/fixture_service.dart';
+import '../../../services/match_date_service.dart';
 import '/views/pages/sections/add_fixture.dart';
 
 import '../../../exports/exports.dart';
@@ -27,10 +28,25 @@ class _FixturesPageState extends State<FixturesPage>
       StreamController<List<Datum>>();
   Timer? _timer;
   TabController? _tabController;
-
+  int tabs = 0;
   @override
   void initState() {
     super.initState();
+    Timer.periodic(const Duration(milliseconds: 200), (timer) async {
+      var matchDates = await MatchDateService.getMatchDates(widget.leagueId);
+      if (mounted && tabs == 0) {
+        setState(() {
+          tabs = context.read<DataController>().matchDates.length;
+        });
+        _tabController = TabController(
+          length: matchDates.length, //P@ssw0rd?
+          // initialIndex: currentTab,
+          vsync: this,
+        );
+      } else {
+        timer.cancel();
+      }
+    });
     context.read<DataController>().setLeagueId(widget.leagueId);
     _controller = AnimationController(
       vsync: this,
@@ -54,16 +70,7 @@ class _FixturesPageState extends State<FixturesPage>
 
   @override
   Widget build(BuildContext context) {
-    if (x == 1) {
-      x += 1;
-      context.watch<DataController>().setLeagueId(widget.leagueId);
-      _tabController = TabController(
-        vsync: this,
-        length: context.watch<DataController>().matchDates.length,
-        animationDuration: const Duration(milliseconds: 600),
-      );
-    }
-    print("tabs ${_tabController?.length}");
+    // print("tabs ${_tabController?.length}");
     return Scaffold(
       appBar: AppBar(
         title: Text.rich(
@@ -83,11 +90,20 @@ class _FixturesPageState extends State<FixturesPage>
       ),
       body: Consumer<DataController>(
         builder: (context, controller, child) {
+          if (tabs == 0) {
+            x += 1;
+            controller.setLeagueId(widget.leagueId);
+            _tabController = TabController(
+              vsync: this,
+              length: tabs,
+              animationDuration: const Duration(milliseconds: 600),
+            );
+          }
+
           if (controller.matchDates.isNotEmpty) {
             controller.fetchFixtureData(widget.leagueId,
                 controller.matchDates[_tabController?.index ?? 0].id);
           }
-
           return Column(
             children: [
               if (_tabController?.length == controller.matchDates.length)

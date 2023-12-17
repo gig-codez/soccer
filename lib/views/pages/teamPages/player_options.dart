@@ -1,3 +1,5 @@
+import 'package:soccer/views/pages/teamPages/components/add_assist.dart';
+
 import '/exports/exports.dart';
 import '/models/player.dart';
 import 'components/goal_widget.dart';
@@ -34,9 +36,13 @@ class _PlayerOptionsState extends State<PlayerOptions> {
             padding: EdgeInsets.fromLTRB(10, 8, 10, 8),
             child: Divider(),
           ),
-           ListTile(
+          ListTile(
             leading: const Icon(Icons.sports_soccer),
             title: const Text("Goal"),
+            trailing: Text(
+              widget.data.goal.toString(),
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
             onTap: () {
               showModalSheet(
                 GoalWidget(
@@ -50,10 +56,18 @@ class _PlayerOptionsState extends State<PlayerOptions> {
             leading: const Icon(Icons.sports),
             title: const Text("Assist"),
             trailing: Text(
-              "0",
+              "N/A",
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            onTap: () {},
+            onTap: () {
+              showModalSheet(
+                AddAssist(
+                  playerId: widget.data.id,
+                  leagueId: widget.leagueId,
+                  teamId: widget.data.team,
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const SizedBox.square(
@@ -61,6 +75,10 @@ class _PlayerOptionsState extends State<PlayerOptions> {
               child: Card(
                 color: Colors.yellow,
               ),
+            ),
+            trailing: Text(
+              widget.data.yellow.toString(),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             title: const Text(
               "Yellow card",
@@ -82,6 +100,10 @@ class _PlayerOptionsState extends State<PlayerOptions> {
               ),
             ),
             title: const Text("Red card"),
+            trailing: Text(
+              widget.data.red.toString(),
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
             onTap: () {
               showModalSheet(
                 RedCard(

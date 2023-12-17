@@ -13,6 +13,7 @@ class PlayerService {
       );
       if (response.statusCode == 200) {
         res = response.body;
+        // debugPrint(res);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
@@ -122,6 +123,7 @@ class PlayerService {
         showMessage(msg: "Player updated successfully", color: Colors.green);
         Routes.popPage();
       } else {
+        debugPrint(response.body);
         showMessage(msg: "Player update failed", color: Colors.red);
         Routes.popPage();
       }
@@ -140,7 +142,24 @@ class PlayerService {
         showMessage(msg: "Player updated successfully", color: Colors.green);
         Routes.popPage();
       } else {
+        debugPrint(response.body);
         showMessage(msg: "Player update failed", color: Colors.red);
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
+
+  static void castMessage(Map<String, dynamic> data) async {
+    try {
+      Response response =
+          await Client().post(Uri.parse(Apis.castMessage), body: data);
+      if (response.statusCode == 200) {
+        showMessage(msg: "Message sent successfully", color: Colors.green);
+        Routes.popPage();
+      } else {
+        showMessage(msg: "Message sending failed", color: Colors.red);
         Routes.popPage();
       }
     } on ClientException catch (e) {

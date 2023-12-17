@@ -6,6 +6,7 @@ import '/exports/exports.dart';
 import 'fixture/away_team.dart';
 import 'fixture/home_team.dart';
 import 'show_match_dates.dart';
+import 'widgets/castMessageWidget.dart';
 import 'widgets/update_fixture_results.dart';
 
 class FixtureResults extends StatefulWidget {
@@ -45,6 +46,11 @@ class _FixtureResultsState extends State<FixtureResults>
       appBar: AppBar(
         title: const Text('Fixture Results'),
         actions: [
+          IconButton(
+              icon: Icon(Icons.notifications),
+              onPressed: () {
+                showModalSheet(CastMessage(leagueId: widget.leagueId));
+              }),
           IconButton(
             icon: const Icon(Icons.edit_calendar_outlined),
             onPressed: () {

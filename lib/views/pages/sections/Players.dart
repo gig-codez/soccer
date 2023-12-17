@@ -115,7 +115,8 @@ class _PlayersState extends State<Players> {
                                 "position": "Position ${i + 1}",
                                 "goal": "0",
                                 "assist": "0",
-                                "yellow": "0"
+                                "yellow": "0",
+                                "red": "0"
                               });
                               Future.delayed(const Duration(seconds: 2));
                             }
@@ -145,7 +146,6 @@ class _PlayersState extends State<Players> {
                             child: Text("P"),
                           ),
                           subtitle: Text("${snap.data?[index].position}"),
-                         
                           onLongPress: () {
                             showAdaptiveDialog(
                               context: context,
@@ -171,22 +171,13 @@ class _PlayersState extends State<Players> {
                           },
                           trailing: IconButton(
                             onPressed: () {
-                              showModalBottomSheet(
-                                  showDragHandle: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return BottomSheet(
-                                      onClosing: () {},
-                                      builder: (context) {
-                                        return UpdatePlayer(
-                                            name: "${snap.data?[index].name}",
-                                            position:
-                                                "${snap.data?[index].position}",
-                                            id: "${snap.data?[index].id}",
-                                            teamId: "${widget.teamId}");
-                                      },
-                                    );
-                                  });
+                              showModalSheet(
+                                UpdatePlayer(
+                                    name: "${snap.data?[index].name}",
+                                    position: "${snap.data?[index].position}",
+                                    id: "${snap.data?[index].id}",
+                                    teamId: "${widget.teamId}"),
+                              );
                             },
                             icon: const Icon(Icons.edit_rounded),
                           ),

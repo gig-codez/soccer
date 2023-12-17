@@ -15,25 +15,32 @@ class _YellowCardWidgetState extends State<YellowCardWidget> {
   final yellowCardTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CommonTextField(
-          titleText: "Attach a yellow",
-          controller: yellowCardTextController,
-        ),
-        CustomButton(
-          onPress: () {
-            PlayerService.attachYellowCardToPlayer(
-              widget.playerId,
-              widget.leagueId,
-              {
-                "red": yellowCardTextController.text,
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Column(
+        children: [
+          CommonTextField(
+            padding: const EdgeInsets.all(18.0),
+            titleText: "Attach a yellow",
+            controller: yellowCardTextController,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: CustomButton(
+              onPress: () {
+                PlayerService.attachYellowCardToPlayer(
+                  widget.playerId,
+                  widget.leagueId,
+                  {
+                    "yellow_card": yellowCardTextController.text,
+                  },
+                );
               },
-            );
-          },
-          text: "Save Changes",
-        )
-      ],
+              text: "Save Changes",
+            ),
+          )
+        ],
+      ),
     );
   }
 }

@@ -53,4 +53,6 @@ playerRouter.put("/updateRed/:id/:leagueId", update_player_red_card);
   static String updateTableData = "${apiUrl}table/update/";
   static String deleteTableData = "${apiUrl}table/delete/";
   static String addTableData = "${apiUrl}table/add";
+
+  static String castMessage = "${apiUrl}player/castMessage";
 }
