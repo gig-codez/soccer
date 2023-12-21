@@ -2,6 +2,7 @@
 //
 //     final playersModel = playersModelFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 PlayersModel playersModelFromJson(String str) =>
@@ -31,53 +32,89 @@ class PlayersModel {
 }
 
 class Message {
-  final int red;
   final String id;
   final String name;
-  final String team;
+  final Team team;
+  final String soldOut;
   final String position;
   final int goal;
+  final String assist;
   final int yellow;
+  final int red;
   final DateTime createdAt;
   final DateTime updatedAt;
   final int v;
+  final Team oldTeam;
 
   Message({
-    required this.red,
     required this.id,
     required this.name,
     required this.team,
+    required this.soldOut,
     required this.position,
     required this.goal,
+    required this.assist,
     required this.yellow,
+    required this.red,
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.oldTeam,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
-        red: json["red"],
         id: json["_id"],
         name: json["name"],
-        team: json["team"],
+        team: Team.fromJson(json["team"]),
+        soldOut: json["sold_out"],
         position: json["position"],
         goal: json["goal"],
+        assist: json["assist"],
         yellow: json["yellow"],
+        red: json["red"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+        oldTeam: Team.fromJson(json["old_team"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {
-        "red": red,
         "_id": id,
         "name": name,
-        "team": team,
+        "team": team.toJson(),
+        "sold_out": soldOut,
         "position": position,
         "goal": goal,
+        "assist": assist,
         "yellow": yellow,
+        "red": red,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
+        "old_team": oldTeam.toJson(),
+      };
+}
+
+class Team {
+  final String id;
+  final String name;
+  final String image;
+
+  Team({
+    required this.id,
+    required this.name,
+    required this.image,
+  });
+
+  factory Team.fromJson(Map<String, dynamic> json) => Team(
+        id: json["_id"] ?? "",
+        name: json["name"] ?? "",
+        image: json["image"] ?? "",
+      );
+
+  Map<String, dynamic> toJson() => {
+        "_id": id,
+        "name": name,
+        "image": image,
       };
 }

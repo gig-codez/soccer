@@ -88,6 +88,22 @@ class FixtureService {
     }
   }
 
+  static void runFixture(String fixtureId) async {
+    try {
+      Response res = await Client().put(
+        Uri.parse(Apis.runFixture + fixtureId),
+      );
+      // print(res.body);
+      if (res.statusCode == 200) {
+        showMessage(msg: "Started successfully");
+      } else {
+        showMessage(msg: "Failed to  update fixture");
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
+
   static void updateFixtureGoals(Map<String, dynamic> data) async {
     try {
       Response res = await Client().put(

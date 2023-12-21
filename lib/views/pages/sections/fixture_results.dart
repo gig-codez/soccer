@@ -1,3 +1,5 @@
+import 'package:soccer/services/player_service.dart';
+
 import '/services/fixture_service.dart';
 
 import '/models/fixture.dart';
@@ -160,11 +162,15 @@ class _FixtureResultsState extends State<FixtureResults>
               child: CustomButton(
                 width: 200,
                 onPress: () {
-                  FixtureService.updateFixture(widget.fixtureId, {
-                    "isLive": "true",
+                  FixtureService.runFixture(widget.fixtureId);
+                  PlayerService.castMessage({
+                    "title": "Match Day!",
+                    "league": widget.leagueId,
+                    "body":
+                        "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
                   });
                 },
-                text: "Start fixture",
+                text: "Run fixture",
               ),
             ),
             const SizedBox.square(

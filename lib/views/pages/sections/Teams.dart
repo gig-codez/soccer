@@ -95,6 +95,7 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
                                     Players(
                                       teamId: snap.data?[index].id,
                                       teamName: snap.data?[index].name,
+                                      leagueId: widget.leagueId,
                                     ),
                                   );
                                 },

@@ -166,4 +166,27 @@ class PlayerService {
       debugPrint(e.message);
     }
   }
+
+  static void transferPlayer(Map<String, dynamic> data) async {
+    try {
+      Response response = await Client().put(
+        Uri.parse("${Apis.transferPlayer + data['id']}/transferPlayer"),
+        body: {
+          "team": data["team"],
+          "sold_out": data["sold_out"],
+        },
+      );
+      if (response.statusCode == 200) {
+        showMessage(
+            msg: "Player transferred successfully", color: Colors.green);
+        Routes.popPage();
+      } else {
+        debugPrint(response.body);
+        showMessage(msg: "Player transfer failed", color: Colors.red);
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      debugPrint(e.message);
+    }
+  }
 }

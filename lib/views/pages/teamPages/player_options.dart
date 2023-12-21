@@ -64,7 +64,7 @@ class _PlayerOptionsState extends State<PlayerOptions> {
                 AddAssist(
                   playerId: widget.data.id,
                   leagueId: widget.leagueId,
-                  teamId: widget.data.team,
+                  teamId: widget.data.team.id,
                 ),
               );
             },

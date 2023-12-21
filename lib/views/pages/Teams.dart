@@ -71,7 +71,7 @@ class _TeamsPageState extends State<TeamsPage> with TickerProviderStateMixin {
                           TablePage(
                             leagueId: widget.data.league,
                           ),
-                          StatsPage()
+                          const StatsPage()
                         ],
                       ),
                     )

@@ -7,6 +7,7 @@ class Apis {
   static String fetchSinglePlayer = "${apiUrl}player/players/";
   static String updatePlayer = "${apiUrl}player/update/";
   static String deletePlayer = "${apiUrl}player/delete/";
+  static String transferPlayer = "${apiUrl}player/";
   // player options
   // ignore: slash_for_doc_comments
   /**
@@ -34,7 +35,7 @@ playerRouter.put("/updateRed/:id/:leagueId", update_player_red_card);
   static String fetchFixtures = "${apiUrl}fixture/";
   static String createFixture = "${apiUrl}fixture/addfixture";
   static String fetchSingleFixture = "${apiUrl}fixture/";
-  static String updateFixture = "${apiUrl}fixture/fixture/";
+  static String updateFixture = "${apiUrl}update/fixture/";
   static String deleteFixture = "${apiUrl}fixture/delete/";
   static String runningFixture = "${apiUrl}fixture/";
   // reports
@@ -55,4 +56,6 @@ playerRouter.put("/updateRed/:id/:leagueId", update_player_red_card);
   static String addTableData = "${apiUrl}table/add";
 
   static String castMessage = "${apiUrl}player/castMessage";
+  // api route for running a fixture
+  static String runFixture = "${apiUrl}fixture/runFixture/";
 }

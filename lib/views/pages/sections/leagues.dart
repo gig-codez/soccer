@@ -45,9 +45,6 @@ class _LeaguesState extends State<Leagues> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Leagues"),
-      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(13, 8, 13, 0),

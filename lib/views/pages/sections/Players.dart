@@ -6,26 +6,31 @@ import '/exports/exports.dart';
 import '/models/player.dart';
 import '/services/player_service.dart';
 import 'add_player.dart';
+import 'transfer_widget.dart';
 import 'updatePlayer.dart';
+import 'widgets/p_options.dart';
 
 class Players extends StatefulWidget {
   final String? teamId;
   final String? teamName;
+  final String? leagueId;
   const Players({
     super.key,
     this.teamId,
     this.teamName,
+    this.leagueId,
   });
 
   @override
   State<Players> createState() => _PlayersState();
 }
 
-class _PlayersState extends State<Players> {
+class _PlayersState extends State<Players> with TickerProviderStateMixin {
   final playerController = TextEditingController();
   final StreamController<List<Message>> _leaguesController =
       StreamController<List<Message>>();
   Timer? _timer;
+  AnimationController? _controller;
   void fetchLeagues() async {
     var leagues = await PlayerService().getPlayers(widget.teamId ?? "");
     _leaguesController.add(leagues);
@@ -39,6 +44,11 @@ class _PlayersState extends State<Players> {
   void initState() {
     super.initState();
     fetchLeagues();
+    _controller = AnimationController(
+      value: 0,
+      duration: const Duration(milliseconds: 500),
+      vsync: this,
+    );
   }
 
   @override
@@ -46,6 +56,7 @@ class _PlayersState extends State<Players> {
     if (_leaguesController.hasListener) {
       _leaguesController.close();
     }
+    _controller?.dispose();
     _timer?.cancel();
     playerController.dispose();
     super.dispose();
@@ -107,7 +118,6 @@ class _PlayersState extends State<Players> {
                             });
                             // handle creating multiple players
                             for (int i = 0; i < players; i++) {
-                              log("$i");
                               Future.delayed(const Duration(seconds: 2));
                               PlayerService.createPlayer({
                                 "name": "Player ${i + 1}",
@@ -172,11 +182,12 @@ class _PlayersState extends State<Players> {
                           trailing: IconButton(
                             onPressed: () {
                               showModalSheet(
-                                UpdatePlayer(
-                                    name: "${snap.data?[index].name}",
-                                    position: "${snap.data?[index].position}",
-                                    id: "${snap.data?[index].id}",
-                                    teamId: "${widget.teamId}"),
+                                POptions(
+                                  player: snap.data![index],
+                                  teamId: widget.teamId!,
+                                  leagueId: widget.leagueId!,
+                                ),
+                                controller: _controller,
                               );
                             },
                             icon: const Icon(Icons.edit_rounded),

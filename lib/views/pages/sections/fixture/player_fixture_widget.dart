@@ -1,7 +1,6 @@
-import '../../../../controllers/data_controller.dart';
+import '/controllers/data_controller.dart';
 import '../../teamPages/player_options.dart';
 import '/exports/exports.dart';
-import '/services/player_service.dart';
 
 class PlayerFixtureWidget extends StatelessWidget {
   final String id;

@@ -8,6 +8,7 @@ import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
 import 'controllers/data_controller.dart';
+import 'controllers/team_controller.dart';
 
 void main() async {
   // Ensuring that all widgets are properly assembled.
@@ -32,8 +33,12 @@ void main() async {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AppController(),
-        ),ChangeNotifierProvider(
+        ),
+        ChangeNotifierProvider(
           create: (_) => DataController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TeamController(),
         ),
       ],
       child: Consumer<AppController>(
