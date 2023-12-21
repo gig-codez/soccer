@@ -8,7 +8,10 @@ class TransferWidget extends StatefulWidget {
   final String leagueId;
   final String playerId;
   const TransferWidget(
-      {super.key, required this.teamId,required this.playerId, required this.leagueId});
+      {super.key,
+      required this.teamId,
+      required this.playerId,
+      required this.leagueId});
 
   @override
   State<TransferWidget> createState() => _TransferWidgetState();
@@ -89,6 +92,7 @@ class _TransferWidgetState extends State<TransferWidget> {
                           onPress: () {
                             PlayerService.transferPlayer({
                               "id": widget.playerId,
+                              "league": widget.leagueId,
                               "team": controller.selectedTeam["id"],
                               "sold_out": soldController.text,
                             });

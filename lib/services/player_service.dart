@@ -170,7 +170,8 @@ class PlayerService {
   static void transferPlayer(Map<String, dynamic> data) async {
     try {
       Response response = await Client().put(
-        Uri.parse("${Apis.transferPlayer + data['id']}/transferPlayer"),
+        Uri.parse(
+            "${Apis.transferPlayer + data['id']}/transferPlayer/${data['league']}"),
         body: {
           "team": data["team"],
           "sold_out": data["sold_out"],
