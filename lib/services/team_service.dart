@@ -2,6 +2,7 @@ import 'dart:io';
 
 import '/models/team.dart';
 import '../exports/exports.dart';
+import 'dart:developer';
 
 class TeamService {
   Future<List<Message>> getTeams(String leagueId) async {
@@ -35,6 +36,7 @@ class TeamService {
         'Accept': 'application/json',
       });
       request.fields['name'] = data['name'];
+      request.fields['action'] = "team";
       request.fields['league'] = data['league'];
       request.files.add(
         MultipartFile(
@@ -77,6 +79,7 @@ class TeamService {
       });
       request.fields['name'] = data['name'];
       request.fields['league'] = data['league'];
+      request.fields['action'] = "team";
       if (data['stream'] != null) {
         request.files.add(
           MultipartFile(
@@ -87,9 +90,6 @@ class TeamService {
           ),
         );
       }
-
-      // print(data);
-
       var res = await request.send();
 
       if (res.statusCode == 200) {
@@ -97,7 +97,8 @@ class TeamService {
         Routes.popPage();
       } else {
         Routes.popPage();
-        showMessage(msg: "Team update failed", color: Colors.red);
+        showMessage(
+            msg: "Team update failed ${res.reasonPhrase}", color: Colors.red);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
@@ -106,7 +107,7 @@ class TeamService {
     } on HttpException catch (e) {
       debugPrint(e.message);
     } catch (e) {
-      throw Exception(e.toString());
+      log(e.toString());
     }
   }
 

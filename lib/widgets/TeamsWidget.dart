@@ -42,7 +42,7 @@ class TeamsWidget extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: Image.network(
-                            Apis.image + fixtureData.hometeam.image,
+                            fixtureData.hometeam.image,
                             width: 35,
                             height: 35,
                           ),
@@ -56,7 +56,7 @@ class TeamsWidget extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: Image.network(
-                            Apis.image + fixtureData.awayteam.image,
+                            fixtureData.awayteam.image,
                             width: 35,
                             height: 35,
                           ),

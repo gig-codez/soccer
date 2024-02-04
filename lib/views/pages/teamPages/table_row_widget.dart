@@ -107,42 +107,42 @@ class TableRowWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$p"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$w"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$d"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$l"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$gd"),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: TableCell(
             verticalAlignment: TableCellVerticalAlignment.middle,
             child: Text("$pts"),
@@ -171,11 +171,11 @@ class TableRowWidget {
           Row(
             children: [
               Text("$id"),
-             const SizedBox.square(
+              const SizedBox.square(
                 dimension: 10,
               ),
               Image.network(
-              Apis.image + image,
+                image,
                 width: 35,
                 height: 35,
               )

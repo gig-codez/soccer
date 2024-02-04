@@ -18,7 +18,7 @@ class PlayingTeams extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: Image.network(
-                  Apis.image + data.hometeam.image,
+                   data.hometeam.image,
                   width: 55,
                   height: 55,
                 ),
@@ -58,7 +58,7 @@ class PlayingTeams extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: Image.network(
-                  Apis.image + data.awayteam.image,
+                   data.awayteam.image,
                   width: 55,
                   height: 55,
                 ),

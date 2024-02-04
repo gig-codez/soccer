@@ -140,7 +140,7 @@ Widget _cardHeader({String? title, String? leagueLogo}) {
                       height: 50,
                     )
                   : Image.network(
-                      Apis.image + leagueLogo,
+                     leagueLogo,
                       width: 50,
                       height: 50,
                     ),
@@ -207,7 +207,7 @@ Widget cardContent({Datum? fixture}) {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Image.network(
-                                Apis.image + fixture!.hometeam.image,
+                               fixture!.hometeam.image,
                                 width: 44,
                                 height: 44,
                               ),
@@ -234,7 +234,7 @@ Widget cardContent({Datum? fixture}) {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Image.network(
-                                Apis.image + fixture.awayteam.image,
+                               fixture.awayteam.image,
                                 width: 44,
                                 height: 44,
                               ),

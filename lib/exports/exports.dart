@@ -51,3 +51,6 @@ export '/routes/routes.dart';
 export '/tools/TapEffect.dart';
 export '/tools/TextStyles.dart';
 export '/tools/tools.dart';
+
+// extensions
+export '/extensions/date_time_extension.dart';

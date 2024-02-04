@@ -63,10 +63,16 @@ class _UpdateTeamState extends State<UpdateTeam>
                           ? Image.memory(imageData!,
                               width: 80, height: 80, fit: BoxFit.cover)
                           : Image.network(
-                              Apis.image + currentImage!,
+                              currentImage!,
                               width: 80,
                               height: 80,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.asset("assets/images/default.jpeg",
+                                    width: 80, height: 80, fit: BoxFit.cover),
+                              ),
                             ),
                     ),
                     const SizedBox.square(

@@ -89,7 +89,7 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
                             itemBuilder: (context, index) {
                               return ProfileWidget(
                                 titleText: "${snap.data?[index].name}",
-                                img: "${Apis.image}${snap.data?[index].image}",
+                                img: "${snap.data?[index].image}",
                                 onPress: () {
                                   Routes.animateToPage(
                                     Players(

@@ -113,8 +113,7 @@ class _FixturesPageState extends State<FixturesPage>
                   tabs: List.generate(
                     controller.matchDates.length,
                     (index) => Tab(
-                      text: getTabLabel(
-                          DateTime.parse(controller.matchDates[index].date)),
+                      text: DateTime.parse(controller.matchDates[index].date).formatedDate(),
                     ),
                   ),
                 ),

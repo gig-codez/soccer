@@ -66,7 +66,7 @@ class _TableResultsState extends State<TableResults> {
                         itemBuilder: (context, index) {
                           var data = snapshot.data![index];
                           return ProfileWidget(
-                            img: Apis.image + data.team.image,
+                            img: data.team.image,
                             titleText: data.team.name,
                             onPress: () {
                               showModalBottomSheet(

@@ -30,6 +30,7 @@ class LeagueService {
         'Accept': 'application/json',
       });
       request.fields['name'] = data['name'];
+      request.fields['action'] = "league";
       request.files.add(
         MultipartFile(
           "file",

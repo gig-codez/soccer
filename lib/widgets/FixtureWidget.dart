@@ -56,7 +56,7 @@ class FixtureWidget extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
-                        Apis.image + homeTeamLogo,
+                        homeTeamLogo,
                         width: 25,
                         height: 25,
                       ),
@@ -82,7 +82,7 @@ class FixtureWidget extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
-                        Apis.image + awayTeamLogo,
+                        awayTeamLogo,
                         width: 25,
                         height: 25,
                       ),
