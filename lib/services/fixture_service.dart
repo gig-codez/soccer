@@ -1,7 +1,13 @@
+import 'dart:developer';
+
+import 'package:soccer/controllers/loader_controller.dart';
+
 import '../exports/exports.dart';
 import '../models/fixture.dart';
+import "dart:convert";
 
 class FixtureService {
+  static BuildContext context = navigatorKey.currentContext!;
   static Future<List<Datum>> getFixtures(String leagueId) async {
     String res = "";
     try {
@@ -78,12 +84,18 @@ class FixtureService {
       // print(res.body);
       if (res.statusCode == 200) {
         showMessage(msg: "Fixture updated successfully");
+        // ignore: use_build_context_synchronously
+        Provider.of<LoaderController>(context, listen: false).isLoading = false;
         Routes.popPage();
       } else {
         showMessage(msg: "Failed to  update fixture");
+          // ignore: use_build_context_synchronously
+        Provider.of<LoaderController>(context, listen: false).isLoading = false;
         Routes.popPage();
       }
     } on ClientException catch (e) {
+        // ignore: use_build_context_synchronously
+      Provider.of<LoaderController>(context, listen: false).isLoading = false;
       debugPrint(e.message);
     }
   }
@@ -106,6 +118,7 @@ class FixtureService {
 
   static void updateFixtureGoals(Map<String, dynamic> data) async {
     try {
+      log(data.toString());
       Response res = await Client().put(
         Uri.parse(Apis.updateFixture + data["fixtureId"]),
         body: {
@@ -116,9 +129,10 @@ class FixtureService {
       // print(res.body);
       if (res.statusCode == 200) {
         showMessage(msg: "Fixture updated successfully");
+
         Routes.popPage();
       } else {
-        showMessage(msg: "Failed to  update fixture");
+        showMessage(msg: json.decode(res.body)['message']);
         Routes.popPage();
       }
     } on ClientException catch (e) {

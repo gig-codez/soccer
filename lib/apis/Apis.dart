@@ -1,5 +1,5 @@
 class Apis {
-  static String apiUrl = "http://165.232.121.139:3000/";
+  static String apiUrl = "http://165.232.121.139/";
   // players routes
   static String fetchPlayers = "${apiUrl}player/players/";
   static String createPlayer = "${apiUrl}player/addplayer";
@@ -9,12 +9,6 @@ class Apis {
   static String transferPlayer = "${apiUrl}player/";
   // player options
   // ignore: slash_for_doc_comments
-  /**
-   * playerRouter.put("/updateAssist/:id/leagueId", update_player_assist);
-playerRouter.put("/updateGoal/:id/leagueId", update_player_goal);
-playerRouter.put("/updateYellow/:id/leagueId", update_player_yellow_card);
-playerRouter.put("/updateRed/:id/:leagueId", update_player_red_card);
-   */
   static String assistRoute = "${apiUrl}player/updateAssist/";
   static String goalRoute = "${apiUrl}player/updateGoal/";
   static String yellowCardRoute = "${apiUrl}player/updateYellow/";
@@ -34,7 +28,7 @@ playerRouter.put("/updateRed/:id/:leagueId", update_player_red_card);
   static String fetchFixtures = "${apiUrl}fixture/";
   static String createFixture = "${apiUrl}fixture/addfixture";
   static String fetchSingleFixture = "${apiUrl}fixture/";
-  static String updateFixture = "${apiUrl}update/fixture/";
+  static String updateFixture = "${apiUrl}fixture/update/";
   static String deleteFixture = "${apiUrl}fixture/delete/";
   static String runningFixture = "${apiUrl}fixture/";
   // reports

@@ -1,8 +1,6 @@
-import 'package:soccer/views/pages/sections/LeagueFixtures.dart';
-import 'package:soccer/views/pages/sections/match_dates.dart';
-import 'package:soccer/views/pages/table_data/league_table.dart';
+import '/views/pages/sections/LeagueFixtures.dart';
+import '/views/pages/table_data/league_table.dart';
 
-import '/views/pages/sections/Fixtures.dart';
 import '/views/pages/sections/Players.dart';
 import '/views/pages/sections/leagues.dart';
 
@@ -51,6 +49,42 @@ class Routes {
 
   static void pushPage(String route) {
     Navigator.of(context).pushNamed(route);
+  }
+
+  static void relacePageRoute(String route) {
+    Navigator.of(context).pushReplacementNamed(route);
+  }
+
+  static void pushPageWithArguments(String route, dynamic arguments) {
+    Navigator.of(context).pushNamed(route, arguments: arguments);
+  }
+
+  static void pushPageWithRoute(Widget route) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => route, fullscreenDialog: true),
+    );
+  }
+
+  static void pushPageWithRouteAndResult(Widget route) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => route, fullscreenDialog: true),
+    );
+  }
+
+  static void pushPageWithRouteAndAnimation(Widget route, {type = 'fade'}) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => type == 'scale'
+            ? ScaleTransition(
+                scale: animation,
+                child: route,
+              )
+            : FadeTransition(
+                opacity: animation,
+                child: route,
+              ),
+      ),
+    );
   }
 
   static void replacePage(Widget route) {

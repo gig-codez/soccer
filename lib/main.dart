@@ -8,6 +8,7 @@ import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
 import 'controllers/data_controller.dart';
+import 'controllers/loader_controller.dart';
 import 'controllers/team_controller.dart';
 
 void main() async {
@@ -39,6 +40,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => TeamController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => LoaderController(),
         ),
       ],
       child: Consumer<AppController>(

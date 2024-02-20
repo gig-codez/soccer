@@ -1,7 +1,4 @@
-import 'package:soccer/views/pages/sections/Fixtures.dart';
-import 'package:soccer/views/pages/sections/fixture_results.dart';
-
-import '../../../../controllers/data_controller.dart';
+import '/views/pages/sections/Fixtures.dart';
 import '../../../../exports/exports.dart';
 import '../../table_data/TableResults.dart';
 import '../add_team.dart';
@@ -44,9 +41,9 @@ class LeagueOptions extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.add),
+              leading: const Icon(Icons.date_range),
               title: const Text(
-                "Add a match date",
+                "Match dates",
               ),
               onTap: () {
                 Routes.popPage();
@@ -58,9 +55,9 @@ class LeagueOptions extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.add),
+              leading: const Icon(Icons.sports_football),
               title: const Text(
-                "Add a fixture",
+                "Fixtures",
               ),
               onTap: () {
                 Routes.popPage();
@@ -73,9 +70,9 @@ class LeagueOptions extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.add),
+              leading: const Icon(Icons.backup_table),
               title: const Text(
-                "Add table results",
+                "Table results",
               ),
               onTap: () {
                 Routes.popPage();

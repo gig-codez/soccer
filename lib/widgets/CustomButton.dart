@@ -7,12 +7,14 @@ class CustomButton extends StatelessWidget {
   final Color? buttonColor;
   final Color? textColor;
   final double opacity;
+  final bool loading;
   final double? width;
   final FontWeight? fontWeight;
   final VoidCallback onPress;
   const CustomButton(
       {super.key,
       this.text = '',
+      this.loading = false,
       required this.onPress,
       this.buttonHeight = 50,
       this.buttonRadius = 20,
@@ -30,19 +32,22 @@ class CustomButton extends StatelessWidget {
         width: width ?? MediaQuery.of(context).size.width,
         height: buttonHeight,
         decoration: BoxDecoration(
-          color: buttonColor ?? primaryColor.withOpacity(opacity),
+          color: loading
+              ? Theme.of(context).disabledColor
+              : buttonColor ?? primaryColor.withOpacity(opacity),
           borderRadius: BorderRadius.circular(buttonRadius),
         ),
         child: Center(
-          child: Text(
-            text,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-           
-                .apply(color: textColor ?? primaryColor),
-            textAlign: TextAlign.center,
-          ),
+          child: loading
+              ? const CircularProgressIndicator.adaptive()
+              : Text(
+                  text,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .apply(color: textColor ?? primaryColor),
+                  textAlign: TextAlign.center,
+                ),
         ),
       ),
     );
