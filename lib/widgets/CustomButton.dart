@@ -34,7 +34,8 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: loading
               ? Theme.of(context).disabledColor
-              : buttonColor ?? primaryColor.withOpacity(opacity),
+              : buttonColor?.withOpacity(opacity) ??
+                  primaryColor.withOpacity(opacity),
           borderRadius: BorderRadius.circular(buttonRadius),
         ),
         child: Center(

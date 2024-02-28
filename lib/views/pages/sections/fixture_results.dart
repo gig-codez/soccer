@@ -177,10 +177,10 @@ class _FixtureResultsState extends State<FixtureResults>
                               });
                             },
                       text: widget.data.twohalves
-                          ? widget.data.halfEnded
-                              ? "Run Second Half"
-                              : widget.data.isRunning
-                                  ? "Fixture running"
+                          ? widget.data.isRunning
+                              ? "Fixture running"
+                              : widget.data.halfEnded
+                                  ? "Run Second Half"
                                   : "Run First Half"
                           : "Run Fixture",
                     ),
