@@ -159,19 +159,25 @@ class _FixtureResultsState extends State<FixtureResults>
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),
-              child: CustomButton(
-                width: 200,
-                onPress: () {
-                  FixtureService.runFixture(widget.fixtureId);
-                  PlayerService.castMessage({
-                    "title": "Match Day!",
-                    "league": widget.leagueId,
-                    "body":
-                        "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
-                  });
-                },
-                text: "Run fixture",
-              ),
+              child: widget.data.matchEnded
+                  ? Container()
+                  : CustomButton(
+                      width: 200,
+                      onPress: () {
+                        FixtureService.runFixture(widget.fixtureId);
+                        PlayerService.castMessage({
+                          "title": "Match Day!",
+                          "league": widget.leagueId,
+                          "body":
+                              "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
+                        });
+                      },
+                      text: widget.data.twohalves
+                          ? widget.data.halfEnded
+                              ? "Run Second Half"
+                              : "Run First Half"
+                          : "Run Fixture",
+                    ),
             ),
             const SizedBox.square(
               dimension: 40,
