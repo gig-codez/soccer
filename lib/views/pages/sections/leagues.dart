@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:path/path.dart' as path;
 import '../../../models/league.dart';
 import '../../../services/league_service.dart';
 import '/exports/exports.dart';
@@ -57,7 +57,9 @@ class _LeaguesState extends State<Leagues> {
                           itemCount: snap.data?.length,
                           itemBuilder: (context, index) {
                             return ProfileWidget(
-                              titleText: "${snap.data?[index].name}",
+                              titleText:
+                                  "${snap.data?[index].name}".toUpperCase(),
+                              // img: snap.data?[index].image,
                               prefixIcon: "assets/icons/league.svg",
                               iconSize: 20,
                               color: Theme.of(context).primaryColor,

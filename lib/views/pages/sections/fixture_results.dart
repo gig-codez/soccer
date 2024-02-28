@@ -49,7 +49,7 @@ class _FixtureResultsState extends State<FixtureResults>
         title: const Text('Fixture Results'),
         actions: [
           IconButton(
-              icon: Icon(Icons.notifications),
+              icon: const Icon(Icons.notifications),
               onPressed: () {
                 showModalSheet(CastMessage(leagueId: widget.leagueId));
               }),
@@ -162,20 +162,26 @@ class _FixtureResultsState extends State<FixtureResults>
               child: widget.data.matchEnded
                   ? Container()
                   : CustomButton(
+                      buttonColor: widget.data.isRunning ? Colors.green : null,
+                      textColor: widget.data.isRunning ? Colors.green : null,
                       width: 200,
-                      onPress: () {
-                        FixtureService.runFixture(widget.fixtureId);
-                        PlayerService.castMessage({
-                          "title": "Match Day!",
-                          "league": widget.leagueId,
-                          "body":
-                              "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
-                        });
-                      },
+                      onPress: widget.data.isRunning
+                          ? () {}
+                          : () {
+                              FixtureService.runFixture(widget.fixtureId);
+                              PlayerService.castMessage({
+                                "title": "Match Day!",
+                                "league": widget.leagueId,
+                                "body":
+                                    "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
+                              });
+                            },
                       text: widget.data.twohalves
                           ? widget.data.halfEnded
                               ? "Run Second Half"
-                              : "Run First Half"
+                              : widget.data.isRunning
+                                  ? "Fixture running"
+                                  : "Run First Half"
                           : "Run Fixture",
                     ),
             ),

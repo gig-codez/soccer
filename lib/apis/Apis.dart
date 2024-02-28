@@ -50,7 +50,9 @@ class Apis {
   static String deleteTableData = "${apiUrl}table/delete/";
   static String addTableData = "${apiUrl}table/add";
 
-  static String castMessage = "${apiUrl}player/castMessage";
+  static String castMessage = "${apiUrl}notify/castMessage";
   // api route for running a fixture
   static String runFixture = "${apiUrl}fixture/runFixture/";
+
+  static String fixtureGoals = "${apiUrl}fixture/updateGoals/";
 }

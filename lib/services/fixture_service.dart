@@ -89,12 +89,12 @@ class FixtureService {
         Routes.popPage();
       } else {
         showMessage(msg: "Failed to  update fixture");
-          // ignore: use_build_context_synchronously
+        // ignore: use_build_context_synchronously
         Provider.of<LoaderController>(context, listen: false).isLoading = false;
         Routes.popPage();
       }
     } on ClientException catch (e) {
-        // ignore: use_build_context_synchronously
+      // ignore: use_build_context_synchronously
       Provider.of<LoaderController>(context, listen: false).isLoading = false;
       debugPrint(e.message);
     }
@@ -120,7 +120,7 @@ class FixtureService {
     try {
       log(data.toString());
       Response res = await Client().put(
-        Uri.parse(Apis.updateFixture + data["fixtureId"]),
+        Uri.parse(Apis.fixtureGoals + data["fixtureId"]),
         body: {
           "homeGoals": data["homeGoals"],
           "awayGoals": data["awayGoals"],
