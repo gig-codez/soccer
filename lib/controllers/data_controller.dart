@@ -42,6 +42,8 @@ class DataController with ChangeNotifier {
     PlayerService().getPlayers(teamId).then((value) {
       _players = value;
       notifyListeners();
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
     });
   }
 

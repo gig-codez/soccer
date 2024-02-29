@@ -1,30 +1,23 @@
-import 'dart:io';
 
+import 'dart:convert';
 import '../exports/exports.dart';
 import '../models/player.dart';
 
 class PlayerService {
 //  get all players
   Future<List<Message>> getPlayers(String teamId) async {
-    String res = "";
     try {
       final response = await Client().get(
         Uri.parse(Apis.fetchPlayers + teamId),
       );
       if (response.statusCode == 200) {
-        res = response.body;
-        // debugPrint(res);
+        return playersModelFromJson(response.body).message;
+      } else {
+        return Future.error(jsonDecode(response.body)['message']);
       }
-    } on ClientException catch (e) {
-      debugPrint(e.message);
-    } on SocketException catch (e) {
-      debugPrint(e.message);
-    } on HttpException catch (e) {
-      debugPrint(e.message);
-    } catch (e) {
-      throw Exception(e.toString());
+    } on Exception catch (e) {
+      return Future.error(e.toString());
     }
-    return playersModelFromJson(res).message;
   }
 
 // delete player

@@ -9,36 +9,36 @@ import "dart:convert";
 class FixtureService {
   static BuildContext context = navigatorKey.currentContext!;
   static Future<List<Datum>> getFixtures(String leagueId) async {
-    String res = "";
     try {
       Response response = await Client().get(
         Uri.parse(Apis.fetchFixtures + leagueId),
       );
       if (response.statusCode == 200) {
-        res = response.body;
+        return fixtureModelFromJson(response.body).data;
+      } else {
+        return Future.error(jsonDecode(response.body)['message']);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+      return Future.error(e.message);
     }
-    return fixtureModelFromJson(res).data;
   }
 
   static Future<List<Datum>> getRunningFixtures(
       String leagueId, String matchId) async {
-    // print("$leagueId , $matchId");
-    String res = "";
     try {
       Response response = await Client().get(
         Uri.parse("${Apis.runningFixture}$leagueId/$matchId"),
       );
       if (response.statusCode == 200) {
-        res = response.body;
-        // log(res);
+        return fixtureModelFromJson(response.body).data;
+      } else {
+        return Future.error(jsonDecode(response.body)['message']);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+      return Future.error(e.message);
     }
-    return fixtureModelFromJson(res).data;
   }
 
   // function to add a fixture
