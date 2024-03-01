@@ -4,6 +4,7 @@ import 'package:soccer/controllers/data_controller.dart';
 import 'package:soccer/models/fixture.dart';
 import 'package:soccer/widgets/FixtureWidget.dart';
 
+import '../../../models/match_date.dart';
 import '../../../services/fixture_service.dart';
 import '../../../services/match_date_service.dart';
 import '/views/pages/sections/add_fixture.dart';
@@ -29,6 +30,16 @@ class _FixturesPageState extends State<FixturesPage>
   Timer? _timer;
   TabController? _tabController;
   int tabs = 0;
+  // function to capture current match date
+  int currentTab(List<MatchDateModel> match) {
+    int tabIndex = match.indexOf(match
+        .where((element) =>
+            DateTime.parse(element.date).formatedDate() ==
+            DateTime.now().formatedDate())
+        .first);
+    return tabIndex == -1 ? match.length - 1 : tabIndex;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +51,7 @@ class _FixturesPageState extends State<FixturesPage>
         });
         _tabController = TabController(
           length: matchDates.length, //P@ssw0rd?
-          // initialIndex: currentTab,
+          initialIndex: currentTab(matchDates),
           vsync: this,
         );
       } else {
@@ -113,7 +124,8 @@ class _FixturesPageState extends State<FixturesPage>
                   tabs: List.generate(
                     controller.matchDates.length,
                     (index) => Tab(
-                      text: DateTime.parse(controller.matchDates[index].date).formatedDate(),
+                      text: DateTime.parse(controller.matchDates[index].date)
+                          .formatedDate(),
                     ),
                   ),
                 ),

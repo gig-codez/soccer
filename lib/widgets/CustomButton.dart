@@ -34,8 +34,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: loading
               ? Theme.of(context).disabledColor
-              : buttonColor?.withOpacity(opacity) ??
-                  primaryColor.withOpacity(opacity),
+              : buttonColor ?? primaryColor.withOpacity(opacity),
           borderRadius: BorderRadius.circular(buttonRadius),
         ),
         child: Center(
@@ -45,7 +44,7 @@ class CustomButton extends StatelessWidget {
                   text,
                   style: Theme.of(context)
                       .textTheme
-                      .bodyMedium!
+                      .titleMedium!
                       .apply(color: textColor ?? primaryColor),
                   textAlign: TextAlign.center,
                 ),

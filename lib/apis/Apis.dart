@@ -53,6 +53,6 @@ class Apis {
   static String castMessage = "${apiUrl}notify/castMessage";
   // api route for running a fixture
   static String runFixture = "${apiUrl}fixture/runFixture/";
-
+  static String endRunningFixture = "${apiUrl}fixture/stopFixture/";
   static String fixtureGoals = "${apiUrl}fixture/updateGoals/";
 }

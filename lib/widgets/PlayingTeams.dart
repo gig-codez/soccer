@@ -18,13 +18,13 @@ class PlayingTeams extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: Image.network(
-                   data.hometeam.image,
-                  width: 55,
-                  height: 55,
+                  data.hometeam.image,
+                  width: 35,
+                  height: 35,
                 ),
               ),
               Text(data.hometeam.name,
-                  style: Theme.of(context).textTheme.titleMedium),
+                  style: Theme.of(context).textTheme.labelMedium),
             ],
           ),
         ),
@@ -39,7 +39,7 @@ class PlayingTeams extends StatelessWidget {
                     text: data.isLive
                         ? "${data.homeGoals} - ${data.awayGoals}"
                         : "${data.kickofftime}\n",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   // TextSpan(
                   //   text: "Full-Time",
@@ -58,13 +58,13 @@ class PlayingTeams extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: Image.network(
-                   data.awayteam.image,
-                  width: 55,
-                  height: 55,
+                  data.awayteam.image,
+                  width: 35,
+                  height: 35,
                 ),
               ),
               Text(data.awayteam.name,
-                  style: Theme.of(context).textTheme.titleMedium),
+                  style: Theme.of(context).textTheme.labelMedium),
             ],
           ),
         ),
