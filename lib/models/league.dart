@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final leaguesModel = leaguesModelFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 LeaguesModel leaguesModelFromJson(String str) =>

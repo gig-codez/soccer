@@ -32,12 +32,14 @@ class _FixturesPageState extends State<FixturesPage>
   int tabs = 0;
   // function to capture current match date
   int currentTab(List<MatchDateModel> match) {
-    int tabIndex = match.indexOf(match
-        .where((element) =>
-            DateTime.parse(element.date).formatedDate() ==
-            DateTime.now().formatedDate())
-        .first);
-    return tabIndex == -1 ? match.length - 1 : tabIndex;
+    var tabDate = match.where((element) =>
+        DateTime.parse(element.date).formatedDate() ==
+        DateTime.now().formatedDate());
+    if (tabDate.isEmpty) {
+      return (match.length - 1);
+    }
+    int tabIndex = match.indexOf(tabDate.first);
+    return tabIndex;
   }
 
   @override

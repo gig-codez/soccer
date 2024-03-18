@@ -1,5 +1,6 @@
 import 'package:soccer/services/player_service.dart';
 
+import '../../../controllers/data_controller.dart';
 import '/services/fixture_service.dart';
 
 import '/models/fixture.dart';
@@ -131,83 +132,87 @@ class _FixtureResultsState extends State<FixtureResults>
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0.0),
-        child: Column(
-          children: [
-            Expanded(child: PlayingTeams(data: widget.data)),
-            TabBar(
-              controller: tabController,
-              tabs: [
-                Tab(text: "${widget.data.hometeam.name}'s players"),
-                Tab(text: "${widget.data.awayteam.name}'s players"),
-              ],
-            ),
-            Expanded(
-              flex: 5,
-              child: TabBarView(
+        child: Consumer<DataController>(builder: (context, controller, child) {
+          // invoke function
+          controller.setFixtureUpdates(widget.data.league, widget.data.id);
+          return Column(
+            children: [
+              Expanded(child: PlayingTeams(data: widget.data)),
+              TabBar(
                 controller: tabController,
-                children: [
-                  HomeTeamFixture(
-                    id: widget.data.hometeam.id,
-                    leagueId: widget.leagueId,
-                  ),
-                  AwayTeamFixture(
-                    id: widget.data.awayteam.id,
-                    leagueId: widget.leagueId,
-                  ),
+                tabs: [
+                  Tab(text: "${widget.data.hometeam.name}'s players"),
+                  Tab(text: "${widget.data.awayteam.name}'s players"),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
-              child: widget.data.matchEnded
-                  ? Container()
-                  : CustomButton(
-                      buttonColor: Colors.green,
-                      textColor: Colors.white,
-                      width: 200,
-                      onPress: () {
-                        FixtureService.runFixture(widget.fixtureId);
-                        PlayerService.castMessage({
-                          "title": "Match Day!",
-                          "league": widget.leagueId,
-                          "body":
-                              "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
-                        });
-                      },
-                      text: widget.data.twohalves
-                          ? widget.data.halfEnded
-                              ? "Run Second Half"
-                              : "Run First Half"
-                          : "Run Fixture",
+              Expanded(
+                flex: 5,
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    HomeTeamFixture(
+                      id: widget.data.hometeam.id,
+                      leagueId: widget.leagueId,
                     ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
-              child: widget.data.matchEnded
-                  ? Container()
-                  : CustomButton(
-                      width: 200,
-                      onPress: () {
-                        FixtureService.endRunningFixture(widget.fixtureId);
-                        PlayerService.castMessage({
-                          "title": "Match Day!",
-                          "league": widget.leagueId,
-                          "body":
-                              "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has ended",
-                        });
-                      },
-                      text: widget.data.twohalves
-                          ? widget.data.halfEnded
-                              ? "Stop Second Half"
-                              : "Stop First Half"
-                          : "Stop Fixture",
+                    AwayTeamFixture(
+                      id: widget.data.awayteam.id,
+                      leagueId: widget.leagueId,
                     ),
-            ),
-            const SizedBox.square(
-              dimension: 40,
-            )
-          ],
-        ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
+                child: controller.matchEnded
+                    ? Container()
+                    : CustomButton(
+                        buttonColor: Colors.green,
+                        textColor: Colors.white,
+                        width: 200,
+                        onPress: () {
+                          FixtureService.runFixture(widget.fixtureId);
+                          PlayerService.castMessage({
+                            "title": "Match Day!",
+                            "league": widget.leagueId,
+                            "body":
+                                "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
+                          });
+                        },
+                        text: widget.data.twohalves
+                            ? widget.data.halfEnded
+                                ? "Run Second Half"
+                                : "Run First Half"
+                            : "Run Fixture",
+                      ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
+                child: controller.matchEnded
+                    ? Container()
+                    : CustomButton(
+                        width: 200,
+                        onPress: () {
+                          FixtureService.endRunningFixture(widget.fixtureId);
+                          PlayerService.castMessage({
+                            "title": "Match Day!",
+                            "league": widget.leagueId,
+                            "body":
+                                "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has ended",
+                          });
+                        },
+                        text: widget.data.twohalves
+                            ? widget.data.halfEnded
+                                ? "Stop Second Half"
+                                : "Stop First Half"
+                            : "Stop Fixture",
+                      ),
+              ),
+              const SizedBox.square(
+                dimension: 40,
+              )
+            ],
+          );
+        }),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
