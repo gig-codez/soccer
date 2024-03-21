@@ -161,55 +161,51 @@ class _FixtureResultsState extends State<FixtureResults>
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
-                child: controller.matchEnded
-                    ? Container()
-                    : CustomButton(
-                        buttonColor: Colors.green,
-                        textColor: Colors.white,
-                        width: 200,
-                        onPress: () {
-                          FixtureService.runFixture(widget.fixtureId);
-                          PlayerService.castMessage({
-                            "title": "Match Day!",
-                            "league": widget.leagueId,
-                            "body":
-                                "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
-                          });
-                        },
-                        text: widget.data.twohalves
+              if (controller.matchEnded == false) ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
+                  child: CustomButton(
+                    buttonColor: Colors.green,
+                    textColor: Colors.white,
+                    width: 200,
+                    onPress: () {
+                      FixtureService.runFixture(widget.fixtureId);
+                      PlayerService.castMessage({
+                        "title": widget.data.twohalves
                             ? widget.data.halfEnded
-                                ? "Run Second Half"
-                                : "Run First Half"
-                            : "Run Fixture",
-                      ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
-                child: controller.matchEnded
-                    ? Container()
-                    : CustomButton(
-                        width: 200,
-                        onPress: () {
-                          FixtureService.endRunningFixture(widget.fixtureId);
-                          PlayerService.castMessage({
-                            "title": "Match Day!",
-                            "league": widget.leagueId,
-                            "body":
-                                "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has ended",
-                          });
-                        },
-                        text: widget.data.twohalves
-                            ? widget.data.halfEnded
-                                ? "Stop Second Half"
-                                : "Stop First Half"
-                            : "Stop Fixture",
-                      ),
-              ),
-              const SizedBox.square(
-                dimension: 40,
-              )
+                                ? "Second Half started!"
+                                : "Match Day!"
+                            : "Match Day!",
+                        "league": widget.leagueId,
+                        "body":
+                            "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
+                      });
+                    },
+                    text: widget.data.twohalves
+                        ? widget.data.halfEnded
+                            ? "Run Second Half"
+                            : "Run First Half"
+                        : "Run Fixture",
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
+                  child: CustomButton(
+                    width: 200,
+                    onPress: () {
+                      FixtureService.endRunningFixture(widget.fixtureId);
+                    },
+                    text: widget.data.twohalves
+                        ? widget.data.halfEnded
+                            ? "Stop Second Half"
+                            : "Stop First Half"
+                        : "Stop Fixture",
+                  ),
+                ),
+                const SizedBox.square(
+                  dimension: 40,
+                )
+              ],
             ],
           );
         }),
