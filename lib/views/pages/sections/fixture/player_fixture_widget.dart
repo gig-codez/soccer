@@ -38,25 +38,25 @@ class _PlayerFixtureWidgetState extends State<PlayerFixtureWidget> {
               titleText: players[index].name,
               subText: players[index].position,
               prefixIcon: "assets/icons/match.svg",
-              trailing: IconButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      showDragHandle: true,
-                      builder: (context) {
-                        return BottomSheet(
-                          onClosing: () {},
-                          builder: (context) {
-                            return PlayerOptions(
-                              leagueId: widget.leagueId,
-                              data: players[index],
-                            );
-                          },
-                        );
-                      });
-                },
-                icon: const Icon(Icons.edit),
-              ),
+              // trailing: IconButton(
+              //   onPressed: () {
+              //     showModalBottomSheet(
+              //         context: context,
+              //         showDragHandle: true,
+              //         builder: (context) {
+              //           return BottomSheet(
+              //             onClosing: () {},
+              //             builder: (context) {
+              //               return PlayerOptions(
+              //                 leagueId: widget.leagueId,
+              //                 data: players[index],
+              //               );
+              //             },
+              //           );
+              //         });
+              //   },
+              //   icon: const Icon(Icons.edit),
+              // ),
               color: Colors.amber,
             ),
           )

@@ -1,6 +1,6 @@
-import 'package:soccer/views/pages/teamPages/player_options.dart';
+// import 'package:soccer/views/pages/teamPages/player_options.dart';
 
-import '../../teamPages/LineUp.dart';
+// import '../../teamPages/LineUp.dart';
 import '/exports/exports.dart';
 import 'player_fixture_widget.dart';
 
