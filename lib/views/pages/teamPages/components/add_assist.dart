@@ -2,7 +2,7 @@ import '../../../../controllers/data_controller.dart';
 import '../../../../services/player_service.dart';
 import '/exports/exports.dart';
 
-class AddAssist extends StatelessWidget {
+class AddAssist extends StatefulWidget {
   final String playerId;
   final String leagueId;
   final String teamId;
@@ -13,41 +13,40 @@ class AddAssist extends StatelessWidget {
       required this.teamId});
 
   @override
+  State<AddAssist> createState() => _AddAssistState();
+}
+
+class _AddAssistState extends State<AddAssist> {
+  final assistController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    return Consumer<DataController>(builder: (context, controller, child) {
-      return Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Column(
-          children: [
-            InkWell(
-              onTap: () {
-                showModalSheet(
-                  ShowPlayers(
-                    teamId: teamId,
-                  ),
-                );
-              },
-              child: CommonTextField(
+    return Consumer<LoaderController>(builder: (context, controller, child) {
+      return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.24,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Column(
+            children: [
+              CommonTextField(
                 padding: const EdgeInsets.all(18.0),
-                controller: TextEditingController(
-                  text: controller.playerData["name"],
-                ),
-                readOnly: true,
+                controller: assistController,
                 titleText: "Attach an assist",
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: CustomButton(
-                onPress: () {
-                  PlayerService.attachAssistToPlayer(playerId, leagueId, {
-                    "assist": controller.playerData["id"],
-                  });
-                },
-                text: "Save Changes",
-              ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: CustomButton(
+                  loading: controller.isLoading,
+                  onPress: () {
+                    PlayerService.attachAssistToPlayer(
+                        widget.playerId, widget.leagueId, {
+                      "assist": assistController.text,
+                    });
+                  },
+                  text: "Save Changes",
+                ),
+              )
+            ],
+          ),
         ),
       );
     });

@@ -96,7 +96,7 @@ class CommonTextField extends StatelessWidget {
                             left: 20,
                             right: 16,
                             top: 16,
-                            bottom: 16,
+                            bottom: 12,
                           ),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       suffixIcon: enableSuffix

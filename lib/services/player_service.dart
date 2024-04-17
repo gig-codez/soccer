@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import '../exports/exports.dart';
 import '../models/player.dart';
@@ -74,30 +73,63 @@ class PlayerService {
   static attachGoalToPlayer(
       String id, String leagueId, Map<String, dynamic> data) async {
     try {
+      context.read<LoaderController>().isLoading = true;
       Response response = await Client()
           .put(Uri.parse("${Apis.goalRoute}$id/$leagueId"), body: data);
       if (response.statusCode == 200) {
+        context.read<LoaderController>().isLoading = false;
         showMessage(msg: "Player updated successfully", color: Colors.green);
         Routes.popPage();
       } else {
+        context.read<LoaderController>().isLoading = false;
         showMessage(msg: "Player update failed", color: Colors.red);
         Routes.popPage();
       }
     } on ClientException catch (e) {
+      context.read<LoaderController>().isLoading = false;
       debugPrint(e.message);
     }
   }
 
   // assist
-  static attachAssistToPlayer(
+  static void attachAssistToPlayer(
       String id, String leagueId, Map<String, dynamic> data) async {
     try {
+      context.read<LoaderController>().isLoading = true;
+
       Response response = await Client()
           .put(Uri.parse("${Apis.assistRoute}$id/$leagueId"), body: data);
       if (response.statusCode == 200) {
+        context.read<LoaderController>().isLoading = false;
+
         showMessage(msg: "Player updated successfully", color: Colors.green);
         Routes.popPage();
       } else {
+        context.read<LoaderController>().isLoading = false;
+
+        showMessage(msg: "Player update failed", color: Colors.red);
+        Routes.popPage();
+      }
+    } on ClientException catch (e) {
+      context.read<LoaderController>().isLoading = false;
+
+      debugPrint(e.message);
+    }
+  }
+
+  // assist
+  static attachCleanSheetToPlayer(
+      String id, String leagueId, Map<String, dynamic> data) async {
+    try {
+      Response response = await Client().put(
+          Uri.parse("${Apis.cleanSheetRoute}/${id}/sheet/$leagueId"),
+          body: data);
+      if (response.statusCode == 200) {
+        showMessage(
+            msg: "clean sheet recorded successfully", color: Colors.green);
+        Routes.popPage();
+      } else {
+        print(response.body);
         showMessage(msg: "Player update failed", color: Colors.red);
         Routes.popPage();
       }
@@ -110,18 +142,24 @@ class PlayerService {
   static attachYellowCardToPlayer(
       String id, String leagueId, Map<String, dynamic> data) async {
     try {
+      context.read<LoaderController>().isLoading = true;
+
       Response response = await Client()
           .put(Uri.parse("${Apis.yellowCardRoute}$id/$leagueId"), body: data);
       if (response.statusCode == 200) {
+        context.read<LoaderController>().isLoading = false;
+
         showMessage(msg: "Player updated successfully", color: Colors.green);
         Routes.popPage();
       } else {
+        context.read<LoaderController>().isLoading = false;
         debugPrint(response.body);
         showMessage(msg: "Player update failed", color: Colors.red);
         Routes.popPage();
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+      context.read<LoaderController>().isLoading = false;
     }
   }
 
@@ -129,17 +167,21 @@ class PlayerService {
   static attachRedCardToPlayer(
       String id, String leagueId, Map<String, dynamic> data) async {
     try {
+      context.read<LoaderController>().isLoading = true;
       Response response = await Client()
           .put(Uri.parse("${Apis.redCardRoute}$id/$leagueId"), body: data);
       if (response.statusCode == 200) {
+        context.read<LoaderController>().isLoading = false;
         showMessage(msg: "Player updated successfully", color: Colors.green);
         Routes.popPage();
       } else {
+        context.read<LoaderController>().isLoading = false;
         debugPrint(response.body);
         showMessage(msg: "Player update failed", color: Colors.red);
         Routes.popPage();
       }
     } on ClientException catch (e) {
+      context.read<LoaderController>().isLoading = false;
       debugPrint(e.message);
     }
   }

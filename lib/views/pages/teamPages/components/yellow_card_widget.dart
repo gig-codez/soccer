@@ -15,31 +15,35 @@ class _YellowCardWidgetState extends State<YellowCardWidget> {
   final yellowCardTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Column(
-        children: [
-          CommonTextField(
-            padding: const EdgeInsets.all(18.0),
-            titleText: "Attach a yellow",
-            controller: yellowCardTextController,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: CustomButton(
-              onPress: () {
-                PlayerService.attachYellowCardToPlayer(
-                  widget.playerId,
-                  widget.leagueId,
-                  {
-                    "yellow_card": yellowCardTextController.text,
-                  },
-                );
-              },
-              text: "Save Changes",
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.24,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Column(
+          children: [
+            CommonTextField(
+              padding: const EdgeInsets.all(18.0),
+              titleText: "Attach a yellow",
+              controller: yellowCardTextController,
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: CustomButton(
+                loading: context.read<LoaderController>().isLoading,
+                onPress: () {
+                  PlayerService.attachYellowCardToPlayer(
+                    widget.playerId,
+                    widget.leagueId,
+                    {
+                      "yellow_card": yellowCardTextController.text,
+                    },
+                  );
+                },
+                text: "Save Changes",
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

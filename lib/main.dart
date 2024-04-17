@@ -8,7 +8,6 @@ import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
 import 'controllers/data_controller.dart';
-import 'controllers/loader_controller.dart';
 import 'controllers/team_controller.dart';
 
 void main() async {

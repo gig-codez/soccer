@@ -34,7 +34,8 @@ export 'package:http/http.dart';
 // models
 
 // controllers
-export '/controllers/AppController.dart';
+export '../controllers/app_controller.dart';
+export '/controllers/loader_controller.dart';
 // apis
 export '/apis/Apis.dart';
 // widgets

@@ -12,6 +12,7 @@ class Apis {
   // player options
   // ignore: slash_for_doc_comments
   static String assistRoute = "${apiUrl}player/updateAssist/";
+  static String cleanSheetRoute = "${apiUrl}player/updateClean";
   static String goalRoute = "${apiUrl}player/updateGoal/";
   static String yellowCardRoute = "${apiUrl}player/updateYellow/";
   static String redCardRoute = "${apiUrl}player/updateRed/";

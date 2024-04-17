@@ -64,7 +64,7 @@ class TableService {
         Routes.popPage();
         showMessage(msg: "Something went wrong, Couldn't update data");
       }
-    } on ClientException catch (e) {
+    } on ClientException {
       // showMessage(msg: e.message);
     }
   }

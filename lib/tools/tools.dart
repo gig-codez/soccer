@@ -2,7 +2,7 @@ import '../exports/exports.dart';
 import 'package:intl/intl.dart';
 
 var navigatorKey = GlobalKey<NavigatorState>();
-
+BuildContext context = navigatorKey.currentContext!;
 void showMessage({String msg = "", Color? color}) {
   ScaffoldMessenger.of(navigatorKey.currentContext!).showSnackBar(
     SnackBar(
@@ -24,6 +24,13 @@ void showModalSheet(Widget page, {AnimationController? controller}) {
       onClosing: () {},
       builder: (context) => page,
     ),
+  );
+}
+
+void showAdaptive(Widget page) {
+  showAdaptiveDialog(
+    context: navigatorKey.currentContext!,
+    builder: (context) => Dialog(child: page),
   );
 }
 

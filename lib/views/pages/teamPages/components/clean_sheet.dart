@@ -1,17 +1,18 @@
 import '../../../../services/player_service.dart';
 import '/exports/exports.dart';
 
-class GoalWidget extends StatefulWidget {
+class CleanSheetWidget extends StatefulWidget {
   final String playerId;
   final String leagueId;
-  const GoalWidget({super.key, required this.playerId, required this.leagueId});
+  const CleanSheetWidget(
+      {super.key, required this.playerId, required this.leagueId});
 
   @override
-  State<GoalWidget> createState() => _GoalWidgetState();
+  State<CleanSheetWidget> createState() => _CleanSheetWidgetState();
 }
 
-class _GoalWidgetState extends State<GoalWidget> {
-  final goalTextController = TextEditingController();
+class _CleanSheetWidgetState extends State<CleanSheetWidget> {
+  final cleanSheetTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -25,7 +26,7 @@ class _GoalWidgetState extends State<GoalWidget> {
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Text(
-                  "Goal",
+                  "Clean Sheet",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -33,9 +34,9 @@ class _GoalWidgetState extends State<GoalWidget> {
               ),
               CommonTextField(
                 padding: const EdgeInsets.fromLTRB(10, 13, 10, 12),
-                controller: goalTextController,
+                controller: cleanSheetTextController,
                 icon: Icons.sports_soccer,
-                titleText: "Attach a goal",
+                titleText: "Attach clean sheet",
                 readOnly: controller.isLoading,
               ),
               Padding(
@@ -45,9 +46,9 @@ class _GoalWidgetState extends State<GoalWidget> {
                   onPress: controller.isLoading
                       ? () {}
                       : () {
-                          PlayerService.attachGoalToPlayer(
+                          PlayerService.attachCleanSheetToPlayer(
                               widget.playerId, widget.leagueId, {
-                            "goal": goalTextController.text,
+                            "clean_sheet": cleanSheetTextController.text,
                           });
                         },
                   text: "Save Changes",
