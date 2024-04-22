@@ -1,4 +1,4 @@
-import 'package:soccer/services/player_service.dart';
+import '/services/player_service.dart';
 
 import '../../../controllers/data_controller.dart';
 import '/services/fixture_service.dart';

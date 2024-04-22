@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:soccer/models/fixture.dart';
-import 'package:soccer/models/league.dart';
-import 'package:soccer/widgets/TeamsWidget.dart';
+import '/models/fixture.dart';
+import '/models/league.dart';
+import '/widgets/TeamsWidget.dart';
 
 import '../exports/exports.dart';
 import '../services/fixture_service.dart';

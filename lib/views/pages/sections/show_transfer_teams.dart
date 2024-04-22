@@ -1,7 +1,7 @@
-import 'package:soccer/controllers/team_controller.dart';
+import '/controllers/team_controller.dart';
 
-import '../../../exports/exports.dart';
-import 'transfer_widget.dart';
+import '/exports/exports.dart';
+// import 'transfer_widget.dart';
 
 class ShowTransferTeams extends StatefulWidget {
   final String teamId;

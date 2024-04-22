@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:soccer/controllers/loader_controller.dart';
+import '/controllers/loader_controller.dart';
 
 import '../exports/exports.dart';
 import '../models/fixture.dart';

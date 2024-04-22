@@ -1,5 +1,5 @@
-import 'package:soccer/models/table_model.dart';
-import 'package:soccer/services/table_service.dart';
+import '/models/table_model.dart';
+import '/services/table_service.dart';
 
 import '/exports/exports.dart';
 

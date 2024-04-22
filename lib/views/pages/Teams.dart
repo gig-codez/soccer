@@ -1,5 +1,5 @@
-import 'package:soccer/models/fixture.dart';
-import 'package:soccer/views/pages/teamPages/LineUp.dart';
+import '/models/fixture.dart';
+import '/views/pages/teamPages/LineUp.dart';
 
 import '../../widgets/PlayingTeams.dart';
 import '/exports/exports.dart';

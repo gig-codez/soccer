@@ -1,4 +1,4 @@
-import 'package:soccer/services/team_service.dart';
+import '/services/team_service.dart';
 
 import '../../../exports/exports.dart';
 

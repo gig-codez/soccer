@@ -1,5 +1,4 @@
-import 'package:soccer/models/fixture.dart';
-
+import '/models/fixture.dart';
 import '../exports/exports.dart';
 
 class TeamsWidget extends StatelessWidget {

@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:soccer/controllers/data_controller.dart';
-import 'package:soccer/models/fixture.dart';
-import 'package:soccer/widgets/FixtureWidget.dart';
+import '/controllers/data_controller.dart';
+import '/models/fixture.dart';
+import '/widgets/FixtureWidget.dart';
 
-import '../../../models/match_date.dart';
-import '../../../services/fixture_service.dart';
-import '../../../services/match_date_service.dart';
+import '/models/match_date.dart';
+import '/services/fixture_service.dart';
+import '/services/match_date_service.dart';
 import '/views/pages/sections/add_fixture.dart';
 
 import '../../../exports/exports.dart';

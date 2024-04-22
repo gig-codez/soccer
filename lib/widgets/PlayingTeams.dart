@@ -1,5 +1,5 @@
-import 'package:soccer/models/fixture.dart';
-import 'package:soccer/services/fixture_service.dart';
+import '/models/fixture.dart';
+import '/services/fixture_service.dart';
 import "dart:async";
 import '../exports/exports.dart';
 

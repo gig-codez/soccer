@@ -1,4 +1,4 @@
-import 'package:soccer/exports/exports.dart';
+import '/exports/exports.dart';
 
 class Themes {
   static DrawerThemeData drawerTheme = const DrawerThemeData(

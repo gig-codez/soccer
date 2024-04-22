@@ -1,5 +1,5 @@
-import 'package:soccer/models/team.dart';
-import 'package:soccer/services/team_service.dart';
+import '/models/team.dart';
+import '/services/team_service.dart';
 
 import '../exports/exports.dart';
 

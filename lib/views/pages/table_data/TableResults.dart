@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:soccer/views/pages/table_data/edit_table.dart';
+import '/views/pages/table_data/edit_table.dart';
 
 import '/models/table_model.dart';
 import '/services/table_service.dart';

@@ -1,4 +1,4 @@
-import 'package:soccer/views/pages/sections/updatePlayer.dart';
+import '/views/pages/sections/updatePlayer.dart';
 
 import '../../../../exports/exports.dart';
 import '../../../../models/player.dart';
@@ -119,7 +119,7 @@ class _POptionsState extends State<POptions> with TickerProviderStateMixin {
             leading: const Icon(Icons.sports),
             title: const Text("Assist"),
             trailing: Text(
-              widget.player.assist,
+              widget.player.assist.toString(),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             onTap: () {

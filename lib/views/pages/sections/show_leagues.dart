@@ -1,7 +1,7 @@
 // import 'package:soccer/services/league_service.dart';
-import 'package:soccer/services/team_service.dart';
+import '/services/team_service.dart';
 
-import '../../../exports/exports.dart';
+import '/exports/exports.dart';
 
 class ShowLeagues extends StatefulWidget {
   final String leagueId;

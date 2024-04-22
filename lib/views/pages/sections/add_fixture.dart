@@ -1,5 +1,5 @@
-import 'package:soccer/views/pages/sections/AwayTeamsWidget.dart';
-import 'package:soccer/views/pages/sections/show_leagues.dart';
+import '/views/pages/sections/AwayTeamsWidget.dart';
+import '/views/pages/sections/show_leagues.dart';
 
 import '../../../services/fixture_service.dart';
 

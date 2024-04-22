@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:soccer/views/pages/sections/widgets/league_options.dart';
+import '/views/pages/sections/widgets/league_options.dart';
 
 import '/models/team.dart';
 import '/services/team_service.dart';
 import '/views/pages/sections/Players.dart';
-// import '/views/pages/sections/add_team.dart';
-
 import '/exports/exports.dart';
 import 'widgets/update_team.dart';
 
