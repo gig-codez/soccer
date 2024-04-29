@@ -14,7 +14,7 @@ export '/views/pages/Notifications.dart';
 // inner pages
 export '/views/index.dart';
 export '/views/pages/homePage.dart';
-export '/views/pages/Pages.dart';
+// export '/views/pages/Pages.dart';
 export '/views/pages/LiveScore.dart';
 export '/views/pages/Stats.dart';
 export '/views/pages/Profile.dart';

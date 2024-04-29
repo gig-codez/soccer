@@ -1,16 +1,16 @@
-# soccer
+# Samba stats
 
-A new Flutter project.
+### Screenshots
 
-## Getting Started
+<div style="display:flex; flex-direction:column;justify-content:space-evenly;">
+    <image src="./flutter_01.png"/>
+    <image src="./flutter_02.png"/>
+    <image src="./flutter_03.png"/>
+    <image src="./flutter_04.png"/>
+    <image src="./flutter_05.png"/>
+    <image src="./flutter_06.png"/>
+    <image src="./flutter_07.png"/>
+    <image src="./flutter_01.png"/>
 
-This project is a starting point for a Flutter application.
+</div>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
