@@ -8,17 +8,17 @@ export '/views/Onboarding/SplashScreen.dart';
 export '/views/auth/CreateAccount.dart';
 export '/views/auth/completeProfile.dart';
 export '/views/auth/login.dart';
-export '/views/pages/GeneralSettings.dart';
+export '../views/pages/home/GeneralSettings.dart';
 export '/views/pages/Notifications.dart';
 
 // inner pages
-export '/views/index.dart';
-export '/views/pages/homePage.dart';
+export '../views/pages/home/index.dart';
+export '../views/pages/home/homePage.dart';
 // export '/views/pages/Pages.dart';
-export '/views/pages/LiveScore.dart';
-export '/views/pages/Stats.dart';
-export '/views/pages/Profile.dart';
-export '/views/pages/Teams.dart';
+export '../views/pages/home/LiveScore.dart';
+export '../views/pages/home/Stats.dart';
+export '../views/pages/home/Profile.dart';
+export '../views/pages/home/Teams.dart';
 
 // third-party libraries
 export 'package:provider/provider.dart';

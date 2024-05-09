@@ -1,6 +1,6 @@
-import '../../../exports/exports.dart';
-import '../../../services/player_service.dart';
-import '../../../tools/tools.dart';
+import '../../../../exports/exports.dart';
+import '../../../../services/player_service.dart';
+import '../../../../tools/tools.dart';
 
 class AddPlayer extends StatelessWidget {
   final String? name;

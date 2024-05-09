@@ -7,9 +7,9 @@ import '/widgets/FixtureWidget.dart';
 import '/models/match_date.dart';
 import '/services/fixture_service.dart';
 import '/services/match_date_service.dart';
-import '/views/pages/sections/add_fixture.dart';
+import '/views/pages/sections/fixture/add_fixture.dart';
 
-import '../../../exports/exports.dart';
+import '../../../../exports/exports.dart';
 import 'fixture_results.dart';
 
 class FixturesPage extends StatefulWidget {

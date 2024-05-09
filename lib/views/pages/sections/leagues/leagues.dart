@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:path/path.dart' as path;
-import '../../../models/league.dart';
-import '../../../services/league_service.dart';
+import '../../../../models/league.dart';
+import '../../../../services/league_service.dart';
 import '/exports/exports.dart';
-import 'Teams.dart';
+import '../teams/Teams.dart';
 import 'add_league.dart';
 
 class Leagues extends StatefulWidget {

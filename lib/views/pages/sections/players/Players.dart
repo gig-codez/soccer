@@ -6,9 +6,9 @@ import '/exports/exports.dart';
 import '/models/player.dart';
 import '/services/player_service.dart';
 import 'add_player.dart';
-import 'transfer_widget.dart';
+import '../transfers/transfer_widget.dart';
 import 'updatePlayer.dart';
-import 'widgets/p_options.dart';
+import '../widgets/p_options.dart';
 
 class Players extends StatefulWidget {
   final String? teamId;

@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:image_picker/image_picker.dart';
 
-import '../../../exports/exports.dart';
-import '../../../services/team_service.dart';
+import '../../../../exports/exports.dart';
+import '../../../../services/team_service.dart';
 
 class AddTeam extends StatefulWidget {
   final String? leagueId;

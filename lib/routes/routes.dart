@@ -1,10 +1,10 @@
-import '/views/pages/sections/LeagueFixtures.dart';
+import '../views/pages/sections/fixture/LeagueFixtures.dart';
 import '/views/pages/table_data/league_table.dart';
 
-import '/views/pages/sections/Players.dart';
-import '/views/pages/sections/leagues.dart';
+import '../views/pages/sections/players/Players.dart';
+import '../views/pages/sections/leagues/leagues.dart';
 
-import '../views/pages/sections/Teams.dart';
+import '../views/pages/sections/teams/Teams.dart';
 import '/exports/exports.dart';
 
 class Routes {

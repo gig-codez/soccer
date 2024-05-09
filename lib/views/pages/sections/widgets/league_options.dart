@@ -1,8 +1,8 @@
-import '/views/pages/sections/Fixtures.dart';
+import '../fixture/Fixtures.dart';
 import '../../../../exports/exports.dart';
 import '../../table_data/TableResults.dart';
-import '../add_team.dart';
-import '../match_dates.dart';
+import '../teams/add_team.dart';
+import '../match_dates/match_dates.dart';
 
 class LeagueOptions extends StatelessWidget {
   final String leagueId;

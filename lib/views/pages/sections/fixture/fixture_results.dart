@@ -1,16 +1,16 @@
 import '/services/player_service.dart';
 
-import '../../../controllers/data_controller.dart';
+import '../../../../controllers/data_controller.dart';
 import '/services/fixture_service.dart';
 
 import '/models/fixture.dart';
 import '/widgets/PlayingTeams.dart';
 import '/exports/exports.dart';
-import 'fixture/away_team.dart';
-import 'fixture/home_team.dart';
-import 'show_match_dates.dart';
-import 'widgets/castMessageWidget.dart';
-import 'widgets/update_fixture_results.dart';
+import 'away_team.dart';
+import 'home_team.dart';
+import '../match_dates/show_match_dates.dart';
+import '../widgets/castMessageWidget.dart';
+import '../widgets/update_fixture_results.dart';
 
 class FixtureResults extends StatefulWidget {
   final String fixtureId;

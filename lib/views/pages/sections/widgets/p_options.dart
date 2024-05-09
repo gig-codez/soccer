@@ -1,8 +1,8 @@
-import '/views/pages/sections/updatePlayer.dart';
+import '../players/updatePlayer.dart';
 
 import '../../../../exports/exports.dart';
 import '../../../../models/player.dart';
-import '../transfer_widget.dart';
+import '../transfers/transfer_widget.dart';
 
 import '/views/pages/teamPages/components/add_assist.dart';
 import '/views/pages/teamPages/components/clean_sheet.dart';

@@ -1,10 +1,10 @@
-import '/views/pages/sections/AwayTeamsWidget.dart';
-import '/views/pages/sections/show_leagues.dart';
+import '../teams/AwayTeamsWidget.dart';
+import '../leagues/show_leagues.dart';
 
-import '../../../services/fixture_service.dart';
+import '/services/fixture_service.dart';
 
 import '/exports/exports.dart';
-import 'show_match_dates.dart';
+import '/views/pages/sections/match_dates/show_match_dates.dart';
 
 class AddFixture extends StatefulWidget {
   final String leagueId;

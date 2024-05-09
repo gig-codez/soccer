@@ -1,6 +1,6 @@
 import '/services/team_service.dart';
 
-import '../../../exports/exports.dart';
+import '../../../../exports/exports.dart';
 
 class AwayTeamsWidget extends StatefulWidget {
   final String leagueId;

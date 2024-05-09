@@ -1,10 +1,10 @@
 import '/models/fixture.dart';
 import '/views/pages/teamPages/LineUp.dart';
 
-import '../../widgets/PlayingTeams.dart';
+import '../../../widgets/PlayingTeams.dart';
 import '/exports/exports.dart';
-import 'teamPages/stats_page.dart';
-import 'teamPages/table_page.dart';
+import '../teamPages/stats_page.dart';
+import '../teamPages/table_page.dart';
 
 class TeamsPage extends StatefulWidget {
   final Datum data;
