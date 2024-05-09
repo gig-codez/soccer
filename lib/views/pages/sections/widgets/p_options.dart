@@ -4,11 +4,11 @@ import '../../../../exports/exports.dart';
 import '../../../../models/player.dart';
 import '../transfers/transfer_widget.dart';
 
-import '/views/pages/teamPages/components/add_assist.dart';
-import '/views/pages/teamPages/components/clean_sheet.dart';
-import '/views/pages/teamPages/components/goal_widget.dart';
-import '/views/pages/teamPages/components/red_card.dart';
-import '/views/pages/teamPages/components/yellow_card_widget.dart';
+import '../teamPages/components/add_assist.dart';
+import '../teamPages/components/clean_sheet.dart';
+import '../teamPages/components/goal_widget.dart';
+import '../teamPages/components/red_card.dart';
+import '../teamPages/components/yellow_card_widget.dart';
 
 class POptions extends StatefulWidget {
   final Message player;

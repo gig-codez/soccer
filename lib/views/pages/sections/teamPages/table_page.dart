@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:data_table_2/data_table_2.dart';
-import '../../../models/team.dart';
-import '../../../services/team_service.dart';
-import '/views/pages/teamPages/table_row_widget.dart';
+import '../../../../models/team.dart';
+import '../../../../services/team_service.dart';
+import 'table_row_widget.dart';
 
 import '/exports/exports.dart';
 

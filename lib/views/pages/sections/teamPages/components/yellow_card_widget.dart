@@ -1,17 +1,18 @@
-import '../../../../services/player_service.dart';
+import '../../../../../services/player_service.dart';
 import '/exports/exports.dart';
 
-class RedCard extends StatefulWidget {
+class YellowCardWidget extends StatefulWidget {
   final String playerId;
   final String leagueId;
-  const RedCard({super.key, required this.playerId, required this.leagueId});
+  const YellowCardWidget(
+      {super.key, required this.playerId, required this.leagueId});
 
   @override
-  State<RedCard> createState() => _RedCardState();
+  State<YellowCardWidget> createState() => _YellowCardWidgetState();
 }
 
-class _RedCardState extends State<RedCard> {
-  final redTextController = TextEditingController();
+class _YellowCardWidgetState extends State<YellowCardWidget> {
+  final yellowCardTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,18 +23,21 @@ class _RedCardState extends State<RedCard> {
           children: [
             CommonTextField(
               padding: const EdgeInsets.all(18.0),
-              titleText: "Attach a red",
-              controller: redTextController,
+              titleText: "Attach a yellow",
+              controller: yellowCardTextController,
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: CustomButton(
                 loading: context.read<LoaderController>().isLoading,
                 onPress: () {
-                  PlayerService.attachRedCardToPlayer(
-                      widget.playerId, widget.leagueId, {
-                    "red_card": redTextController.text,
-                  });
+                  PlayerService.attachYellowCardToPlayer(
+                    widget.playerId,
+                    widget.leagueId,
+                    {
+                      "yellow_card": yellowCardTextController.text,
+                    },
+                  );
                 },
                 text: "Save Changes",
               ),

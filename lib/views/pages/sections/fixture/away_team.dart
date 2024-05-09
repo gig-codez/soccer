@@ -1,4 +1,4 @@
-import '../../teamPages/LineUp.dart';
+import '../teamPages/LineUp.dart';
 import '/exports/exports.dart';
 
 class AwayTeamFixture extends StatefulWidget {

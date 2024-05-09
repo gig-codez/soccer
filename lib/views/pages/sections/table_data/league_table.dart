@@ -1,4 +1,4 @@
-import '/views/pages/table_data/TableResults.dart';
+import 'TableResults.dart';
 
 import '/models/league.dart';
 import '/services/league_service.dart';

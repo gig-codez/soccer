@@ -1,5 +1,5 @@
-import '../../../../controllers/data_controller.dart';
-import '../../../../services/player_service.dart';
+import '../../../../../controllers/data_controller.dart';
+import '../../../../../services/player_service.dart';
 import '/exports/exports.dart';
 
 class AddAssist extends StatefulWidget {

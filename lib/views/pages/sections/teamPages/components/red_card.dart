@@ -1,18 +1,17 @@
-import '../../../../services/player_service.dart';
+import '../../../../../services/player_service.dart';
 import '/exports/exports.dart';
 
-class YellowCardWidget extends StatefulWidget {
+class RedCard extends StatefulWidget {
   final String playerId;
   final String leagueId;
-  const YellowCardWidget(
-      {super.key, required this.playerId, required this.leagueId});
+  const RedCard({super.key, required this.playerId, required this.leagueId});
 
   @override
-  State<YellowCardWidget> createState() => _YellowCardWidgetState();
+  State<RedCard> createState() => _RedCardState();
 }
 
-class _YellowCardWidgetState extends State<YellowCardWidget> {
-  final yellowCardTextController = TextEditingController();
+class _RedCardState extends State<RedCard> {
+  final redTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,21 +22,18 @@ class _YellowCardWidgetState extends State<YellowCardWidget> {
           children: [
             CommonTextField(
               padding: const EdgeInsets.all(18.0),
-              titleText: "Attach a yellow",
-              controller: yellowCardTextController,
+              titleText: "Attach a red",
+              controller: redTextController,
             ),
             Padding(
               padding: const EdgeInsets.all(18.0),
               child: CustomButton(
                 loading: context.read<LoaderController>().isLoading,
                 onPress: () {
-                  PlayerService.attachYellowCardToPlayer(
-                    widget.playerId,
-                    widget.leagueId,
-                    {
-                      "yellow_card": yellowCardTextController.text,
-                    },
-                  );
+                  PlayerService.attachRedCardToPlayer(
+                      widget.playerId, widget.leagueId, {
+                    "red_card": redTextController.text,
+                  });
                 },
                 text: "Save Changes",
               ),

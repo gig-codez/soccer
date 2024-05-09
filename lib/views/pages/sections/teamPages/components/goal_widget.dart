@@ -1,4 +1,4 @@
-import '../../../../services/player_service.dart';
+import '../../../../../services/player_service.dart';
 import '/exports/exports.dart';
 
 class GoalWidget extends StatefulWidget {

@@ -1,6 +1,6 @@
 import '../../../../models/player.dart';
 import '../../../../services/player_service.dart';
-import '../../teamPages/player_options.dart';
+import '../teamPages/player_options.dart';
 import '/exports/exports.dart';
 
 class PlayerFixtureWidget extends StatefulWidget {

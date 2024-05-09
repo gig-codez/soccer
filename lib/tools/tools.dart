@@ -51,3 +51,23 @@ String getTabLabel(DateTime date) {
     return DateFormat('EEE d MMM').format(date);
   }
 }
+
+void showLoading({required String text}) {
+  showAdaptiveDialog(
+    context: navigatorKey.currentContext!,
+    builder: (context) => AlertDialog.adaptive(
+      content: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const CircularProgressIndicator.adaptive(),
+          const SizedBox(height: 10),
+          Text(
+            text,
+            style: Theme.of(context).textTheme.labelMedium,
+          ),
+        ],
+      ),
+    ),
+  );
+}

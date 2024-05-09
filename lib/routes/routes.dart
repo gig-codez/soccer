@@ -1,5 +1,5 @@
 import '../views/pages/sections/fixture/LeagueFixtures.dart';
-import '/views/pages/table_data/league_table.dart';
+import '../views/pages/sections/table_data/league_table.dart';
 
 import '../views/pages/sections/players/Players.dart';
 import '../views/pages/sections/leagues/leagues.dart';

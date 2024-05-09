@@ -1,6 +1,6 @@
 import '/services/player_service.dart';
 
-import '../../../exports/exports.dart';
+import '../../../../exports/exports.dart';
 import 'player_options.dart';
 
 class LineUpPage extends StatefulWidget {

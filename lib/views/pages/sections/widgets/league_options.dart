@@ -1,6 +1,6 @@
 import '../fixture/Fixtures.dart';
 import '../../../../exports/exports.dart';
-import '../../table_data/TableResults.dart';
+import '../table_data/TableResults.dart';
 import '../teams/add_team.dart';
 import '../match_dates/match_dates.dart';
 
