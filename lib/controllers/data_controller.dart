@@ -7,8 +7,13 @@ import '../services/match_date_service.dart';
 import '../services/player_service.dart';
 
 class DataController with ChangeNotifier {
-  // leagueId
-  // String _leagueId = "";
+  // data loading
+  bool _dataLoading = false;
+  bool get dataLoading => _dataLoading;
+  set dataLoading(bool state) {
+    _dataLoading = state;
+    notifyListeners();
+  }
 
   void setLeagueId(String id) {
     fetchMatchDates(id);
@@ -46,26 +51,26 @@ class DataController with ChangeNotifier {
       debugPrint(error.toString());
     });
   }
+
   // fixture updates
   bool _halfEnded = false;
   bool _matchEnded = false;
- bool get halfEnded => _halfEnded;
- bool get matchEnded =>_matchEnded;
-void  setFixtureUpdates(String league,String fixtureId) {
-   FixtureService.getFixtures(league).then((value) {
-        var fixture = value.where((element) => element.id == fixtureId).first;
+  bool get halfEnded => _halfEnded;
+  bool get matchEnded => _matchEnded;
+  void setFixtureUpdates(String league, String fixtureId) {
+    FixtureService.getFixtures(league).then((value) {
+      var fixture = value.where((element) => element.id == fixtureId).first;
 // handling half time
-        if((fixture.halfEnded == true) && (fixture.matchEnded == false)){
-          _halfEnded = true;
-          notifyListeners();
-        }
-        // handling match ended.
-       if(fixture.matchEnded == true){
-          _matchEnded = false;
-          notifyListeners();
-        }
-      });
-    
+      if ((fixture.halfEnded == true) && (fixture.matchEnded == false)) {
+        _halfEnded = true;
+        notifyListeners();
+      }
+      // handling match ended.
+      if (fixture.matchEnded == true) {
+        _matchEnded = false;
+        notifyListeners();
+      }
+    });
   }
 
   Map<String, dynamic> _playerData = {};
@@ -73,5 +78,16 @@ void  setFixtureUpdates(String league,String fixtureId) {
   set playerData(Map<String, dynamic> data) {
     _playerData = data;
     notifyListeners();
+  }
+
+  // blogs
+  List<BlogsModel> _blogs = [];
+  List<BlogsModel> get blogs => _blogs;
+
+  void fetchBlogs(String league) {
+    BlogService.getBlogs(league).then((value) {
+      _blogs = value;
+      notifyListeners();
+    });
   }
 }

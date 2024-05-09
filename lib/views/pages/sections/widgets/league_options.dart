@@ -15,7 +15,7 @@ class LeagueOptions extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15.0, 8.0, 15.0, 8.0),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.43,
+        height: MediaQuery.of(context).size.height * 0.63,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -80,6 +80,21 @@ class LeagueOptions extends StatelessWidget {
                   TableResults(
                     leagueId: leagueId,
                     // leagueName: snap.data![index].name,
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.backup_table),
+              title: const Text(
+                "Blogs",
+              ),
+              onTap: () {
+                Routes.popPage();
+                Routes.animateToPage(
+                  IndexBlogs(
+                    leagueId: leagueId,
+                    leagueName: leagueName,
                   ),
                 );
               },

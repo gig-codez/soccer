@@ -39,7 +39,7 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
     fetchLeagues();
     _controller = AnimationController(
       value: 0,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       vsync: this,
     );
     _controller?.forward();

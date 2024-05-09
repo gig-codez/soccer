@@ -1,7 +1,10 @@
 import "/exports/exports.dart";
 
 class IndexBlogs extends StatefulWidget {
-  const IndexBlogs({super.key});
+  final String leagueName;
+  final String leagueId;
+  const IndexBlogs(
+      {super.key, required this.leagueName, required this.leagueId});
 
   @override
   State<IndexBlogs> createState() => _IndexBlogsState();
@@ -11,9 +14,80 @@ class _IndexBlogsState extends State<IndexBlogs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [],
+      appBar: AppBar(
+        title: Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: "${widget.leagueName}\n",
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+              TextSpan(
+                text: "Blogs",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+        ),
       ),
+      body: Consumer<DataController>(
+        builder: (context, controller, child) {
+          controller.fetchBlogs(widget.leagueId);
+          var blogs = controller.blogs;
+          return ListView.builder(
+            itemCount: blogs.length,
+            itemBuilder: (context, index) {
+              var blog = blogs[index];
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: NetworkImage(
+                    blogs[index].image,
+                  ),
+                ),
+                title: Text(blog.title),
+                subtitle: Text(blog.content),
+                onLongPress: () {
+                  showAdaptiveDialog(
+                    context: context,
+                    builder: (context) => AlertDialog.adaptive(
+                      title: const Text("Delete blog"),
+                      content: Text(
+                          "Are you sure you want to delete ${blog.title}?"),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Routes.popPage(),
+                          child: const Text("Cancel"),
+                        ),
+                        TextButton(
+                          onPressed: () => BlogService.deleteBlog(blog.id),
+                          child: const Text(
+                            "Delete",
+                            style: TextStyle(
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                trailing: IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () => showModalSheet(
+                    EditBlog(blog: blog),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showModalSheet(
+          AddBlog(league: widget.leagueId),
+        ),
+        child: const Icon(Icons.add),
+      )
     );
   }
 }

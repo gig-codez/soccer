@@ -17,9 +17,9 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       "routes": Routes.leagues,
     },
     {
-      "name": "AI",
+      "name": "Blogs",
       "icon": "assets/icons/ai.svg",
-      "routes": "",
+      "routes": "/blogs",
     }
   ];
   @override

@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:path/path.dart' as path;
-import '../../../../models/league.dart';
-import '../../../../services/league_service.dart';
+// import 'package:path/path.dart' as path;
+import '/models/league.dart';
+import '/services/league_service.dart';
 import '/exports/exports.dart';
-import '../teams/Teams.dart';
+import '/views/pages/sections/teams/Teams.dart';
 import 'add_league.dart';
 
 class Leagues extends StatefulWidget {
@@ -86,10 +86,10 @@ class _LeaguesState extends State<Leagues> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          showModalSheet(const AddLeague());
+           showModalSheet(const AddLeague());
         },
         label: Text(
-          "Add league",
+          "Add League",
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         icon: const Icon(Icons.add),

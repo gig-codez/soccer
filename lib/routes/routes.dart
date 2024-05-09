@@ -24,6 +24,7 @@ class Routes {
   static String players = "/players";
   static String matchdates = "/matchdates";
   static String tableResults = "/tableResults";
+  static String blogs = "/blogs";
   static BuildContext context = navigatorKey.currentState!.context;
   // routes merger
   static Map<String, Widget Function(BuildContext context)> routes = {

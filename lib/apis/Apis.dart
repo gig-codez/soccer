@@ -56,4 +56,10 @@ class Apis {
   static String runFixture = "${apiUrl}fixture/runFixture/";
   static String endRunningFixture = "${apiUrl}fixture/endRunningFixture/";
   static String fixtureGoals = "${apiUrl}fixture/updateGoals/";
+
+  // blogs
+  static String blogs = "${apiUrl}blogs";
+  static String addBlog = "${apiUrl}blogs/add";
+  static String updateBlog = "${apiUrl}blogs/edit";
+  static String deleteBlog = "${apiUrl}blogs/delete";
 }

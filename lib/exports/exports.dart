@@ -8,17 +8,21 @@ export '/views/Onboarding/SplashScreen.dart';
 export '/views/auth/CreateAccount.dart';
 export '/views/auth/completeProfile.dart';
 export '/views/auth/login.dart';
-export '../views/pages/home/GeneralSettings.dart';
+export '/views/pages/home/GeneralSettings.dart';
 export '/views/pages/Notifications.dart';
 
 // inner pages
-export '../views/pages/home/index.dart';
-export '../views/pages/home/homePage.dart';
+export '/views/pages/home/index.dart';
+export '/views/pages/home/homePage.dart';
 // export '/views/pages/Pages.dart';
-export '../views/pages/home/LiveScore.dart';
-export '../views/pages/home/Stats.dart';
-export '../views/pages/home/Profile.dart';
-export '../views/pages/home/Teams.dart';
+export '/views/pages/home/LiveScore.dart';
+export '/views/pages/home/Stats.dart';
+export '/views/pages/home/Profile.dart';
+export '/views/pages/home/Teams.dart';
+// blogs
+export "/views/pages/blogs/index.dart";
+export "/views/pages/blogs/add_blog.dart";
+export "/views/pages/blogs/edit_blog.dart";
 
 // third-party libraries
 export 'package:provider/provider.dart';
@@ -32,10 +36,11 @@ export 'package:accordion/accordion.dart';
 export 'package:accordion/controllers.dart';
 export 'package:http/http.dart';
 // models
-
+export "/models/blogs_model.dart";
 // controllers
 export '../controllers/app_controller.dart';
 export '/controllers/loader_controller.dart';
+export '/controllers/data_controller.dart';
 // apis
 export '/apis/Apis.dart';
 // widgets
@@ -55,3 +60,6 @@ export '/tools/tools.dart';
 
 // extensions
 export '/extensions/date_time_extension.dart';
+
+// services
+export "/services/blog_service.dart";

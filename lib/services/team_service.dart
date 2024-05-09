@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import '/models/team.dart';
-import '../exports/exports.dart';
+import '/exports/exports.dart';
 import 'dart:developer';
 
 class TeamService {
@@ -112,9 +112,11 @@ class TeamService {
   }
 
   static void deleteTeam(String id) async {
+    showLoader(text:"Deleting...");
     try {
       Response res = await Client().delete(Uri.parse(Apis.deleteTeam + id));
       if (res.statusCode == 200) {
+        Routes.popPage();
         Routes.popPage();
         showMessage(msg: "Team deleted successfully", color: Colors.green);
       } else {

@@ -52,7 +52,7 @@ String getTabLabel(DateTime date) {
   }
 }
 
-void showLoading({required String text}) {
+void showLoader({required String text}) {
   showAdaptiveDialog(
     context: navigatorKey.currentContext!,
     builder: (context) => AlertDialog.adaptive(
