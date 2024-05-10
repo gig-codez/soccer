@@ -35,6 +35,7 @@ export 'package:flutter_svg/flutter_svg.dart';
 export 'package:accordion/accordion.dart';
 export 'package:accordion/controllers.dart';
 export 'package:http/http.dart';
+export 'package:image_picker/image_picker.dart';
 // models
 export "/models/blogs_model.dart";
 // controllers

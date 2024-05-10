@@ -21,11 +21,11 @@ class LeagueOptions extends StatelessWidget {
           children: [
             SizedBox(
               height: 50,
-              child: Text("$leagueName's Options",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .apply(fontSizeDelta: 2)),
+              child: Text("$leagueName's Options".toUpperCase(),
+                  style: Theme.of(context).textTheme.titleMedium!.apply(
+                        fontSizeDelta: 2,
+                        fontWeightDelta: 3,
+                      )),
             ),
             const Divider(),
             ListTile(
@@ -85,7 +85,7 @@ class LeagueOptions extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.backup_table),
+              leading: const Icon(Icons.newspaper_rounded),
               title: const Text(
                 "Blogs",
               ),
