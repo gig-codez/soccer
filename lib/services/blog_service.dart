@@ -24,6 +24,7 @@ class BlogService {
       var request = MultipartRequest('POST', Uri.parse(Apis.addBlog));
       request.fields['title'] = data['title'];
       request.fields['content'] = data['content'];
+      request.fields['summary'] = data['summary'];
       request.fields['league'] = data['league'];
       request.fields['action'] = "Blogs";
       // handle file upload
@@ -41,6 +42,7 @@ class BlogService {
           msg: result['message'],
           color: Colors.green[900],
         );
+        Routes.popPage();
       } else {
         context.read<LoaderController>().isLoading = false;
         showMessage(msg: response.reasonPhrase ?? "Error adding a blog");
@@ -57,6 +59,7 @@ class BlogService {
       showLoader(text: "Deleting blog");
       var response = await Client().delete(Uri.parse("${Apis.deleteBlog}/$id"));
       if (response.statusCode == 200) {
+        Routes.popPage();
         Routes.popPage();
         var result = json.decode(response.body);
         showMessage(
@@ -79,17 +82,27 @@ class BlogService {
       context.read<LoaderController>().isLoading = true;
       var request = MultipartRequest(
           'PUT', Uri.parse("${Apis.updateBlog}/${data['id']}"));
+
+      request.headers.addAll({
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+      });
       request.fields['title'] = data['title'];
       request.fields['content'] = data['content'];
+      request.fields['summary'] = data['summary'];
       request.fields['league'] = data['league'];
       request.fields['action'] = "Blogs";
       // handle file upload
-      request.files.add(
-        await MultipartFile.fromPath(
-          'blog',
-          data['image'],
-        ),
-      );
+        if (data['stream'] != null) {
+        request.files.add(
+          MultipartFile(
+            "blog",
+            data["stream"],
+            data["length"],
+            filename: data["filename"],
+          ),
+        );
+      }
       StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
         context.read<LoaderController>().isLoading = false;
@@ -101,12 +114,11 @@ class BlogService {
         );
       } else {
         context.read<LoaderController>().isLoading = false;
-        Routes.popPage();
-        showMessage(msg: response.reasonPhrase ?? "Error updating a blog");
+        var result = json.decode(await response.stream.bytesToString());
+        showMessage(msg: result['message']);
       }
     } on Exception catch (e, _) {
       context.read<LoaderController>().isLoading = false;
-      Routes.popPage();
       debugPrint("Error $_");
     }
   }

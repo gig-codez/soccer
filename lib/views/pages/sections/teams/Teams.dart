@@ -6,7 +6,7 @@ import '/models/team.dart';
 import '/services/team_service.dart';
 import '../players/Players.dart';
 import '/exports/exports.dart';
-import '../widgets/update_team.dart';
+import 'update_team.dart';
 
 class Teams extends StatefulWidget {
   final String? leagueId;

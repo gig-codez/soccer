@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 List<BlogsModel> blogsModelFromJson(String str) =>
@@ -11,6 +10,7 @@ class BlogsModel {
   final String id;
   final String league;
   final String title;
+  final String summary;
   final String content;
   final String image;
   final DateTime createdAt;
@@ -21,6 +21,7 @@ class BlogsModel {
     required this.id,
     required this.league,
     required this.title,
+    required this.summary,
     required this.content,
     required this.image,
     required this.createdAt,
@@ -32,6 +33,7 @@ class BlogsModel {
         id: json["_id"],
         league: json["league"],
         title: json["title"],
+        summary: json["summary"],
         content: json["content"],
         image: json["image"],
         createdAt: DateTime.parse(json["createdAt"]),
@@ -43,6 +45,7 @@ class BlogsModel {
         "_id": id,
         "league": league,
         "title": title,
+        "summary": summary,
         "content": content,
         "image": image,
         "createdAt": createdAt.toIso8601String(),
