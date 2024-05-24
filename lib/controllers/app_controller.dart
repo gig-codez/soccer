@@ -1,13 +1,44 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '/exports/exports.dart';
 
 class AppController with ChangeNotifier {
   // SharedPreferences _prefs = SharedPreferences.getInstance();
-  // AppController() {}
-  bool _isDarkMode = true;
-  bool get isDarkMode => _isDarkMode;
-  set isDarkMode(bool mode) {
-    _isDarkMode = mode;
+  ThemeMode _mode = ThemeMode.light;
+
+  void setMode(ThemeMode mode) {
+    _mode = mode;
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString(
+        'theme',
+        mode == ThemeMode.light
+            ? 'light'
+            : mode == ThemeMode.dark
+                ? 'dark'
+                : 'system',
+      );
+    });
     notifyListeners();
+  }
+
+// get prefs
+  Future<void> _getPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? theme = prefs.getString('theme') ?? '';
+    if (theme == 'system') {
+      _mode = ThemeMode.system;
+    } else if (theme == 'dark') {
+      _mode = ThemeMode.dark;
+    } else {
+      _mode = ThemeMode.light;
+    }
+    notifyListeners();
+  }
+
+// get saved prefs
+  ThemeMode get mode {
+    _getPrefs();
+    return _mode;
   }
 
   // heamTeam data

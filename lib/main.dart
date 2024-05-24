@@ -50,9 +50,10 @@ void main() async {
             navigatorKey: navigatorKey,
             initialRoute: Routes.splash,
             debugShowCheckedModeBanner: false,
+            themeMode: controller.mode,
             routes: Routes.routes,
-            theme:
-                !controller.isDarkMode ? Themes.darkTheme : Themes.lightTheme,
+            theme: Themes.lightTheme,
+            darkTheme: Themes.darkTheme,
           );
         },
       ),

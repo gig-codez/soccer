@@ -8,9 +8,6 @@ class ThemeWidget extends StatefulWidget {
 }
 
 class _ThemeWidgetState extends State<ThemeWidget> {
-  // SharedPreferences _prefs =  await SharedPreferences.getInstance();
-  int isLight = 1;
-  int isDark = 0;
   @override
   Widget build(BuildContext context) {
     return Consumer<AppController>(builder: (context, controller, child) {
@@ -20,31 +17,29 @@ class _ThemeWidgetState extends State<ThemeWidget> {
           children: [
             RadioListTile(
               title: const Text("Light Theme"),
-              value: isLight,
+              value: controller.mode == ThemeMode.light ? 1 : 0,
               groupValue: 1,
               onChanged: (x) {
-                controller.isDarkMode = false;
-                if (!controller.isDarkMode) {
-                  setState(() {
-                    isDark = 0;
-                    isLight = 1;
-                  });
-                }
+                controller.setMode(ThemeMode.light);
+
                 Routes.popPage();
               },
             ),
             RadioListTile(
               title: const Text("Dark Theme"),
-              value: isDark,
+              value: controller.mode == ThemeMode.dark ? 1 : 0,
               groupValue: 1,
               onChanged: (x) {
-                controller.isDarkMode = true;
-                if (controller.isDarkMode) {
-                  setState(() {
-                    isDark = 1;
-                    isLight = 0;
-                  });
-                }
+                controller.setMode(ThemeMode.dark);
+                Routes.popPage();
+              },
+            ),
+            RadioListTile(
+              title: const Text("System Theme"),
+              value: controller.mode == ThemeMode.system ? 1 : 0,
+              groupValue: 1,
+              onChanged: (x) {
+                controller.setMode(ThemeMode.dark);
                 Routes.popPage();
               },
             )

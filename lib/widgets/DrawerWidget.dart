@@ -12,14 +12,14 @@ class DrawerWidget extends StatefulWidget {
 class _DrawerWidgetState extends State<DrawerWidget> {
   List<Map<String, dynamic>> drawer = [
     {
-      "name": "Leagues",
+      "name": "Home",
       "icon": "assets/icons/league.svg",
       "routes": Routes.leagues,
     },
     {
-      "name": "Blogs",
-      "icon": "assets/icons/ai.svg",
-      "routes": "/blogs",
+      "name": "App Settings",
+      "icon": "assets/settings.svg",
+      "routes": "/settings",
     }
   ];
   @override
