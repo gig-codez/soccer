@@ -39,7 +39,7 @@ class _ThemeWidgetState extends State<ThemeWidget> {
               value: controller.mode == ThemeMode.system ? 1 : 0,
               groupValue: 1,
               onChanged: (x) {
-                controller.setMode(ThemeMode.dark);
+                controller.setMode(ThemeMode.system);
                 Routes.popPage();
               },
             )

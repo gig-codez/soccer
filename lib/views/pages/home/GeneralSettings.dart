@@ -16,37 +16,43 @@ class _GeneralSettingsState extends State<GeneralSettings> {
       appBar: AppBar(
         title: const Text("General Settings"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Card(
-              elevation: 0,
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.grey.shade100
-                  : Colors.white12,
-              child: ListTile(
-                leading: const Icon(Icons.contrast),
-                title: const Text("Theme"),
-                subtitle: const Text("Light theme"),
-                onTap: () {
-                  showModalBottomSheet(
-                      showDragHandle: true,
-                      context: context,
-                      builder: (context) {
-                        return BottomSheet(
-                            // backgroundColor: Colors.transparent,
-                            onClosing: () {},
-                            builder: (context) {
-                              return const ThemeWidget();
-                            });
-                      });
-                },
-              ),
-            )
-          ],
-        ),
-      ),
+      body: Consumer<AppController>(builder: (context, controller, d) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Card(
+                elevation: 0,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.grey.shade100
+                    : Colors.white12,
+                child: ListTile(
+                  leading: const Icon(Icons.contrast),
+                  title: const Text("Theme"),
+                  subtitle: Text(controller.mode == ThemeMode.light
+                      ? "Light theme"
+                      : controller.mode == ThemeMode.dark
+                          ? "Dark theme"
+                          : "System theme"),
+                  onTap: () {
+                    showModalBottomSheet(
+                        showDragHandle: true,
+                        context: context,
+                        builder: (context) {
+                          return BottomSheet(
+                              // backgroundColor: Colors.transparent,
+                              onClosing: () {},
+                              builder: (context) {
+                                return const ThemeWidget();
+                              });
+                        });
+                  },
+                ),
+              )
+            ],
+          ),
+        );
+      }),
     );
   }
 }
