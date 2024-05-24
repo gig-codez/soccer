@@ -51,7 +51,8 @@ void main() async {
             initialRoute: Routes.splash,
             debugShowCheckedModeBanner: false,
             routes: Routes.routes,
-            theme: controller.isDarkMode ? Themes.darkTheme : Themes.lightTheme,
+            theme:
+                !controller.isDarkMode ? Themes.darkTheme : Themes.lightTheme,
           );
         },
       ),

@@ -111,10 +111,13 @@ class CommonTextField extends StatelessWidget {
                               ),
                             )
                           : null,
-                      prefixIcon: Icon(icon,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white60
-                              : Colors.black26),
+                      prefixIcon: icon == null
+                          ? null
+                          : Icon(icon,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white60
+                                  : Colors.black26),
                       errorText: null,
                       border: InputBorder.none,
                       hintText: hintText,

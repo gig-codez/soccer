@@ -159,7 +159,7 @@ class _FixtureResultsState extends State<FixtureResults>
                   ],
                 ),
               ),
-              if (controller.matchEnded == false) ...[
+              if (widget.data.matchEnded == false) ...[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(18, 10, 18, 2),
                   child: CustomButton(
@@ -180,9 +180,13 @@ class _FixtureResultsState extends State<FixtureResults>
                       });
                     },
                     text: widget.data.twohalves
-                        ? widget.data.halfEnded
+                        ? (widget.data.halfEnded == true &&
+                                widget.data.matchEnded == false)
                             ? "Run Second Half"
-                            : "Run First Half"
+                            : (widget.data.halfEnded == false &&
+                                    widget.data.matchEnded == false)
+                                ? "Run First Half"
+                                : ""
                         : "Run Fixture",
                   ),
                 ),
@@ -220,6 +224,9 @@ class _FixtureResultsState extends State<FixtureResults>
                 builder: (context) {
                   return UpdateFixtureResults(
                     fixtureId: widget.fixtureId,
+                    hometeam: widget.data.hometeam.id,
+                    awayteam: widget.data.awayteam.id,
+                    leagueId: widget.data.league,
                   );
                 },
               );

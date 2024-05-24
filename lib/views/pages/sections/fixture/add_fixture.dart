@@ -53,8 +53,14 @@ class _AddFixtureState extends State<AddFixture> {
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
-                InkWell(
-                  onTap: () {
+                CommonTextField(
+                  titleText: "Home Team",
+                  hintText: "Enter home team",
+                  enableSuffix: true,
+                  suffixIcon: Icons.add,
+                  icon: Icons.home_filled,
+                  readOnly: true,
+                  onTapSuffix: () {
                     showModalBottomSheet(
                         showDragHandle: true,
                         context: context,
@@ -68,19 +74,19 @@ class _AddFixtureState extends State<AddFixture> {
                               });
                         });
                   },
-                  child: CommonTextField(
-                    titleText: "Home Team",
-                    hintText: "Enter home team",
-                    icon: Icons.home_filled,
-                    readOnly: true,
-                    onChanged: (v) {},
-                    enableBorder: true,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                    controller: homeTeamController,
-                  ),
+                  onChanged: (v) {},
+                  enableBorder: true,
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                  controller: homeTeamController,
                 ),
-                InkWell(
-                  onTap: () {
+                CommonTextField(
+                  titleText: "Away Team",
+                  readOnly: true,
+                  icon: Icons.home_mini_rounded,
+                  hintText: "Enter away team",
+                  enableSuffix: true,
+                  suffixIcon: Icons.add,
+                  onTapSuffix: () {
                     showModalBottomSheet(
                         showDragHandle: true,
                         context: context,
@@ -94,15 +100,9 @@ class _AddFixtureState extends State<AddFixture> {
                               });
                         });
                   },
-                  child: CommonTextField(
-                    titleText: "Away Team",
-                    readOnly: true,
-                    icon: Icons.home_mini_rounded,
-                    hintText: "Enter away team",
-                    enableBorder: true,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                    controller: awayTeamController,
-                  ),
+                  enableBorder: true,
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                  controller: awayTeamController,
                 ),
                 CommonTextField(
                   titleText: "Minutes to be Played",
@@ -113,8 +113,15 @@ class _AddFixtureState extends State<AddFixture> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
                   controller: minutesPlayedController,
                 ),
-                InkWell(
-                  onTap: () {
+                CommonTextField(
+                  titleText: "Time of kick off",
+                  icon: Icons.timelapse,
+                  readOnly: true,
+                  hintText: "e.g 20 mins",
+                  enableBorder: true,
+                  enableSuffix: true,
+                  suffixIcon: Icons.add_alarm_outlined,
+                  onTapSuffix: () {
                     showTimePicker(
                             context: context, initialTime: TimeOfDay.now())
                         .then((time) {
@@ -124,15 +131,8 @@ class _AddFixtureState extends State<AddFixture> {
                       });
                     });
                   },
-                  child: CommonTextField(
-                    titleText: "Time of kick off",
-                    icon: Icons.timelapse,
-                    readOnly: true,
-                    hintText: "e.g 20 mins",
-                    enableBorder: true,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-                    controller: kickOffTimeController,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+                  controller: kickOffTimeController,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
@@ -174,8 +174,16 @@ class _AddFixtureState extends State<AddFixture> {
                     )
                   ],
                 ),
-                InkWell(
-                  onTap: () {
+                CommonTextField(
+                  controller: kickOffController,
+                  padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
+                  titleText: "Kick Off Date",
+                  hintText: "Enter league name",
+                  contentPadding: const EdgeInsets.all(10),
+                  enableBorder: true,
+                  enableSuffix: true,
+                  suffixIcon: Icons.calendar_month_rounded,
+                  onTapSuffix: () {
                     showModalBottomSheet(
                       context: context,
                       showDragHandle: true,
@@ -191,15 +199,7 @@ class _AddFixtureState extends State<AddFixture> {
                       },
                     );
                   },
-                  child: CommonTextField(
-                    controller: kickOffController,
-                    padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
-                    titleText: "Kick Off Date",
-                    hintText: "Enter league name",
-                    contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                    enableBorder: true,
-                    onChanged: (n) async {},
-                  ),
+                  onChanged: (n) async {},
                 ),
                 CustomButton(
                   onPress: () {

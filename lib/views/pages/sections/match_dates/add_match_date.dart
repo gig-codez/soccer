@@ -38,10 +38,10 @@ class _AddMatchDateState extends State<AddMatchDate> {
                   controller: kickOffController,
                   padding: const EdgeInsets.fromLTRB(0, 35, 0, 15),
                   titleText: "Kick Off Date",
-                  hintText: "xxx/xx/xxxxx",
-                  contentPadding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
-                  enableBorder: true,
-                  onChanged: (n) async {
+                  icon: Icons.calendar_month,
+                  enableSuffix: true,
+                  suffixIcon: Icons.add,
+                  onTapSuffix: () async {
                     var date = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
@@ -53,6 +53,10 @@ class _AddMatchDateState extends State<AddMatchDate> {
                       selectedDate = date.toLocal().toString();
                     });
                   },
+                  hintText: "xxx/xx/xxxxx",
+                  contentPadding: const EdgeInsets.all(10),
+                  enableBorder: true,
+                  readOnly: true,
                 ),
                 CustomButton(
                   onPress: () {

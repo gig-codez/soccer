@@ -137,10 +137,7 @@ class FixtureService {
       log(data.toString());
       Response res = await Client().put(
         Uri.parse(Apis.fixtureGoals + data["fixtureId"]),
-        body: {
-          "homeGoals": data["homeGoals"],
-          "awayGoals": data["awayGoals"],
-        },
+        body: data,
       );
       // print(res.body);
       if (res.statusCode == 200) {
