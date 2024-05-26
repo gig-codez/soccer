@@ -4,8 +4,6 @@ import '/services/team_service.dart';
 import '../exports/exports.dart';
 
 class TeamController with ChangeNotifier {
-  List<Message> _teams = [];
-  List<Message> get teams => _teams;
 // ----------selected team.
   Map<String, dynamic> _selectedTeam = {};
   Map<String, dynamic> get selectedTeam => _selectedTeam;
@@ -13,12 +11,25 @@ class TeamController with ChangeNotifier {
     _selectedTeam = team;
     notifyListeners();
   }
-
 // ----------------------------------
-  Future<void> getTeams(String leagueId) async {
-    TeamService().getTeams(leagueId).asStream().listen((event) {
+
+  List<Message> _teams = [];
+  List<Message> get teams => _teams;
+  // loading
+  bool _loading = true;
+  bool get loading => _loading;
+  void getTeams(String leagueId) async {
+    TeamService().getTeams(leagueId).then((event) {
       _teams = event;
       notifyListeners();
     });
+  }
+
+  // awayTeam
+  List<Message> _awayTeams = [];
+  List<Message> get awayTeams => _awayTeams;
+  set awayTeams(List<Message> teams) {
+    _awayTeams = teams;
+    notifyListeners();
   }
 }

@@ -1,7 +1,7 @@
 // import 'dart:io';
 
 class Apis {
-  static String? apiUrl = "http://209.38.140.141:3000/";
+  static String? apiUrl = "http://45.10.160.145:3000/";
   // players routes
   static String fetchPlayers = "${apiUrl}player/players/";
   static String createPlayer = "${apiUrl}player/addplayer";

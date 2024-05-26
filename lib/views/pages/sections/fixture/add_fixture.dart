@@ -29,6 +29,7 @@ class _AddFixtureState extends State<AddFixture> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
