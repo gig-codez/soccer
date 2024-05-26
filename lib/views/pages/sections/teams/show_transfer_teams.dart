@@ -23,7 +23,9 @@ class _ShowTransferTeamsState extends State<ShowTransferTeams> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Consumer<TeamController>(builder: (context, controller, child) {
-        controller.getTeams(widget.teamId);
+        if (mounted) {
+          controller.getTeams(widget.teamId);
+        }
         // controller.teams.sort((a, b) => a.name.compareTo(b.name));
         return Container(
           margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),

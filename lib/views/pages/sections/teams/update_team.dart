@@ -24,7 +24,6 @@ class _UpdateTeamState extends State<UpdateTeam>
   @override
   void initState() {
     super.initState();
-
     teamNameController.text = widget.team.name;
     currentImage = widget.team.image;
     debugPrint(currentImage);

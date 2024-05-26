@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'package:samba_stats/controllers/team_controller.dart';
 
 import '/views/pages/sections/widgets/league_options.dart';
 
@@ -18,25 +18,12 @@ class Teams extends StatefulWidget {
 }
 
 class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
-  final StreamController<List<Message>> _leaguesController =
-      StreamController<List<Message>>();
-
   AnimationController? _controller;
-
-  Timer? _timer;
-  void fetchLeagues() async {
-    var leagues = await TeamService().getTeams(widget.leagueId ?? "");
-    _leaguesController.add(leagues);
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      var leagues = await TeamService().getTeams(widget.leagueId ?? "");
-      _leaguesController.add(leagues);
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    fetchLeagues();
+
     _controller = AnimationController(
       value: 0,
       duration: const Duration(milliseconds: 500),
@@ -48,10 +35,6 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
   @override
   void dispose() {
     _controller?.dispose();
-    if (_leaguesController.hasListener) {
-      _leaguesController.close();
-    }
-    _timer?.cancel();
     super.dispose();
   }
 
@@ -77,22 +60,25 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
       body: SafeArea(
         child: Padding(
             padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
-            child: StreamBuilder(
-              stream: _leaguesController.stream,
-              builder: (context, snap) {
-                return snap.hasData
-                    ? snap.data != null && snap.data!.isNotEmpty
+            child: Consumer<TeamController>(
+              builder: (context, teamController, s) {
+                if (mounted) {
+                  teamController.getTeams(widget.leagueId ?? "");
+                }
+                return teamController.loading == false
+                    ? teamController.teams.isNotEmpty
                         ? ListView.builder(
-                            itemCount: snap.data?.length,
+                            itemCount: teamController.teams.length,
                             itemBuilder: (context, index) {
                               return ProfileWidget(
-                                titleText: "${snap.data?[index].name}",
-                                img: "${snap.data?[index].image}",
+                                titleText: teamController.teams[index].name,
+                                img: teamController.teams[index].image,
                                 onPress: () {
                                   Routes.animateToPage(
                                     Players(
-                                      teamId: snap.data?[index].id,
-                                      teamName: snap.data?[index].name,
+                                      teamId: teamController.teams[index].id,
+                                      teamName:
+                                          teamController.teams[index].name,
                                       leagueId: widget.leagueId,
                                     ),
                                   );
@@ -111,7 +97,8 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
                                               builder: (context) {
                                                 return UpdateTeam(
                                                   leagueId: widget.leagueId!,
-                                                  team: snap.data![index],
+                                                  team: teamController
+                                                      .teams[index],
                                                 );
                                               });
                                         });
@@ -133,7 +120,8 @@ class _TeamsState extends State<Teams> with SingleTickerProviderStateMixin {
                                         TextButton(
                                           onPressed: () =>
                                               TeamService.deleteTeam(
-                                                  snap.data![index].id),
+                                                  teamController
+                                                      .teams[index].id),
                                           child: const Text("Delete"),
                                         ),
                                       ],

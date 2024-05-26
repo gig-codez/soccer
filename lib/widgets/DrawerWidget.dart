@@ -43,8 +43,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             drawer.length,
             (index) => ListTile(
               onTap: () {
-                Routes.popPage();
-                Routes.pushPage(drawer[index]['routes']);
+                if (index == 0) {
+                  Routes.popPage();
+                } else {
+                  Routes.popPage();
+                  Routes.pushPage(drawer[index]['routes']);
+                }
               },
               leading: SvgPicture.asset("${drawer[index]['icon']}",
                   color: Colors.grey.shade400),

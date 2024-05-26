@@ -4,10 +4,11 @@
 /// Date: 03/11/2023
 
 import 'package:flutter/services.dart';
+import 'package:samba_stats/controllers/match_date_controller.dart';
 import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
-import 'controllers/data_controller.dart';
+import 'controllers/league_controller.dart';
 import 'controllers/team_controller.dart';
 
 void main() async {
@@ -42,6 +43,12 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => LoaderController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => LeagueController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => MatchDateController(),
         ),
       ],
       child: Consumer<AppController>(

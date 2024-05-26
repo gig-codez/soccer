@@ -21,6 +21,7 @@ class TeamController with ChangeNotifier {
   void getTeams(String leagueId) async {
     TeamService().getTeams(leagueId).then((event) {
       _teams = event;
+      _loading = false;
       notifyListeners();
     });
   }

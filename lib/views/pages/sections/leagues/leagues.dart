@@ -1,7 +1,4 @@
-import 'dart:async';
-// import 'package:path/path.dart' as path;
-import '/models/league.dart';
-import '/services/league_service.dart';
+import '/controllers/league_controller.dart';
 import '/exports/exports.dart';
 import '/views/pages/sections/teams/Teams.dart';
 import 'add_league.dart';
@@ -14,31 +11,13 @@ class Leagues extends StatefulWidget {
 }
 
 class _LeaguesState extends State<Leagues> {
-  final StreamController<List<Message>> _leaguesController =
-      StreamController<List<Message>>();
-  Timer? _timer;
-
-  void fetchLeagues() async {
-    var leagues = await LeagueService().getLeague();
-    _leaguesController.add(leagues);
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      var leagues = await LeagueService().getLeague();
-      _leaguesController.add(leagues);
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    fetchLeagues();
   }
 
   @override
   void dispose() {
-    if (_leaguesController.hasListener) {
-      _leaguesController.close();
-    }
-    _timer?.cancel();
     super.dispose();
   }
 
@@ -48,26 +27,28 @@ class _LeaguesState extends State<Leagues> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(13, 8, 13, 0),
-          child: StreamBuilder(
-            stream: _leaguesController.stream,
-            builder: (context, snap) {
-              return snap.hasData
-                  ? snap.data != null && snap.data!.isNotEmpty
+          child: Consumer<LeagueController>(
+            builder: (context, controller, s) {
+              if (mounted) {
+                controller.fetchLeagues();
+              }
+              return controller.loading == false
+                  ? controller.leagues.isNotEmpty
                       ? ListView.builder(
-                          itemCount: snap.data?.length,
+                          itemCount: controller.leagues.length,
                           itemBuilder: (context, index) {
                             return ProfileWidget(
                               titleText:
-                                  "${snap.data?[index].name}".toUpperCase(),
-                              // img: snap.data?[index].image,
+                                  controller.leagues[index].name.toUpperCase(),
+                              // img: controller.leagues[index].image,
                               prefixIcon: "assets/icons/league.svg",
                               iconSize: 20,
                               color: Theme.of(context).primaryColor,
                               onPress: () {
                                 Routes.animateToPage(
                                   Teams(
-                                    leagueId: snap.data?[index].id,
-                                    leagueName: snap.data?[index].name,
+                                    leagueId: controller.leagues[index].id,
+                                    leagueName: controller.leagues[index].name,
                                   ),
                                 );
                               },
@@ -86,7 +67,7 @@ class _LeaguesState extends State<Leagues> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-           showModalSheet(const AddLeague());
+          showModalSheet(const AddLeague());
         },
         label: Text(
           "Add League",

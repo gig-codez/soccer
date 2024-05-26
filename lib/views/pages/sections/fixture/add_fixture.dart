@@ -71,6 +71,9 @@ class _AddFixtureState extends State<AddFixture> {
                               builder: (context) {
                                 return ShowLeagues(
                                   leagueId: widget.leagueId,
+                                  valueChanged: (Map<String, dynamic> value) {
+                                    controller.homeTeamData = value;
+                                  },
                                 );
                               });
                         });
@@ -95,8 +98,11 @@ class _AddFixtureState extends State<AddFixture> {
                           return BottomSheet(
                               onClosing: () {},
                               builder: (context) {
-                                return AwayTeamsWidget(
+                                return ShowLeagues(
                                   leagueId: widget.leagueId,
+                                  valueChanged: (Map<String, dynamic> value) {
+                                    controller.awayTeamData = value;
+                                  },
                                 );
                               });
                         });

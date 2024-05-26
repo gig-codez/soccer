@@ -1,11 +1,11 @@
-// import 'package:soccer/services/league_service.dart';
-import '/services/team_service.dart';
-
+import '/controllers/team_controller.dart';
 import '/exports/exports.dart';
 
 class ShowLeagues extends StatefulWidget {
   final String leagueId;
-  const ShowLeagues({super.key, required this.leagueId});
+  final ValueChanged<Map<String, dynamic>> valueChanged;
+  const ShowLeagues(
+      {super.key, required this.leagueId, required this.valueChanged});
 
   @override
   State<ShowLeagues> createState() => _ShowLeaguesState();
@@ -14,46 +14,41 @@ class ShowLeagues extends StatefulWidget {
 class _ShowLeaguesState extends State<ShowLeagues> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: const SizedBox(),
-        title: const Text("Home Teams"),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-          child: FutureBuilder(
-            future: TeamService().getTeams(widget.leagueId),
-            builder: (context, snap) {
-              return snap.hasData
-                  ? snap.data != null && snap.data!.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: snap.data!.length,
-                          itemBuilder: (context, index) {
-                            return ProfileWidget(
-                              titleText: "${snap.data?[index].name}",
-                              prefixIcon: "assets/icons/league.svg",
-                              onPress: () {
-                                context.read<AppController>().homeTeamData = {
-                                  'name': snap.data?[index].name,
-                                  'id': snap.data?[index].id
-                                };
-                                Routes.popPage();
-                              },
-                              iconSize: 30,
-                              color: Colors.blue,
-                            );
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+      child: Consumer<TeamController>(
+        builder: (context, controller, snap) {
+          if (mounted) {
+            controller.getTeams(widget.leagueId);
+          }
+          return controller.loading == false
+              ? controller.teams.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: controller.teams.length,
+                      itemBuilder: (context, index) {
+                        return ProfileWidget(
+                          // ignore: unnecessary_string_interpolations
+                          titleText: "${controller.teams[index].name}",
+                          prefixIcon: "assets/icons/league.svg",
+                          onPress: () {
+                            widget.valueChanged({
+                              'name': controller.teams[index].name,
+                              'id': controller.teams[index].id
+                            });
+                            Routes.popPage();
                           },
-                        )
-                      : const Center(
-                          child: Text("No league found"),
-                        )
+                          iconSize: 30,
+                          color: Colors.blue,
+                        );
+                      },
+                    )
                   : const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    );
-            },
-          ),
-        ),
+                      child: Text("No league found"),
+                    )
+              : const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+        },
       ),
     );
   }
