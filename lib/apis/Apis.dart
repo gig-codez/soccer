@@ -50,6 +50,7 @@ class Apis {
   static String updateTableData = "${apiUrl}table/update/";
   static String deleteTableData = "${apiUrl}table/delete/";
   static String addTableData = "${apiUrl}table/add";
+  static String resetTableData = "${apiUrl}table/reset/";
 
   static String castMessage = "${apiUrl}notify/castMessage";
   // api route for running a fixture

@@ -68,4 +68,33 @@ class TableService {
       // showMessage(msg: e.message);
     }
   }
+
+  // function to reset table data
+  Future<void> resetTableData(String leagueId) async {
+    try {
+      Response response = await Client().put(
+        Uri.parse(Apis.resetTableData + leagueId),
+      );
+      showAdaptive(
+        const SizedBox.square(
+          dimension: 100,
+          child: Row(
+            children: [
+              Text("Reset table data"),
+              CircularProgressIndicator(),
+            ],
+          ),
+        ),
+      );
+      if (response.statusCode == 200) {
+        print(response.body);
+        Routes.popPage();
+        showMessage(msg: "Table Data reset successfully");
+      } else {
+        showMessage(msg: "Something went wrong");
+      }
+    } on ClientException catch (e) {
+      showMessage(msg: e.message);
+    }
+  }
 }

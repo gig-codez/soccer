@@ -9,6 +9,7 @@ import '/theme/Theme.dart';
 
 import '/exports/exports.dart';
 import 'controllers/league_controller.dart';
+import 'controllers/table_controller.dart';
 import 'controllers/team_controller.dart';
 
 void main() async {
@@ -49,6 +50,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => MatchDateController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TableController(),
         ),
       ],
       child: Consumer<AppController>(

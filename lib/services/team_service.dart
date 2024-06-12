@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import '/models/team.dart';
@@ -13,17 +14,13 @@ class TeamService {
       );
       if (response.statusCode == 200) {
         res = response.body;
+        return teamModelFromJson(res).message;
+      } else {
+        return Future.error(json.decode(response.body)['message']);
       }
-    } on ClientException catch (_) {
-      debugPrint(_.message);
-    } on SocketException catch (_) {
-      debugPrint(_.message);
-    } on HttpException catch (_) {
-      debugPrint(_.message);
-    } catch (e) {
-      throw Exception(e.toString());
+    } on Exception catch (e) {
+      return Future.error(e.toString());
     }
-    return teamModelFromJson(res).message;
   }
 
   static void createTeam(Map<String, dynamic> data) async {
@@ -112,7 +109,7 @@ class TeamService {
   }
 
   static void deleteTeam(String id) async {
-    showLoader(text:"Deleting...");
+    showLoader(text: "Deleting...");
     try {
       Response res = await Client().delete(Uri.parse(Apis.deleteTeam + id));
       if (res.statusCode == 200) {
