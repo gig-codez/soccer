@@ -32,6 +32,8 @@ class _FixtureResultsState extends State<FixtureResults>
   @override
   void initState() {
     super.initState();
+    Provider.of<DataController>(context, listen: false)
+        .setFixtureUpdates(widget.data.league, widget.data.id);
     tabController = TabController(length: 2, vsync: this);
   }
 
@@ -131,8 +133,10 @@ class _FixtureResultsState extends State<FixtureResults>
       body: Padding(
         padding: const EdgeInsets.fromLTRB(18.0, 8.0, 18.0, 0.0),
         child: Consumer<DataController>(builder: (context, controller, child) {
-          // invoke function
-          controller.setFixtureUpdates(widget.data.league, widget.data.id);
+          if (mounted) {
+            // invoke function
+            // controller.setFixtureUpdates(widget.data.league, widget.data.id);
+          }
           return Column(
             children: [
               Expanded(child: PlayingTeams(data: widget.data)),
@@ -215,23 +219,26 @@ class _FixtureResultsState extends State<FixtureResults>
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            showDragHandle: true,
-            builder: (BuildContext context) {
-              return BottomSheet(
-                onClosing: () {},
-                builder: (context) {
-                  return UpdateFixtureResults(
-                    fixtureId: widget.fixtureId,
-                    hometeam: widget.data.hometeam.id,
-                    awayteam: widget.data.awayteam.id,
-                    leagueId: widget.data.league,
-                  );
-                },
-              );
-            },
+          showAdaptive(
+            UpdateFixtureResults(
+              fixtureId: widget.fixtureId,
+              hometeam: widget.data.hometeam.id,
+              awayteam: widget.data.awayteam.id,
+              leagueId: widget.data.league,
+            ),
           );
+          // showModalBottomSheet(
+          //   context: context,
+          //   showDragHandle: true,
+          //   builder: (BuildContext context) {
+          //     return BottomSheet(
+          //       onClosing: () {},
+          //       builder: (context) {
+          //         return ;
+          //       },
+          //     );
+          //   },
+          // );
         },
         // label: const Text("Edit Results"),
         child: const Icon(Icons.edit),

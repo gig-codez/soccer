@@ -4,8 +4,9 @@
 /// Date: 03/11/2023
 
 import 'package:flutter/services.dart';
-import 'package:samba_stats/controllers/match_date_controller.dart';
-import '/theme/Theme.dart';
+import 'controllers/fixture_controller.dart';
+import 'controllers/match_date_controller.dart';
+import 'theme/Theme.dart';
 
 import '/exports/exports.dart';
 import 'controllers/league_controller.dart';
@@ -53,6 +54,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => TableController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FixtureController(),
         ),
       ],
       child: Consumer<AppController>(

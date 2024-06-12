@@ -7,14 +7,17 @@ class MatchDateService {
       Response res =
           await Client().delete(Uri.parse(Apis.deleteMatchDates + id));
       if (res.statusCode == 200) {
+        Client().close();
         showMessage(msg: "Match date removed successfully.");
         Routes.popPage();
       } else {
         showMessage(msg: "Match date removing failed.");
         Routes.popPage();
+        Client().close();
       }
     } on ClientException catch (e) {
-      print(e.message);
+      Client().close();
+      debugPrint(e.message);
     }
   }
 
@@ -29,6 +32,7 @@ class MatchDateService {
     } catch (e) {
       // print(e);
     }
+    Client().close();
     return matchDateModelFromJson(r);
   }
 
@@ -37,13 +41,16 @@ class MatchDateService {
       Response res =
           await Client().post(Uri.parse(Apis.addMatchDates), body: data);
       if (res.statusCode == 200) {
+        Client().close();
         Routes.popPage();
         showMessage(msg: "Match Date added successfully");
       } else {
+        Client().close();
         Routes.popPage();
         showMessage(msg: "Match Date adding failed");
       }
     } on ClientException catch (e) {
+      Client().close();
       // print(e);
     }
   }

@@ -13,14 +13,24 @@ class ShowLeagues extends StatefulWidget {
 
 class _ShowLeaguesState extends State<ShowLeagues> {
   @override
+  void initState() {
+    super.initState();
+    Provider.of<TeamController>(context, listen: false)
+        .getTeams(widget.leagueId);
+  }
+
+  @override
+  void dispose() {
+    // Provider.of<TeamController>(context, listen: false).dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
       child: Consumer<TeamController>(
         builder: (context, controller, snap) {
-          if (mounted) {
-            controller.getTeams(widget.leagueId);
-          }
           return controller.loading == false
               ? controller.teams.isNotEmpty
                   ? ListView.builder(

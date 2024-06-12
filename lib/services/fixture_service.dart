@@ -31,12 +31,15 @@ class FixtureService {
         Uri.parse("${Apis.runningFixture}$leagueId/$matchId"),
       );
       if (response.statusCode == 200) {
+        Client().close();
         return fixtureModelFromJson(response.body).data;
       } else {
+        Client().close();
         return Future.error(jsonDecode(response.body)['message']);
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+      Client().close();
       return Future.error(e.message);
     }
   }
@@ -44,17 +47,28 @@ class FixtureService {
   // function to add a fixture
   void createFixture(Map<String, dynamic> data) async {
     try {
-      Response response =
-          await Client().post(Uri.parse(Apis.createFixture), body: data);
+      // trigger loader
+      showLoader(text: "Creating new fixture");
+      Response response = await Client().post(
+        Uri.parse(Apis.createFixture),
+        body: data,
+      );
       if (response.statusCode == 200) {
+        // hide loader
+        Routes.popPage();
         showMessage(msg: "Fixture added successfully");
         Routes.popPage();
+        Client().close();
       } else {
+        // hide loader
+        Routes.popPage();
         showMessage(msg: "Fixture adding failed", color: Colors.red);
         Routes.popPage();
+        Client().close();
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+      Client().close();
     }
   }
 
@@ -83,17 +97,20 @@ class FixtureService {
       );
       // print(res.body);
       if (res.statusCode == 200) {
+        Client().close();
         showMessage(msg: "Fixture updated successfully");
         // ignore: use_build_context_synchronously
         Provider.of<LoaderController>(context, listen: false).isLoading = false;
         Routes.popPage();
       } else {
+        Client().close();
         showMessage(msg: "Failed to  update fixture");
         // ignore: use_build_context_synchronously
         Provider.of<LoaderController>(context, listen: false).isLoading = false;
         Routes.popPage();
       }
     } on ClientException catch (e) {
+      Client().close();
       // ignore: use_build_context_synchronously
       Provider.of<LoaderController>(context, listen: false).isLoading = false;
       debugPrint(e.message);
@@ -107,12 +124,15 @@ class FixtureService {
       );
       // print(res.body);
       if (res.statusCode == 200) {
+        Client().close();
         showMessage(msg: "Started successfully");
       } else {
+        Client().close();
         showMessage(msg: "Failed to  update fixture");
       }
     } on ClientException catch (e) {
-      debugPrint(e.message);
+      Client().close();
+      return Future.error(e.message);
     }
   }
 
@@ -134,21 +154,26 @@ class FixtureService {
 
   static void updateFixtureGoals(Map<String, dynamic> data) async {
     try {
-      log(data.toString());
+      showLoader(text: "Updating fixture");
       Response res = await Client().put(
         Uri.parse(Apis.fixtureGoals + data["fixtureId"]),
         body: data,
       );
       // print(res.body);
       if (res.statusCode == 200) {
+        Routes.popPage();
+        Client().close();
         showMessage(msg: "Fixture updated successfully");
-
         Routes.popPage();
       } else {
+        Routes.popPage();
+        Client().close();
         showMessage(msg: json.decode(res.body)['message']);
         Routes.popPage();
       }
     } on ClientException catch (e) {
+      Routes.popPage();
+      Client().close();
       debugPrint(e.message);
     }
   }

@@ -30,6 +30,8 @@ void showModalSheet(Widget page, {AnimationController? controller}) {
 void showAdaptive(Widget page) {
   showAdaptiveDialog(
     context: navigatorKey.currentContext!,
+    barrierDismissible: false,
+    traversalEdgeBehavior: TraversalEdgeBehavior.leaveFlutterView,
     builder: (context) => Dialog(child: page),
   );
 }
@@ -55,6 +57,7 @@ String getTabLabel(DateTime date) {
 void showLoader({required String text}) {
   showAdaptiveDialog(
     context: navigatorKey.currentContext!,
+    barrierDismissible: false,
     builder: (context) => AlertDialog.adaptive(
       content: Row(
         mainAxisSize: MainAxisSize.min,

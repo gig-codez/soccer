@@ -188,6 +188,7 @@ class _AddFixtureState extends State<AddFixture> {
                   hintText: "Enter league name",
                   contentPadding: const EdgeInsets.all(10),
                   enableBorder: true,
+                  readOnly: true,
                   enableSuffix: true,
                   suffixIcon: Icons.calendar_month_rounded,
                   onTapSuffix: () {

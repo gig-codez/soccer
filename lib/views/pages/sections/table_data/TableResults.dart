@@ -33,16 +33,13 @@ class _TableResultsState extends State<TableResults> {
   @override
   void initState() {
     super.initState();
-    Provider.of<TableController>(context, listen: false).dispose();
+
     // fetchData(
   }
 
   @override
   void dispose() {
-    // if (_streamController.hasListener) {
-    //   _streamController.close();
-    // }
-    // _timer?.cancel();
+    // Provider.of<TableController>(context, listen: false).dispose();
     super.dispose();
   }
 

@@ -10,11 +10,14 @@ class PlayerService {
         Uri.parse(Apis.fetchPlayers + teamId),
       );
       if (response.statusCode == 200) {
+        Client().close();
         return playersModelFromJson(response.body).message;
       } else {
+        Client().close();
         return Future.error(jsonDecode(response.body)['message']);
       }
     } on Exception catch (e) {
+      Client().close();
       return Future.error(e.toString());
     }
   }

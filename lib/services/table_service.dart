@@ -8,14 +8,17 @@ class TableService {
       Response response =
           await Client().get(Uri.parse(Apis.getTableData + leagueId));
       if (response.statusCode == 200) {
+        Client().close();
         res = response.body;
+        return tableModelFromJson(res).message;
       } else {
-        showMessage(msg: "Something went wrong");
+        Client().close();
+        return Future.error("Something went wrong");
       }
     } on ClientException catch (e) {
-      showMessage(msg: e.message);
+      Client().close();
+      return Future.error(e.message);
     }
-    return tableModelFromJson(res).message;
   }
 
   Future<void> addTableData(Map<String, dynamic> data) async {
@@ -39,13 +42,16 @@ class TableService {
         Uri.parse(Apis.deleteTableData + id),
       );
       if (response.statusCode == 200) {
+        Client().close();
         Routes.popPage();
         showMessage(msg: "Table Data deleted successfully");
       } else {
+        Client().close();
         Routes.popPage();
         showMessage(msg: "Something went wrong, Couldn't delete data");
       }
     } on ClientException catch (e) {
+      Client().close();
       showMessage(msg: e.message);
     }
   }
@@ -58,13 +64,16 @@ class TableService {
       );
       // debugPrint(response.reasonPhrase! + response.body);
       if (response.statusCode == 200) {
+        Client().close();
         Routes.popPage();
         showMessage(msg: "Table Data updated successfully");
       } else {
+        Client().close();
         Routes.popPage();
         showMessage(msg: "Something went wrong, Couldn't update data");
       }
     } on ClientException {
+      Client().close();
       // showMessage(msg: e.message);
     }
   }
@@ -72,28 +81,24 @@ class TableService {
   // function to reset table data
   Future<void> resetTableData(String leagueId) async {
     try {
+      showLoader(text: "Resetting Table Data");
       Response response = await Client().put(
         Uri.parse(Apis.resetTableData + leagueId),
       );
-      showAdaptive(
-        const SizedBox.square(
-          dimension: 100,
-          child: Row(
-            children: [
-              Text("Reset table data"),
-              CircularProgressIndicator(),
-            ],
-          ),
-        ),
-      );
+
       if (response.statusCode == 200) {
+        Routes.popPage();
+        Client().close();
         print(response.body);
         Routes.popPage();
         showMessage(msg: "Table Data reset successfully");
       } else {
+        Routes.popPage();
+        Client().close();
         showMessage(msg: "Something went wrong");
       }
     } on ClientException catch (e) {
+      Client().close();
       showMessage(msg: e.message);
     }
   }

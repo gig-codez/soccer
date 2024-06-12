@@ -13,12 +13,15 @@ class TeamService {
         Uri.parse(Apis.fetchTeams + leagueId),
       );
       if (response.statusCode == 200) {
+        Client().close();
         res = response.body;
         return teamModelFromJson(res).message;
       } else {
+        Client().close();
         return Future.error(json.decode(response.body)['message']);
       }
     } on Exception catch (e) {
+      Client().close();
       return Future.error(e.toString());
     }
   }
@@ -48,19 +51,25 @@ class TeamService {
       var res = await request.send();
 
       if (res.statusCode == 200) {
+        Client().close();
         showMessage(msg: "Team created successfully");
         Routes.popPage();
       } else {
+        Client().close();
         Routes.popPage();
         showMessage(msg: "Team creating failed", color: Colors.red);
       }
     } on ClientException catch (e) {
+      Client().close();
       debugPrint(e.message);
     } on SocketException catch (e) {
+      Client().close();
       debugPrint(e.message);
     } on HttpException catch (e) {
+      Client().close();
       debugPrint(e.message);
     } catch (e) {
+      Client().close();
       throw Exception(e.toString());
     }
   }
@@ -90,20 +99,26 @@ class TeamService {
       var res = await request.send();
 
       if (res.statusCode == 200) {
+        Client().close();
         showMessage(msg: "Team updated successfully");
         Routes.popPage();
       } else {
+        Client().close();
         Routes.popPage();
         showMessage(
             msg: "Team update failed ${res.reasonPhrase}", color: Colors.red);
       }
     } on ClientException catch (e) {
+      Client().close();
       debugPrint(e.message);
     } on SocketException catch (e) {
+      Client().close();
       debugPrint(e.message);
     } on HttpException catch (e) {
+      Client().close();
       debugPrint(e.message);
     } catch (e) {
+      Client().close();
       log(e.toString());
     }
   }
@@ -113,14 +128,17 @@ class TeamService {
     try {
       Response res = await Client().delete(Uri.parse(Apis.deleteTeam + id));
       if (res.statusCode == 200) {
+        Client().close();
         Routes.popPage();
         Routes.popPage();
         showMessage(msg: "Team deleted successfully", color: Colors.green);
       } else {
+        Client().close();
         Routes.popPage();
         showMessage(msg: "Team deleting failed", color: Colors.red);
       }
     } on ClientException catch (e) {
+      Client().close();
       Routes.popPage();
       // showMessage(msg: e.message, color: Colors.red);
     }

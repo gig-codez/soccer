@@ -67,25 +67,25 @@ class Datum {
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        firstHalfEnded: json["firstHalfEnded"],
-        secondHalfEnded: json["secondHalfEnded"],
-        isRunning: json["isRunning"],
-        id: json["_id"],
-        league: json["league"],
-        hometeam: Team.fromJson(json["hometeam"]),
-        awayteam: Team.fromJson(json["awayteam"]),
-        minutesplayed: json["minutesplayed"],
-        kickofftime: json["kickofftime"],
-        fixtureDate: json["fixtureDate"],
-        homeGoals: json["homeGoals"],
-        awayGoals: json["awayGoals"],
-        isLive: json["isLive"],
-        halfEnded: json["halfEnded"],
-        quarterEnded: json["quarterEnded"],
-        matchEnded: json["matchEnded"],
-        elapsedTime: json["elapsedTime"],
-        twohalves: json["twohalves"],
-        v: json["__v"],
+        firstHalfEnded: json["firstHalfEnded"] ?? false,
+        secondHalfEnded: json["secondHalfEnded"] ?? false,
+        isRunning: json["isRunning"] ?? false,
+        id: json["_id"] ?? "",
+        league: json["league"] ?? "",
+        hometeam: Team.fromJson(json["hometeam"] ?? {}),
+        awayteam: Team.fromJson(json["awayteam"] ?? {}),
+        minutesplayed: json["minutesplayed"] ?? "",
+        kickofftime: json["kickofftime"] ?? "",
+        fixtureDate: json["fixtureDate"] ?? "",
+        homeGoals: json["homeGoals"] ?? 0,
+        awayGoals: json["awayGoals"] ?? 0,
+        isLive: json["isLive"] ?? false,
+        halfEnded: json["halfEnded"] ?? false,
+        quarterEnded: json["quarterEnded"] ?? false,
+        matchEnded: json["matchEnded"] ?? false,
+        elapsedTime: json["elapsedTime"] ?? "",
+        twohalves: json["twohalves"] ?? false,
+        v: json["__v"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -123,9 +123,9 @@ class Team {
   });
 
   factory Team.fromJson(Map<String, dynamic> json) => Team(
-        id: json["_id"],
-        name: json["name"],
-        image: json["image"],
+        id: json["_id"] ?? "",
+        name: json["name"] ?? "",
+        image: json["image"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

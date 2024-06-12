@@ -7,14 +7,17 @@ class LeagueService {
     try {
       Response response = await Client().get(Uri.parse(Apis.fetchLeagues));
       if (response.statusCode == 200) {
+        Client().close();
         res = response.body;
+        return leaguesModelFromJson(res).message;
       } else {
-        showMessage(msg: "Something went wrong", color: Colors.red);
+        Client().close();
+        return Future.error("Something went wrong");
       }
     } on ClientException catch (e) {
-      debugPrint(e.message);
+      Client().close();
+      return Future.error(e.message);
     }
-    return leaguesModelFromJson(res).message;
   }
 
   // function to create a league
@@ -43,8 +46,10 @@ class LeagueService {
       if (response.statusCode == 200) {
         Routes.popPage();
         showMessage(msg: "League added successfully");
+        Client().close();
       }
     } on ClientException catch (e) {
+      Client().close();
       debugPrint(e.message);
     }
   }

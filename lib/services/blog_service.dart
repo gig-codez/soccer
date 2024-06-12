@@ -36,6 +36,7 @@ class BlogService {
       );
       StreamedResponse response = await request.send();
       if (response.statusCode == 200) {
+        Client().close();
         context.read<LoaderController>().isLoading = false;
         var result = json.decode(await response.stream.bytesToString());
         showMessage(
@@ -44,10 +45,12 @@ class BlogService {
         );
         Routes.popPage();
       } else {
+        Client().close();
         context.read<LoaderController>().isLoading = false;
         showMessage(msg: response.reasonPhrase ?? "Error adding a blog");
       }
     } on Exception catch (e, _) {
+      Client().close();
       context.read<LoaderController>().isLoading = false;
       debugPrint("Error $_");
     }
@@ -93,7 +96,7 @@ class BlogService {
       request.fields['league'] = data['league'];
       request.fields['action'] = "Blogs";
       // handle file upload
-        if (data['stream'] != null) {
+      if (data['stream'] != null) {
         request.files.add(
           MultipartFile(
             "blog",
