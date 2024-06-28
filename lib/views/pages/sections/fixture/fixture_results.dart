@@ -172,16 +172,25 @@ class _FixtureResultsState extends State<FixtureResults>
                     width: 200,
                     onPress: () {
                       FixtureService.runFixture(widget.fixtureId);
-                      PlayerService.castMessage({
-                        "title": widget.data.twohalves
-                            ? widget.data.halfEnded
-                                ? "Second Half started!"
-                                : "Match Day!"
-                            : "Match Day!",
-                        "league": widget.leagueId,
-                        "body":
-                            "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
-                      });
+                      if (widget.data.twohalves == true) {
+                        PlayerService.castMessage({
+                          "title": widget.data.twohalves
+                              ? widget.data.halfEnded
+                                  ? "Second Half started!"
+                                  : "Match Day!"
+                              : "Match Day!",
+                          "league": widget.leagueId,
+                          "body":
+                              "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
+                        });
+                      } else {
+                        PlayerService.castMessage({
+                          "title": "Time Check",
+                          "league": widget.leagueId,
+                          "body":
+                              "Match for ${widget.data.hometeam.name} Vs ${widget.data.awayteam.name} has started",
+                        });
+                      }
                     },
                     text: widget.data.twohalves
                         ? (widget.data.halfEnded == true &&
@@ -191,7 +200,13 @@ class _FixtureResultsState extends State<FixtureResults>
                                     widget.data.matchEnded == false)
                                 ? "Run First Half"
                                 : ""
-                        : "Run Fixture",
+                        : widget.data.quarterEnded
+                            ? "Run second Quarter"
+                            : widget.data.halfEnded
+                                ? "Run third quarter"
+                                : widget.data.secondHalfEnded
+                                    ? "Run match"
+                                    : "Run first quarter",
                   ),
                 ),
                 Padding(
@@ -205,7 +220,13 @@ class _FixtureResultsState extends State<FixtureResults>
                         ? widget.data.halfEnded
                             ? "Stop Second Half"
                             : "Stop First Half"
-                        : "Stop Fixture",
+                        : widget.data.quarterEnded
+                            ? "Stop second Quarter"
+                            : widget.data.halfEnded
+                                ? "Stop third quarter"
+                                : widget.data.secondHalfEnded
+                                    ? "Stop match"
+                                    : "Stop first quarter",
                   ),
                 ),
                 const SizedBox.square(
@@ -227,20 +248,7 @@ class _FixtureResultsState extends State<FixtureResults>
               leagueId: widget.data.league,
             ),
           );
-          // showModalBottomSheet(
-          //   context: context,
-          //   showDragHandle: true,
-          //   builder: (BuildContext context) {
-          //     return BottomSheet(
-          //       onClosing: () {},
-          //       builder: (context) {
-          //         return ;
-          //       },
-          //     );
-          //   },
-          // );
         },
-        // label: const Text("Edit Results"),
         child: const Icon(Icons.edit),
       ),
     );

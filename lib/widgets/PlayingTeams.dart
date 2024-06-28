@@ -29,6 +29,27 @@ class _PlayingTeamsState extends State<PlayingTeams> {
     super.dispose();
   }
 
+  // helper function
+  String quarterTimes(Datum data) {
+    return data.quarterEnded
+        ? "QT"
+        : data.halfEnded
+            ? "HT"
+            : data.secondHalfEnded == true
+                ? "TQT"
+                : data.matchEnded == true
+                    ? "FT"
+                    : "${data.kickofftime}\n";
+  }
+
+  String halfTimes(Datum data) {
+    return (data.halfEnded == true) && (data.matchEnded == false)
+        ? "HT\n"
+        : (data.halfEnded == true) && (data.matchEnded == true)
+            ? "FT\n"
+            : "${data.kickofftime}\n";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<FixtureController>(
@@ -67,13 +88,9 @@ class _PlayingTeamsState extends State<PlayingTeams> {
                       TextSpan(
                         text: fixtureData.isRunning
                             ? fixtureData.elapsedTime
-                            : (fixtureData.halfEnded == true) &&
-                                    (fixtureData.matchEnded == false)
-                                ? "HT\n"
-                                : (fixtureData.halfEnded == true) &&
-                                        (fixtureData.matchEnded == true)
-                                    ? "FT\n"
-                                    : "${fixtureData.kickofftime}\n",
+                            : fixtureData.twohalves
+                                ? halfTimes(fixtureData)
+                                : quarterTimes(fixtureData),
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       // TextSpan(
