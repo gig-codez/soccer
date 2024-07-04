@@ -214,7 +214,7 @@ class _FixtureResultsState extends State<FixtureResults>
                                         widget.data.matchEnded == false &&
                                         widget.data.halfEnded == true &&
                                         widget.data.quarterEnded == true
-                                    ? "Run match"
+                                    ? "Run last quarter"
                                     : "Run first quarter",
                   ),
                 ),
@@ -243,7 +243,7 @@ class _FixtureResultsState extends State<FixtureResults>
                                         widget.data.matchEnded == false &&
                                         widget.data.halfEnded == true &&
                                         widget.data.quarterEnded == true
-                                    ? "Stop match"
+                                    ? "Stop  match"
                                     : "Stop first quarter",
                   ),
                 ),
