@@ -200,11 +200,20 @@ class _FixtureResultsState extends State<FixtureResults>
                                     widget.data.matchEnded == false)
                                 ? "Run First Half"
                                 : ""
-                        : widget.data.quarterEnded
+                        : widget.data.quarterEnded &&
+                                widget.data.matchEnded == false &&
+                                widget.data.secondHalfEnded == false &&
+                                widget.data.halfEnded == false
                             ? "Run second Quarter"
-                            : widget.data.halfEnded
+                            : widget.data.halfEnded &&
+                                    widget.data.matchEnded == false &&
+                                    widget.data.secondHalfEnded == false &&
+                                    widget.data.quarterEnded == true
                                 ? "Run third quarter"
-                                : widget.data.secondHalfEnded
+                                : widget.data.secondHalfEnded &&
+                                        widget.data.matchEnded == false &&
+                                        widget.data.halfEnded == true &&
+                                        widget.data.quarterEnded == true
                                     ? "Run match"
                                     : "Run first quarter",
                   ),
@@ -220,11 +229,20 @@ class _FixtureResultsState extends State<FixtureResults>
                         ? widget.data.halfEnded
                             ? "Stop Second Half"
                             : "Stop First Half"
-                        : widget.data.quarterEnded
+                        : widget.data.quarterEnded &&
+                                widget.data.matchEnded == false &&
+                                widget.data.secondHalfEnded == false &&
+                                widget.data.halfEnded == false
                             ? "Stop second Quarter"
-                            : widget.data.halfEnded
+                            : widget.data.halfEnded &&
+                                    widget.data.matchEnded == false &&
+                                    widget.data.secondHalfEnded == false &&
+                                    widget.data.quarterEnded == true
                                 ? "Stop third quarter"
-                                : widget.data.secondHalfEnded
+                                : widget.data.secondHalfEnded &&
+                                        widget.data.matchEnded == false &&
+                                        widget.data.halfEnded == true &&
+                                        widget.data.quarterEnded == true
                                     ? "Stop match"
                                     : "Stop first quarter",
                   ),

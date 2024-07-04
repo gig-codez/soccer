@@ -25,8 +25,7 @@ class FixturesPage extends StatefulWidget {
 class _FixturesPageState extends State<FixturesPage>
     with TickerProviderStateMixin {
   AnimationController? _controller;
-  final StreamController<List<Datum>> _fixtureStreaData =
-      StreamController<List<Datum>>();
+
   Timer? _timer;
   TabController? _tabController;
   int tabs = 0;
@@ -71,9 +70,7 @@ class _FixturesPageState extends State<FixturesPage>
   @override
   void dispose() {
     _controller?.dispose();
-    if (_fixtureStreaData.hasListener) {
-      _fixtureStreaData.close();
-    }
+
     _tabController?.dispose();
     _timer?.cancel();
     super.dispose();

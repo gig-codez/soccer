@@ -31,15 +31,27 @@ class _PlayingTeamsState extends State<PlayingTeams> {
 
   // helper function
   String quarterTimes(Datum data) {
-    return data.quarterEnded
-        ? "QT"
-        : data.halfEnded
-            ? "HT"
-            : data.secondHalfEnded == true
-                ? "TQT"
-                : data.matchEnded == true
+    return data.quarterEnded == true &&
+            data.halfEnded == false &&
+            data.secondHalfEnded == false &&
+            data.matchEnded == false
+        ? "QT 1"
+        : data.halfEnded == true &&
+                data.secondHalfEnded == false &&
+                data.quarterEnded == true &&
+                data.matchEnded == false
+            ? "QT 2"
+            : data.secondHalfEnded == true &&
+                    data.halfEnded == true &&
+                    data.quarterEnded == true &&
+                    data.matchEnded == false
+                ? "QT 3"
+                : data.matchEnded == true &&
+                        data.secondHalfEnded == true &&
+                        data.quarterEnded == true &&
+                        data.halfEnded == true
                     ? "FT"
-                    : "${data.kickofftime}\n";
+                    : data.kickofftime;
   }
 
   String halfTimes(Datum data) {
