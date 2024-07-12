@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final singleLeagueModel = singleLeagueModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 SingleLeagueModel singleLeagueModelFromJson(String str) => SingleLeagueModel.fromJson(json.decode(str));

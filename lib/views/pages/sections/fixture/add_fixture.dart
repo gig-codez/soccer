@@ -1,8 +1,5 @@
-import '../teams/AwayTeamsWidget.dart';
 import '../leagues/show_leagues.dart';
-
 import '/services/fixture_service.dart';
-
 import '/exports/exports.dart';
 import '/views/pages/sections/match_dates/show_match_dates.dart';
 
