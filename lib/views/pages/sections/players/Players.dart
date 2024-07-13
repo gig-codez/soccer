@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 // import '../teamPages/player_options.dart';
+import 'package:samba_stats/views/pages/sections/widgets/hand_ball_options.dart';
+
+import '../../test.dart';
 import '/exports/exports.dart';
 import '/models/player.dart';
 import '/services/player_service.dart';
@@ -181,14 +184,36 @@ class _PlayersState extends State<Players> with TickerProviderStateMixin {
                           },
                           trailing: IconButton(
                             onPressed: () {
-                              showModalSheet(
-                                POptions(
-                                  player: snap.data![index],
-                                  teamId: widget.teamId!,
-                                  leagueId: widget.leagueId!,
-                                ),
-                                controller: _controller,
-                              );
+                              String league1 = "667a7dfe69692a12fae2c2a9";
+                              String league2 = "667a7d9769692a12fae2c16b";
+                              if (widget.leagueId != null) {
+                                if (widget.leagueId == league2 ||
+                                    widget.leagueId == league1) {
+                                       showModalSheet(
+                                    POptions(
+                                      player: snap.data![index],
+                                      teamId: widget.teamId!,
+                                      leagueId: widget.leagueId!,
+                                    ),
+                                    controller: _controller,
+                                  );
+                                  // Routes.animateToPage(
+                                  //   HandBallOptions(
+                                  //     playerId: snap.data![index].id,
+                                  //     leagueId: widget.leagueId!,
+                                  //   ),
+                                  // );
+                                } else {
+                                  showModalSheet(
+                                    POptions(
+                                      player: snap.data![index],
+                                      teamId: widget.teamId!,
+                                      leagueId: widget.leagueId!,
+                                    ),
+                                    controller: _controller,
+                                  );
+                                }
+                              }
                             },
                             icon: const Icon(Icons.edit_rounded),
                           ),

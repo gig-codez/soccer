@@ -6,6 +6,7 @@
 import 'package:flutter/services.dart';
 import 'controllers/fixture_controller.dart';
 import 'controllers/match_date_controller.dart';
+import 'controllers/player_controller.dart';
 import 'theme/Theme.dart';
 
 import '/exports/exports.dart';
@@ -57,6 +58,9 @@ void main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => FixtureController(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PlayerController(),
         ),
       ],
       child: Consumer<AppController>(

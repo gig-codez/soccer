@@ -103,6 +103,8 @@ class _EditTableState extends State<EditTable> {
           ],
         ),
       ),
-    );
+    
+    )
+    ;
   }
 }

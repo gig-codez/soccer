@@ -1,5 +1,6 @@
 import 'dart:convert';
 import '../exports/exports.dart';
+import '../models/handball_player_model.dart';
 import '../models/player.dart';
 
 class PlayerService {
@@ -226,6 +227,43 @@ class PlayerService {
       }
     } on ClientException catch (e) {
       debugPrint(e.message);
+    }
+  }
+
+  // get hand ball player data
+  static Future<HandBallPlayerModel> getHandBallPlayers(
+      {required String playerId, required String leagueId}) async {
+    try {
+      final response = await Client().get(
+        Uri.parse("${Apis.fetchHandBallPlayer}$playerId/$leagueId"),
+      );
+      if (response.statusCode == 200) {
+        Client().close();
+        return handBallPlayerModelFromJson(response.body);
+      } else {
+        Client().close();
+        return Future.error(jsonDecode(response.body)['message']);
+      }
+    } on Exception catch (e) {
+      Client().close();
+      return Future.error(e.toString());
+    }
+  }
+
+  // update player data
+  static Future<bool> updateHandBallPlayer(Map<String, dynamic> data) async {
+    try {
+      Response response =
+          await Client().post(Uri.parse(Apis.addHandBallStats), body: data);
+
+      if (response.statusCode == 200) {
+        showMessage(msg: "Done..");
+        return Future.value(true);
+      } else {
+        return Future.error(false);
+      }
+    } on ClientException catch (e) {
+      return Future.error(false);
     }
   }
 }
