@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 import '../exports/exports.dart';
 import '../models/handball_player_model.dart';
 import '../models/player.dart';
@@ -116,7 +120,6 @@ class PlayerService {
       }
     } on ClientException catch (e) {
       context.read<LoaderController>().isLoading = false;
-
       debugPrint(e.message);
     }
   }
@@ -208,6 +211,7 @@ class PlayerService {
 
   static void transferPlayer(Map<String, dynamic> data) async {
     try {
+      showLoader(text: "Recording transfer...");
       Response response = await Client().put(
         Uri.parse(
             "${Apis.transferPlayer + data['id']}/transferPlayer/${data['league']}"),
@@ -217,6 +221,7 @@ class PlayerService {
         },
       );
       if (response.statusCode == 200) {
+        Routes.popPage();
         showMessage(
             msg: "Player transferred successfully", color: Colors.green);
         Routes.popPage();
@@ -264,6 +269,44 @@ class PlayerService {
       }
     } on ClientException catch (e) {
       return Future.error(false);
+    }
+  }
+
+  static Future<List<Message>> getTransferredPlayers(String leagueId) async {
+    try {
+      final response = await Client().get(
+        Uri.parse("${Apis.transferredPlayers}$leagueId/transferred"),
+      );
+      if (response.statusCode == 200) {
+        // log(response.body);
+        return playersModelFromJson(response.body).message;
+      } else {
+        return Future.error(jsonDecode(response.body)['message']);
+      }
+    } on ClientException catch (e) {
+      return Future.error(e.message);
+    } on SocketException catch (e) {
+      return Future.error(e.message);
+    } on HttpException catch (e) {
+      return Future.error(e.message);
+    }
+  }
+
+// delete transfer
+  static Future deleteTransfer(String id) async {
+    try {
+      showLoader(text: "Deleting transfer.....");
+      Response response = await Client().delete(
+        Uri.parse(Apis.deleteTransfer + id),
+      );
+      if (response.statusCode == 200) {
+        Routes.popPage();
+        return Future.value(json.decode(response.body)['message']);
+      } else {
+        return Future.error(jsonDecode(response.body)['message']);
+      }
+    } catch (e) {
+      return Future.error(e.toString());
     }
   }
 }

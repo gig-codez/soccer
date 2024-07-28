@@ -70,4 +70,7 @@ class Apis {
   static String updateHandBallStats = "${apiUrl}handBall/update/";
   static String deleteHandBallStats = "${apiUrl}handBall/delete/";
   static String fetchHandBallPlayer = "${apiUrl}handBall/player/";
+// transfers
+  static String transferredPlayers = "${apiUrl}player/";
+  static String deleteTransfer = "${apiUrl}player/deleteTransfer/";
 }

@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final playersModel = playersModelFromJson(jsonString);
+
 import 'dart:convert';
 
 PlayersModel playersModelFromJson(String str) =>
@@ -41,6 +45,7 @@ class Message {
   final DateTime createdAt;
   final DateTime updatedAt;
   final int v;
+  final Team oldTeam;
 
   Message({
     required this.cleanSheet,
@@ -57,6 +62,7 @@ class Message {
     required this.createdAt,
     required this.updatedAt,
     required this.v,
+    required this.oldTeam,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
@@ -74,6 +80,7 @@ class Message {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
+        oldTeam: Team.fromJson(json["old_team"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {
@@ -91,6 +98,7 @@ class Message {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
+        "old_team": oldTeam.toJson(),
       };
 }
 
@@ -106,9 +114,9 @@ class Team {
   });
 
   factory Team.fromJson(Map<String, dynamic> json) => Team(
-        id: json["_id"],
-        name: json["name"],
-        image: json["image"],
+        id: json["_id"] ?? "",
+        name: json["name"] ?? "",
+        image: json["image"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

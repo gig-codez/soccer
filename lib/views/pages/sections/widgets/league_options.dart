@@ -1,3 +1,5 @@
+import 'package:samba_stats/views/pages/sections/transfers/view_transfer.dart';
+
 import '../fixture/Fixtures.dart';
 import '../../../../exports/exports.dart';
 import '../table_data/TableResults.dart';
@@ -21,7 +23,7 @@ class LeagueOptions extends StatelessWidget {
           children: [
             SizedBox(
               height: 50,
-              child: Text("$leagueName's Options".toUpperCase(),
+              child: Text(" $leagueName's Options".toUpperCase(),
                   style: Theme.of(context).textTheme.titleMedium!.apply(
                         fontSizeDelta: 2,
                         fontWeightDelta: 3,
@@ -95,6 +97,21 @@ class LeagueOptions extends StatelessWidget {
                   IndexBlogs(
                     leagueId: leagueId,
                     leagueName: leagueName,
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.transfer_within_a_station),
+              title: const Text(
+                "View Transfers",
+              ),
+              onTap: () {
+                Routes.popPage();
+                Routes.animateToPage(
+                  ViewTransfers(
+                    leagueId: leagueId,
+                    league: leagueName,
                   ),
                 );
               },

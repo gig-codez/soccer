@@ -31,8 +31,13 @@ void showAdaptive(Widget page) {
   showAdaptiveDialog(
     context: navigatorKey.currentContext!,
     barrierDismissible: false,
+    barrierColor: Theme.of(context).brightness == Brightness.light
+        ? null
+        : Colors.white38,
     traversalEdgeBehavior: TraversalEdgeBehavior.leaveFlutterView,
-    builder: (context) => Dialog(child: page),
+    builder: (context) => Dialog(
+      child: page,
+    ),
   );
 }
 

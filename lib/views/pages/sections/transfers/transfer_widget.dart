@@ -43,22 +43,22 @@ class _TransferWidgetState extends State<TransferWidget> {
                   padding: EdgeInsets.fromLTRB(10, 7, 10, 0),
                   child: Divider(),
                 ),
-                InkWell(
-                  onTap: () {
+                CommonTextField(
+                  controller: newTeamController,
+                  titleText: "New Team",
+                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  enableBorder: true,
+                  hintText: "New team's name appears here...",
+                  enableSuffix: true,
+                  suffixIcon: Icons.add_card,
+                  onTapSuffix: () {
                     showModalSheet(
                       ShowTransferTeams(
                         teamId: widget.leagueId,
                       ),
                     );
                   },
-                  child: CommonTextField(
-                    controller: newTeamController,
-                    titleText: "New Teams",
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    enableBorder: true,
-                    hintText: "Enter new team name",
-                    readOnly: true,
-                  ),
+                  readOnly: true,
                 ),
                 CommonTextField(
                   controller: soldController,

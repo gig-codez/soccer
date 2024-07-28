@@ -1,3 +1,4 @@
+import 'package:samba_stats/models/player.dart';
 import 'package:samba_stats/services/player_service.dart';
 
 import '../models/handball_player_model.dart';
@@ -39,5 +40,25 @@ class PlayerController with ChangeNotifier {
   set isLoading(bool val) {
     _isLoading = val;
     notifyListeners();
+  }
+
+  // function to work on transfers
+  List<Message> _transfers = [];
+  List<Message> get transfers => _transfers;
+  // handle loading
+  bool _isTransferring = false;
+  bool get isTransferring => _isTransferring;
+  set isTransferring(bool val) {
+    _isTransferring = val;
+  }
+
+//
+  void fetchTransfers(String league) {
+    isTransferring = true;
+    PlayerService.getTransferredPlayers(league).then((data) {
+      _transfers = data;
+      isTransferring = false;
+      notifyListeners();
+    });
   }
 }
